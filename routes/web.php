@@ -1,0 +1,63 @@
+<?php
+
+use Illuminate\Support\Facades\Route;
+use App\Models\Dish;
+use App\Models\Category;
+use App\Http\Controllers\MenuController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ReservationController;
+use App\Http\Controllers\Admin\DishController;
+use App\Http\Controllers\Admin\OrderController;
+
+Route::get('/', function () {
+    $categories = Category::take(3)->get();
+    
+    $dishes = Dish::latest()->take(3)->get();
+
+    return view('home', compact('categories', 'dishes'));
+});
+
+Route::get('/menu', [MenuController::class, 'index']);
+Route::get('/menu/{id}', [MenuController::class, 'show']);
+
+Route::get('/categories', [CategoryController::class, 'index']);
+Route::get('/categories/{id}', [CategoryController::class, 'show'])->name('categories.show');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/admin/dishes', [DishController::class, 'index']);
+    Route::get('/admin/dishes/create', [DishController::class, 'create']);
+    Route::post('/admin/dishes', [DishController::class, 'store']);
+    Route::get('/admin/dishes/{id}/edit', [DishController::class, 'edit']);
+    Route::put('/admin/dishes/{id}', [DishController::class, 'update']);
+    Route::delete('/admin/dishes/{id}', [DishController::class, 'destroy']);
+});
+
+Route::get('/reservations/create', [ReservationController::class, 'create']);
+Route::post('/reservations', [ReservationController::class, 'store'])->name('reservations.store');
+Route::get('/admin/reservations', [ReservationController::class, 'index'])->middleware('auth');
+
+Route::post('/cart/add/{id}', [CartController::class, 'add'])->name('cart.add');
+Route::get('/cart', [CartController::class, 'index']); 
+Route::post('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
+
+Route::post('/checkout', [CartController::class, 'checkout'])->middleware('auth')->name('checkout');
+Route::get('/checkout/success', function () {
+    return view('checkout.success');
+})->name('checkout.success');
+
+Route::get('/admin', function () {
+    return view('admin.dashboard');
+})->middleware('auth');
+
+Route::get('/admin/categories', function () {
+    return view('admin.categories.index');
+})->middleware('auth');
+
+Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/logout', [AuthController::class, 'logout']);
+
+Route::get('/admin/orders', [OrderController::class, 'index'])->middleware('auth')->name('admin.orders');
+Route::patch('/admin/orders/{order}/status', [OrderController::class, 'updateStatus'])->name('admin.orders.status');
