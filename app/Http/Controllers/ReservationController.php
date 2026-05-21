@@ -21,15 +21,24 @@ class ReservationController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'name' => 'required',
-            'phone' => 'required',
-            'guests' => 'required|integer|min:1',
-            'reservation_time' => 'required|date',
+            'name' => 'required|min:2|max:255',
+            'phone' => 'required|min:8|max:20',
+            'guests' => 'required|integer|min:1|max:20',
+            'reservation_time' => 'required|date|after:now',
             'message' => 'nullable',
         ]);
 
         Reservation::create($validated);
 
-        return redirect('/')->with('success', "Reservation submitted successfully.");
+        return redirect()->back()->with('success', "Reservation submitted successfully.");
+    }
+
+    public function updateStatus(Request $request, Reservation $reservation)
+    {
+        $reservation->update([
+            'status' => $request->status,
+        ]);
+
+        return back();
     }
 }

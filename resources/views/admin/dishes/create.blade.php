@@ -17,7 +17,12 @@
         <form method="POST" action="/admin/dishes" enctype="multipart/form-data">
             @csrf
 
-            <input type="file" name="image" class="block mb-2">
+            <div class="mb-6">
+                <label class="block mb-2 font-semibold">
+                    Dish Image
+                </label>
+                <input type="file" name="image" class="w-full border p-3">
+            </div>
             <input type="text" name="name" placeholder="Name" class="block mb-2 p-2 border w-full">
             <textarea name="description" placeholder="Description" class="block mb-2 p-2 border w-full"></textarea>
             <input type="number" step="0.01" name="price" placeholder="Price" class="block mb-2 p-2 border w-full">

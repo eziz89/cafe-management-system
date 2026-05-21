@@ -1,8 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <h1 class="text-3xl font-bold mb-6">Our Menu</h1>
-    <a href="/cart" class="font-bold">Cart</a>
+    <h1 class="text-5xl font-bold m-6 pt-4">Our Menu</h1>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         @if($dishes->isEmpty())
             <p>No dishes available yet.</p>

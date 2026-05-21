@@ -28,9 +28,33 @@
                                     {{ $order->created_at->format('d M Y H:i') }}
                                 </p>
                             </div>
-                            <span class="bg-orange-100 text-orange-600 px-4 py-2 rounded-xl font-semibold">
-                                {{ ucfirst($order->status) }}
-                            </span>
+
+                            @if($order->status === 'pending')
+                            
+                                <span class="bg-gray-200 text-gray-700 px-4 py-2 rounded-full text-sm font-semibold">
+                                    Pending
+                                </span>
+
+                            @elseif($order->status === 'preparing')
+
+                                <span class="bg-yellow-100 text-yellow-700 px-4 py-2 rounded-full text-sm font-semibold">
+                                    Preparing
+                                </span>
+
+                            @elseif($order->status === 'completed')
+
+                                <span class="bg-green-100 text-green-700 px-4 py-2 rounded-full text-sm font-semibold">
+                                    Completed
+                                </span>
+
+                            @elseif($order->status === 'cancelled')
+
+                                <span class="bg-red-100 text-red-700 px-4 py-2 rounded-full text-sm font-semibold">
+                                    Cancelled
+                                </span>
+
+                            @endif
+
                         </div>
 
                         <div class="grid md:grid-cols-2 gap-10">
@@ -74,33 +98,37 @@
                             </div>
                         </div>
 
-                        <form action="{{ route('admin.orders.status', $order->id) }}" method="POST" class="mt-6 flex gap-4">
-                            @csrf
-                            @method('PATCH')
+                        <div class="flex gap-3 mt-4">
+                            <form action="/admin/orders/{{ $order->id }}/status" method="POST">
+                                @csrf
+                                @method('PATCH')
 
-                            <select name="status" class="rounded-xl border-stone-300">
-
-                                <option value="pending"
-                                    {{ $order->status == 'pending' ? 'selected' : '' }}>
-                                    Pending
-                                </option>
-
-                                <option value="preparing"
-                                    {{ $order->status == 'preparing' ? 'selected' : '' }}>
+                                <input type="hidden" name="status" value="preparing">
+                                <button class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-md text-sm">
                                     Preparing
-                                </option>
+                                </button>
+                            </form>
 
-                                <option value="completed"
-                                    {{ $order->status == 'completed' ? 'selected' : '' }}>
-                                    Completed
-                                </option>
+                            <form action="/admin/orders/{{ $order->id }}/status" method="POST">
+                                @csrf
+                                @method('PATCH')
 
-                            </select>
+                                <input type="hidden" name="status" value="completed">
+                                <button class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-md text-sm">
+                                    Complete
+                                </button>
+                            </form>
 
-                            <button class="bg-orange-500 hover:bg-orange-600 text-white px-5 py-2 rounded-xl">
-                                Update
-                            </button>
-                        </form>
+                            <form action="/admin/orders/{{ $order->id }}/status" method="POST">
+                                @csrf
+                                @method('PATCH')
+
+                                <input type="hidden" name="status" value="cancelled">
+                                <button class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md text-sm">
+                                    Cancel
+                                </button>
+                            </form>
+                        </div>
                     </div>
 
                 @endforeach

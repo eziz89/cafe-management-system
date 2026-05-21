@@ -2,14 +2,16 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Models\Dish;
+use App\Models\Order;
 use App\Models\Category;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\Admin\DishController;
-use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\Admin\OrderController as AdminOrderController;
 
 Route::get('/', function () {
     $categories = Category::take(3)->get();
@@ -37,10 +39,13 @@ Route::middleware('auth')->group(function () {
 Route::get('/reservations/create', [ReservationController::class, 'create']);
 Route::post('/reservations', [ReservationController::class, 'store'])->name('reservations.store');
 Route::get('/admin/reservations', [ReservationController::class, 'index'])->middleware('auth');
+Route::patch('/admin/reservations/{reservation}/status', [ReservationController::class, 'updateStatus'])->middleware('auth');
 
-Route::post('/cart/add/{id}', [CartController::class, 'add'])->name('cart.add');
 Route::get('/cart', [CartController::class, 'index']); 
+Route::post('/cart/add/{id}', [CartController::class, 'add'])->name('cart.add');
 Route::post('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
+Route::post('/cart/increase/{id}', [CartController::class, 'increase'])->name('cart.increase');
+Route::post('/cart/decrease/{id}', [CartController::class, 'decrease'])->name('cart.decrease');
 
 Route::post('/checkout', [CartController::class, 'checkout'])->middleware('auth')->name('checkout');
 Route::get('/checkout/success', function () {
@@ -59,5 +64,8 @@ Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout']);
 
-Route::get('/admin/orders', [OrderController::class, 'index'])->middleware('auth')->name('admin.orders');
-Route::patch('/admin/orders/{order}/status', [OrderController::class, 'updateStatus'])->name('admin.orders.status');
+Route::get('/admin/orders', [AdminOrderController::class, 'index'])->middleware('auth')->name('admin.orders');
+Route::patch('/admin/orders/{order}/status', [AdminOrderController::class, 'updateStatus'])->name('admin.orders.status');
+
+Route::get('/my-orders', [OrderController::class, 'myOrders'])->middleware('auth')->name('orders.my');
+Route::get('/orders/{order}', [OrderController::class, 'show'])->middleware('auth')->name('orders.show');

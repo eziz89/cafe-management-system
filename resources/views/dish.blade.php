@@ -1,12 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
-    <a href="/cart" class="font-bold">Cart</a>
-    <div class="max-w-xl mx-auto bg-white p-6 rounded-2xl shadow">
+    <div class="max-w-xl mx-auto bg-white p-6 rounded-2xl shadow mt-16">
         @if($dish->image)
             <img src="{{ asset('storage/' . $dish->image) }}" class="w-full h-90 object-cover rounded mb-4">
         @endif
-
         <h1 class="text-3xl font-bold">{{ $dish->name }}</h1>
 
         <p class="text-gray-600 mt-2">{{ $dish->description }}</p>

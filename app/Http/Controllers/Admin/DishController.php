@@ -51,7 +51,7 @@ class DishController extends Controller
             'description' => 'required|min:5',
             'price' => 'required|numeric|min:0',
             'category_id' => 'required|exists:categories,id',
-            'image' => 'nullable|image|mimes:jpg,png,jpeg|max:2048'
+            'image' => 'nullable|image|mimes:jpg,png,jpeg,webp|max:2048'
         ]);
 
         if ($request->hasFile('image')) {
