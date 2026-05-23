@@ -24,4 +24,14 @@ class Dish extends Model
     {
         return $this->belongsTo(Category::class);
     }
+
+    public function ratings()
+    {
+        return $this->hasMany(Rating::class);
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }

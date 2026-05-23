@@ -21,27 +21,35 @@
             </a>
             @auth
 
-            <div class="relative group py-2">
-                <button class="text-gray-700 hover:text-orange-500">
+            <div class="relative group">
+
+                <button class="text-gray-700 hover:text-orange-500 transition font-medium py-2">
                     Account
                 </button>
 
-                <div class="absolute bg-white shadow-xl rounded-2xl right-0 mt-3 w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition duration-200 py-3 z-50">
-                    <a href="{{ route('orders.my') }}" class="{{ request()->is('my-orders') ? 'text-orange-500 font-semibold' : 'text-black' }} px-5 py-3 hover:text-orange-500 transition">
-                        My Orders
-                    </a>
-                    <a href="{{ route('reservations.my') }}" class="{{ request()->is('my-reservations') ? 'text-orange-500 font-semibold' : 'text-black' }} px-5 py-3 hover:text-orange-500 transition">
-                        My Reservations
-                    </a>
-                    <form action="{{ route('logout') }}" method="POST">
-                        @csrf
+                <div class="absolute right-0 mt-4 w-56 bg-white rounded-lg shadow-xl border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                    <div class="py-3">
+                        <a href="{{ route('orders.my') }}"
+                           class="block px-5 py-3 text-gray-700 hover:bg-orange-50 hover:text-orange-500 transition">
+                            My Orders
+                        </a>
+                        <a href="{{ route('reservations.my') }}"
+                           class="block px-5 py-3 text-gray-700 hover:bg-orange-50 hover:text-orange-500 transition">
+                            My Reservations
+                        </a>
+                        <div class="border-t my-2"></div>
 
-                        <button class="w-full text-left px-5 py-3 text-red-500 hover:bg-gray-100">
-                            Logout
-                        </button>
-                    </form>
-
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+            
+                            <button type="submit"
+                                    class="w-full text-left px-5 py-3 text-red-500 hover:bg-red-50 transition">
+                                Logout
+                            </button>
+                        </form>
+                    </div>
                 </div>
+            
             </div>
 
             @endauth

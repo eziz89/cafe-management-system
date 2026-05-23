@@ -25,4 +25,27 @@ class OrderController extends Controller
 
         return view('orders.show', compact('order'));
     }
+
+    public function reorder(Order $order)
+    {
+        foreach ($order->orderItems as $item)
+        {
+            $cart = session()->get('cart', []);
+
+            if(isset($cart[$item->dish_id])) {
+                $cart[$item->dish_id]['quantity'] += $item->quantity;
+            } else {
+                $cart[$item->dish_id] = [
+                    'name' => $item->dish->name,
+                    'price' => $item->dish->price,
+                    'image' => $item->dish->image,
+                    'quantity' => $item->dish->quantity,
+                ];
+            }
+
+            session()->put('cart', $cart);
+        }
+
+        return redirect()->route('cart.index')->with('success', 'Order added cart to cart again.');
+    }
 }

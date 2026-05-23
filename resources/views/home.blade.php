@@ -82,6 +82,82 @@
             </div>
         </section>
 
+        <section class="max-w-7xl mx-auto px-6 py-20" id="featured-dishes">
+
+            <div class="flex justify-between items-center mb-12">
+                <div>
+                    <p class="text-orange-500 uppercase tracking-widest font-semibold">
+                        Featured Dishes
+                    </p>
+
+                    <h2 class="text-4xl font-bold text-gray-800 mt-2">
+                        Customer Favorites
+                    </h2>
+                </div>
+
+                <a href="/menu"
+                   class="text-orange-500 hover:text-orange-600 font-medium">
+                    View Full Menu →
+                </a>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+                @foreach($featuredDishes as $dish)
+
+                    <div class="bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition duration-300">
+                        <img src="{{ asset('storage/' . $dish->image) }}" class="w-full h-64 object-cover">
+
+                        <div class="p-6">
+
+                            <div class="flex justify-between items-center mb-4">
+                                <h3 class="text-2xl font-bold text-gray-800">
+                                    {{ $dish->name }}
+                                </h3>
+
+                                <span class="text-orange-500 font-bold text-xl">
+                                    ${{ $dish->price }}
+                                </span>
+                            </div>
+
+                            <p class="text-gray-500 mb-6">
+                                {{ Str::limit($dish->description, 90) }}
+                            </p>
+
+                            @php
+                                $avg = $dish->ratings->avg('rating');
+                            @endphp
+
+                            <p>⭐ {{ number_format($avg, 1) }}/5</p>
+
+                            @foreach($dish->comments as $comment)
+
+                                <div>
+                                    <strong>{{ $comment->user->name }}</strong>
+                                    <p>{{ $comment->comment }}</p>
+                                    <small>{{ $comment->created_at->diffForHumans() }}</small>
+                                </div>
+                                
+                            @endforeach
+
+                            <form action="{{ route('cart.add', $dish->id) }}" method="POST">
+                                @csrf
+
+                                <button type="submit" class="w-full bg-orange-500 hover:bg-orange-600 hover:shadow-lg hover:shadow-orange-500/30 text-white py-3 rounded-2xl font-semibold transition duration-300 mt-4">
+                                    Add to Cart
+                                </button>
+                            </form>
+
+                        </div>
+
+                    </div>
+
+                @endforeach
+
+            </div>
+
+        </section>
+
         <section class="max-w-7xl mx-auto px-6 pt-14">
 
             <div class="text-center mb-14">

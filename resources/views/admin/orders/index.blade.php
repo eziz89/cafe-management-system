@@ -78,7 +78,7 @@
                             </h3>
 
                             <div class="space-y-3">
-                                @foreach($order->items as $item)
+                                @foreach($order->orderItems as $item)
 
                                     <div class="flex justify-between bg-stone-100 rounded-2xl px-4 py-3">
                                         <div>

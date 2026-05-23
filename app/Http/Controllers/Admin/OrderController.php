@@ -10,7 +10,7 @@ class OrderController extends Controller
 {
     public function index()
     {
-        $orders = Order::with('items.dish', 'user')->latest()->get();
+        $orders = Order::with('orderItems.dish', 'user')->latest()->get();
 
         return view('admin.orders.index', compact('orders'));
     }
@@ -18,7 +18,7 @@ class OrderController extends Controller
     public function updateStatus(Request $request, Order $order)
     {
         $order->update([
-            'status' =>$request->status,
+            'status' => $request->status,
         ]);
 
         return back();

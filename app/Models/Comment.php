@@ -4,11 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class OrderItem extends Model
+class Comment extends Model
 {
-    public function order()
+    public function user()
     {
-        return $this->belongsTo(Order::class);
+        return $this->belongsTo(User::class);
     }
 
     public function dish()
@@ -17,9 +17,8 @@ class OrderItem extends Model
     }
 
     protected $fillable = [
-        'order_id',
+        'user_id',
         'dish_id',
-        'quantity',
-        'price',
+        'comment'
     ];
 }

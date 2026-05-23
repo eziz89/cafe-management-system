@@ -6,19 +6,20 @@ use App\Models\Order;
 use App\Models\Category;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\OrderController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\DishController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ReservationController;
-use App\Http\Controllers\Admin\DishController;
+use App\Http\Controllers\Admin\DishController as AdminDishController;
 use App\Http\Controllers\Admin\OrderController as AdminOrderController;
 
 Route::get('/', function () {
     $categories = Category::take(3)->get();
     
-    $dishes = Dish::latest()->take(3)->get();
+    $featuredDishes = Dish::latest()->take(3)->get();
 
-    return view('home', compact('categories', 'dishes'));
+    return view('home', compact('featuredDishes', 'categories'));
 });
 
 Route::get('/menu', [MenuController::class, 'index']);
@@ -42,7 +43,7 @@ Route::get('/admin/reservations', [ReservationController::class, 'index'])->midd
 Route::patch('/admin/reservations/{reservation}/status', [ReservationController::class, 'updateStatus'])->middleware('auth');
 Route::get('/my-reservations', [ReservationController::class, 'myReservations'])->middleware('auth')->name('reservations.my');
 
-Route::get('/cart', [CartController::class, 'index']); 
+Route::get('/cart', [CartController::class, 'index'])->name('cart.index'); 
 Route::post('/cart/add/{id}', [CartController::class, 'add'])->name('cart.add');
 Route::post('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
 Route::post('/cart/increase/{id}', [CartController::class, 'increase'])->name('cart.increase');
@@ -70,3 +71,7 @@ Route::patch('/admin/orders/{order}/status', [AdminOrderController::class, 'upda
 
 Route::get('/my-orders', [OrderController::class, 'myOrders'])->middleware('auth')->name('orders.my');
 Route::get('/orders/{order}', [OrderController::class, 'show'])->middleware('auth')->name('orders.show');
+Route::post('/orders/{order}/reorder', [OrderController::class, 'reorder'])->middleware('auth')->name('orders.reorder');
+
+Route::post('/dish/{id}/rate', [DishController::class, 'rate'])->name('dishes.rate');
+Route::post('/dish/{id}/comment', [DishController::class, 'comment'])->name('dishes.comment');

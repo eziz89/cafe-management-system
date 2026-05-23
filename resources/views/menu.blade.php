@@ -20,14 +20,32 @@
                             {{ $dish->category->name }}
                         </span>
                     @endif
-                    <p class="text-green-600 font-bold mt-4">Price: ${{ number_format($dish->price, 2) }}</p>
-                    <form action="/cart/add/{{ $dish->id }}" method="POST">
-                        @csrf
-                        
-                        <button class="bg-black text-white px-4 py-2 rounded-lg mt-4 w-full hover:bg-gray-800 transition">
-                            Add to Cart
-                        </button>
-                    </form>
+                    <p class="text-green-600 font-bold mt-4 mb-2">Price: ${{ number_format($dish->price, 2) }}</p>
+                    
+                    @php
+                        $avg = $dish->ratings->avg('rating');
+                    @endphp
+
+                    <p>⭐ {{ number_format($avg, 1) }}/5</p>
+
+                    @foreach($dish->comments as $comment)
+
+                        <div>
+                            <strong>{{ $comment->user->name }}</strong>
+                            <p>{{ $comment->comment }}</p>
+                            <small>{{ $comment->created_at->diffForHumans() }}</small>
+                        </div>
+
+                    @endforeach
+
+                    <form action="{{ route('cart.add', $dish->id) }}" method="POST">
+                            @csrf
+
+                            <button type="submit" class="w-full bg-orange-500 hover:bg-orange-600 hover:shadow-lg hover:shadow-orange-500/30 text-white py-3 rounded-2xl font-semibold transition duration-300 mt-4">
+                                Add to Cart
+                            </button>
+                        </form>
+
                     <a href="/menu/{{ $dish->id }}" class="inline-block mt-3 text-blue-500">
                         View Details ->
                     </a>

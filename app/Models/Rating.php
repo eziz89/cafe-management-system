@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
+use Dom\Comment;
 use Illuminate\Database\Eloquent\Model;
 
-class OrderItem extends Model
+class Rating extends Model
 {
-    public function order()
+    public function user()
     {
-        return $this->belongsTo(Order::class);
+        return $this->belongsTo(User::class);
     }
 
     public function dish()
@@ -17,9 +18,8 @@ class OrderItem extends Model
     }
 
     protected $fillable = [
-        'order_id',
+        'user_id',
         'dish_id',
-        'quantity',
-        'price',
+        'rating'
     ];
 }

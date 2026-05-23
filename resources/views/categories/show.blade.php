@@ -33,13 +33,31 @@
                         <p class="text-neutral-400 mb-6 leading-relaxed">
                             {{ Str::limit($dish->description, 100) }}
                         </p>
+
+                        @php
+                            $avg = $dish->ratings->avg('rating');
+                        @endphp
+
+                        <p class="text-white">⭐ {{ number_format($avg, 1) }}/5</p>
+
+                        @foreach($dish->comments as $comment)
+
+                            <div>
+                                <strong>{{ $comment->user->name }}</strong>
+                                <p>{{ $comment->comment }}</p>
+                                <small>{{ $comment->created_at->diffForHumans() }}</small>
+                            </div>
+
+                        @endforeach
+
                         <form action="{{ route('cart.add', $dish->id) }}" method="POST">
                             @csrf
 
-                            <button type="submit" class="w-full bg-orange-500 hover:bg-orange-600 hover:shadow-lg hover:shadow-orange-500/30 text-white py-3 rounded-2xl font-semibold transition duration-300">
+                            <button type="submit" class="w-full bg-orange-500 hover:bg-orange-600 hover:shadow-lg hover:shadow-orange-500/30 text-white py-3 rounded-2xl font-semibold transition duration-300 mt-4">
                                 Add to Cart
                             </button>
                         </form>
+
                     </div>
                 </div>
                 
