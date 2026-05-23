@@ -36,10 +36,11 @@ Route::middleware('auth')->group(function () {
     Route::delete('/admin/dishes/{id}', [DishController::class, 'destroy']);
 });
 
-Route::get('/reservations/create', [ReservationController::class, 'create']);
+Route::get('/reservations/create', [ReservationController::class, 'create'])->name('reservations.create');
 Route::post('/reservations', [ReservationController::class, 'store'])->name('reservations.store');
 Route::get('/admin/reservations', [ReservationController::class, 'index'])->middleware('auth');
 Route::patch('/admin/reservations/{reservation}/status', [ReservationController::class, 'updateStatus'])->middleware('auth');
+Route::get('/my-reservations', [ReservationController::class, 'myReservations'])->middleware('auth')->name('reservations.my');
 
 Route::get('/cart', [CartController::class, 'index']); 
 Route::post('/cart/add/{id}', [CartController::class, 'add'])->name('cart.add');

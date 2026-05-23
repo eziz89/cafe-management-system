@@ -133,7 +133,7 @@
                         </div>
                     </div>
 
-                    <div class="lg:sticky top-24 rounded-2xl overflow-hidden h-[600px]">
+                    <div class="lg:sticky top-24 rounded-2xl overflow-hidden h-[500px]">
                         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2191.1350298792936!2d58.37954730480198!3d37.941600536293755!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3f6fff2c4815c659%3A0x834c6009e5b9958c!2z0JrQsNGE0LUgIkdVQkFEQUcgRklUw4dJIiBBxZ9nYWJhdA!5e1!3m2!1sen!2sus!4v1779367071390!5m2!1sen!2sus" 
                             width="600"
                             height="450"

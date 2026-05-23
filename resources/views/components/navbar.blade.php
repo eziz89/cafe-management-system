@@ -30,6 +30,9 @@
                     <a href="{{ route('orders.my') }}" class="{{ request()->is('my-orders') ? 'text-orange-500 font-semibold' : 'text-black' }} px-5 py-3 hover:text-orange-500 transition">
                         My Orders
                     </a>
+                    <a href="{{ route('reservations.my') }}" class="{{ request()->is('my-reservations') ? 'text-orange-500 font-semibold' : 'text-black' }} px-5 py-3 hover:text-orange-500 transition">
+                        My Reservations
+                    </a>
                     <form action="{{ route('logout') }}" method="POST">
                         @csrf
 

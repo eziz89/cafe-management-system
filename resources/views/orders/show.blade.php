@@ -4,11 +4,9 @@
 
 <div class="max-w-5xl mx-auto py-10 px-6">
 
-    <!-- Order Header -->
     <div class="bg-white rounded-2xl shadow p-6 mb-6">
-
         <div class="flex justify-between items-center">
-
+            
             <div>
                 <h1 class="text-2xl font-bold">
                     Order #{{ $order->id }}
@@ -31,7 +29,6 @@
 
     </div>
 
-    <!-- Items -->
     <div class="bg-white rounded-2xl shadow p-6">
 
         <h2 class="text-xl font-bold mb-4">
@@ -60,7 +57,6 @@
 
         @endforeach
 
-        <!-- Total -->
         <div class="flex justify-between mt-6 text-lg font-bold">
 
             <span>Total:</span>

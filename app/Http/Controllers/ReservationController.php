@@ -27,10 +27,12 @@ class ReservationController extends Controller
             'reservation_time' => 'required|date|after:now',
             'message' => 'nullable',
         ]);
-
+        
+        $validated['user_id'] = auth()->id();
+        
         Reservation::create($validated);
 
-        return redirect()->back()->with('success', "Reservation submitted successfully.");
+        return redirect()->route('reservations.my')->with('success', "Reservation submitted successfully.");
     }
 
     public function updateStatus(Request $request, Reservation $reservation)
@@ -40,5 +42,12 @@ class ReservationController extends Controller
         ]);
 
         return back();
+    }
+
+    public function myReservations()
+    {
+        $reservations = Reservation::where('user_id', auth()->id())->latest()->get();
+
+        return view('reservations.my-reservations', compact('reservations'));
     }
 }
