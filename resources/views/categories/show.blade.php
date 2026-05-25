@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <section class="bg-neutral-950 min-h-screen py-20">
+<section class="bg-neutral-950 min-h-screen py-20">
     <div class="max-w-7xl mx-auto px-6">
         <div class="mb-16">
             <p class="text-orange-400 font-semibold uppercase tracking-widest mb-4">
@@ -39,16 +39,6 @@
                         @endphp
 
                         <p class="text-white">⭐ {{ number_format($avg, 1) }}/5</p>
-
-                        @foreach($dish->comments as $comment)
-
-                            <div>
-                                <strong>{{ $comment->user->name }}</strong>
-                                <p>{{ $comment->comment }}</p>
-                                <small>{{ $comment->created_at->diffForHumans() }}</small>
-                            </div>
-
-                        @endforeach
 
                         <form action="{{ route('cart.add', $dish->id) }}" method="POST">
                             @csrf

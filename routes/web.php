@@ -73,5 +73,9 @@ Route::get('/my-orders', [OrderController::class, 'myOrders'])->middleware('auth
 Route::get('/orders/{order}', [OrderController::class, 'show'])->middleware('auth')->name('orders.show');
 Route::post('/orders/{order}/reorder', [OrderController::class, 'reorder'])->middleware('auth')->name('orders.reorder');
 
-Route::post('/dish/{id}/rate', [DishController::class, 'rate'])->name('dishes.rate');
-Route::post('/dish/{id}/comment', [DishController::class, 'comment'])->name('dishes.comment');
+Route::middleware('auth')->group(function () {
+    Route::post('/dish/{id}/rate', [DishController::class, 'rate'])->name('dishes.rate');
+    Route::post('/dish/{id}/comment', [DishController::class, 'comment'])->name('dishes.comment');
+});
+
+Route::post('/dishes/{id}/review', [DishController::class, 'review'])->name('dishes.review');

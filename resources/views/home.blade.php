@@ -59,9 +59,9 @@
 
 
                         <a href="/categories/{{ $category->id }}"
-                           class="bg-neutral-800 rounded-[1rem] p-10
+                           class="bg-neutral-800 rounded-[1rem] p-10 hover:p-9
                                 shadow-md hover:shadow-2xl
-                                hover:-translate-y-2 border border-orange-800
+                                hover:-translate-y-2 hover:border border-orange-500
                                 transition duration-300">
 
                             <div class="w-16 h-16 rounded-2xl bg-white flex items-center justify-center mb-8">
@@ -129,16 +129,6 @@
                             @endphp
 
                             <p>⭐ {{ number_format($avg, 1) }}/5</p>
-
-                            @foreach($dish->comments as $comment)
-
-                                <div>
-                                    <strong>{{ $comment->user->name }}</strong>
-                                    <p>{{ $comment->comment }}</p>
-                                    <small>{{ $comment->created_at->diffForHumans() }}</small>
-                                </div>
-                                
-                            @endforeach
 
                             <form action="{{ route('cart.add', $dish->id) }}" method="POST">
                                 @csrf

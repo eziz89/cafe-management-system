@@ -28,16 +28,6 @@
 
                     <p>⭐ {{ number_format($avg, 1) }}/5</p>
 
-                    @foreach($dish->comments as $comment)
-
-                        <div>
-                            <strong>{{ $comment->user->name }}</strong>
-                            <p>{{ $comment->comment }}</p>
-                            <small>{{ $comment->created_at->diffForHumans() }}</small>
-                        </div>
-
-                    @endforeach
-
                     <form action="{{ route('cart.add', $dish->id) }}" method="POST">
                             @csrf
 

@@ -8,6 +8,29 @@ use App\Models\Comment;
 
 class DishController extends Controller
 {
+    public function review(Request $request, $id)
+    {
+        if($request->rating)
+        {
+            Rating::create([
+                'user_id' => auth()->id(),
+                'dish_id' => $id,
+                'rating' => $request->rating
+            ]);
+        }
+
+        if($request->comment)
+        {
+            Comment::create([
+            'user_id' => auth()->id(),
+            'dish_id' => $id,
+            'comment' => $request->comment
+        ]);
+        }
+
+        return redirect()->back()->with('success', 'Review submitted successfully.');
+    }
+
     public function rate(Request $request, $dishId)
     {
         $request->validate([
