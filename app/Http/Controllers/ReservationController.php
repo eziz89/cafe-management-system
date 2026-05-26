@@ -7,12 +7,6 @@ use App\Models\Reservation;
 
 class ReservationController extends Controller
 {
-    public function index()
-    {
-        $reservations = Reservation::latest()->get();
-
-        return view('admin.reservations.index', compact('reservations'));
-    }
     public function create()
     {
         return view('reservations.create');

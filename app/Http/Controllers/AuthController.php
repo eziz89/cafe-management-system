@@ -2,11 +2,38 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
+    public function showRegister()
+    {
+        return view('auth.register');
+    }
+
+    public function register(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|min:6|confirmed',
+        ]);
+
+        $user = User::create([
+            'name' => $validated['name'],
+            'email' => $validated['email'],
+            'password' => Hash::make($validated['password']),
+            'role' => 'customer'
+        ]);
+
+        Auth::login($user);
+
+        return redirect()->route('account')->with('success', 'Welcome! Your account has been created.');
+    }
+
     public function showLogin()
     {
         return view('auth.login');
@@ -22,7 +49,11 @@ class AuthController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
-            return redirect('/admin');
+            if (auth()->user()->role === 'admin') {
+                return redirect()->route('admin.dashboard')->with('success', 'Welcome Admin');
+            };
+
+            return redirect()->route('account')->with('success', 'Welcome back!');
         }
 
         return back()->withErrors([
@@ -37,6 +68,6 @@ class AuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
         
-        return redirect('/');
+        return redirect('/')->with('success', 'Logged out successfully.');
     }
 }

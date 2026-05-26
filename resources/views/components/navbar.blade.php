@@ -3,6 +3,7 @@
         <h1 class="text-3xl font-bold">
             Canteen
         </h1>
+
         <div class="flex gap-6 text-lg">
             <a href="/" class="{{ request()->is('/') ? 'text-orange-500 font-semibold' : 'text-black' }} hover:text-orange-500 py-2 transition">
                 Home
@@ -19,16 +20,21 @@
             <a href="/cart" class="{{ request()->is('cart') ? 'text-orange-500 font-semibold' : 'text-black' }} hover:text-orange-500 py-2 transition">
                 Cart
             </a>
+            
             @auth
 
             <div class="relative group">
 
                 <button class="text-gray-700 hover:text-orange-500 transition font-medium py-2">
-                    Account
+                    Account 
+                    <span class="text-sm">▼</span>
                 </button>
 
                 <div class="absolute right-0 mt-4 w-56 bg-white rounded-lg shadow-xl border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
                     <div class="py-3">
+                        <a href="{{ route('account') }}" class="block px-5 py-3 text-gray-700 hover:bg-orange-50 hover:text-orange-500 transition">
+                            Dashboard
+                        </a>
                         <a href="{{ route('orders.my') }}"
                            class="block px-5 py-3 text-gray-700 hover:bg-orange-50 hover:text-orange-500 transition">
                             My Orders
@@ -37,6 +43,10 @@
                            class="block px-5 py-3 text-gray-700 hover:bg-orange-50 hover:text-orange-500 transition">
                             My Reservations
                         </a>
+                        <a href="#" class="block px-5 py-3 text-gray-700 hover:bg-orange-50 hover:text-orange-500 transition">
+                            My Reviews
+                        </a>
+
                         <div class="border-t my-2"></div>
 
                         <form method="POST" action="{{ route('logout') }}">
@@ -52,7 +62,12 @@
             
             </div>
 
+            @else
+
+            <a href="{{ route('login') }}" class="text-orange-500 hover:text-orange-600 py-2 transition">Login</a>
+
             @endauth
+
         </div>
     </div>
 </nav>

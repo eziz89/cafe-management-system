@@ -86,8 +86,7 @@
                 </div>
 
                 <div>
-                    <div class="bg-neutral-900 border border-neutral-800
-                                rounded-3xl p-8 sticky top-28">
+                    <div class="bg-neutral-900 border border-neutral-800 rounded-3xl p-8 sticky top-28">
 
                         <h2 class="text-3xl font-bold text-white mb-8">
                             Order Summary
@@ -105,6 +104,9 @@
                                 ${{ $total }}
                             </span>
                         </div>
+
+                        @auth
+
                         <form action="{{ route('checkout') }}" method="POST">
                             @csrf
 
@@ -118,6 +120,15 @@
                                 Proceed to Checkout
                             </button>
                         </form>
+
+                        @else
+
+                        <a href="{{ route('login') }}" class="w-full bg-gray-800 text-white text-center font-semibold px-6 py-3 rounded-xl inline-block">
+                            Login to Order
+                        </a>
+
+                        @endauth
+
                     </div>
                 </div>
             </div>
