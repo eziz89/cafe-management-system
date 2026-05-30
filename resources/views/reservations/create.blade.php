@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <section class="bg-neutral-950 min-h-screen py-20 px-8">
+    <section class="bg-neutral-950 min-h-screen py-20 px-8 mb-24 mx-16">
             
         @if(session('success'))
             <div class="bg-green-100 text-green-700 px-6 py-4 rounded-2xl mb-6">

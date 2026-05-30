@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <div class="max-w-7xl mx-auto px-6">
+    <div class="max-w-7xl mx-auto">
         <form method="POST" action="/logout" class="text-right">
             @csrf
 

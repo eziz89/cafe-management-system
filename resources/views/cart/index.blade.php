@@ -4,12 +4,12 @@
 
     <section class="bg-stone-100 min-h-screen py-20">
 
-        <div class="max-w-7xl mx-auto px-6">
+        <div class="max-w-7xl mx-auto">
             <div class="mb-16">
                 <p class="text-orange-400 uppercase tracking-[0.3em] font-semibold mb-4">
                     Your Order
                 </p>
-                <h1 class="text-5xl font-bold text-black mb-6">
+                <h1 class="text-5xl font-bold mb-6">
                     Shopping Cart
                 </h1>
                 <p class="text-stone-500 text-lg max-w-2xl">
@@ -20,12 +20,12 @@
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
                 <div class="lg:col-span-2 space-y-6">
                         @forelse($cart as $id => $item)
-                            <div class="bg-neutral-900 border border-neutral-800 rounded-3xl p-6 flex gap-6 items-center">
+                            <div class="bg-white shadow-lg rounded-3xl p-6 flex gap-6 items-center">
                                 <img src="{{ asset('storage/' . $item['image']) }}" class="w-32 h-32 object-cover rounded-2xl">
 
                                 <div class="flex-1">
                                     <div class="flex justify-between mb-8">
-                                        <h2 class="text-2xl font-bold text-white">
+                                        <h2 class="text-2xl text-neutral-800 font-bold">
                                             {{ $item['name'] }}
                                         </h2>
                                         <span class="text-orange-400 font-bold text-xl">
@@ -39,7 +39,7 @@
                                               method="POST">
                                             @csrf
 
-                                            <button class="text-red-400  hover:text-red-300 transition">
+                                            <button class="text-red-500 font-semibold hover:text-red-300 transition">
                                                 Remove Item
                                             </button>
                                         </form>
@@ -86,18 +86,18 @@
                 </div>
 
                 <div>
-                    <div class="bg-neutral-900 border border-neutral-800 rounded-3xl p-8 sticky top-28">
+                    <div class="bg-white shadow-lg rounded-3xl p-8 sticky top-28">
 
-                        <h2 class="text-3xl font-bold text-white mb-8">
+                        <h2 class="text-3xl text-neutral-900 font-bold mb-6">
                             Order Summary
                         </h2>
-                        <div class="flex justify-between text-neutral-300 mb-6">
+                        <div class="flex justify-between text-gray-500 mb-6">
                             <span>Total Items</span>
                             <span>
                                 {{ count($cart) }}
                             </span>
                         </div>
-                        <div class="flex justify-between text-white text-2xl font-bold mb-10">
+                        <div class="flex justify-between text-neutral-800 text-2xl font-bold mb-10">
 
                             <span>Total</span>
                             <span>
@@ -114,7 +114,7 @@
                                 class="block text-center w-full
                                     bg-orange-500 hover:bg-orange-600
                                     hover:shadow-lg hover:shadow-orange-500/30
-                                    text-white py-4 rounded-2xl
+                                    text-white py-3 rounded-2xl
                                     font-semibold transition duration-300">
 
                                 Proceed to Checkout

@@ -30,9 +30,10 @@
                             <td class="px-6 py-4">{{ $reservation->reservation_time }}</td>
                             <td class="px-6 py-4">
                                 @if($reservation->status === 'pending')
-                                    <span class="bg-yellow-100 text-yellow-700 px-4 py-2 rounded-full text-sm font-semibold">
+                                    <span class="bg-gray-200 text-gray-700 px-4 py-2 rounded-full text-sm font-semibold">
                                         Pending
                                     </span>
+                                    
                                 @elseif($reservation->status === 'confirmed')
                                     <span class="bg-green-100 text-green-700 px-4 py-2 rounded-full text-sm font-semibold">
                                         Confirmed

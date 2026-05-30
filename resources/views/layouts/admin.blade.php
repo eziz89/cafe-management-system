@@ -18,24 +18,19 @@
                 Admin Panel
             </h1>
             <div class="flex items-center gap-6">
-                <a href="/admin"
-                   class="hover:text-orange-500 transition">
+                <a href="/admin" class="{{ request()->is('admin') ? 'text-orange-500' : 'text-neutral-800' }} hover:text-orange-500 transition">
                     Dashboard
                 </a>
-                <a href="/admin/orders"
-                   class="hover:text-orange-500 transition">
+                <a href="/admin/orders" class="{{ request()->is('admin/orders') ? 'text-orange-500' : 'text-neutral-800' }} hover:text-orange-500 transition">
                     Orders
                 </a>
-                <a href="/admin/reservations"
-                   class="hover:text-orange-500 transition">
+                <a href="/admin/reservations" class="{{ request()->is('admin/reservations') ? 'text-orange-500' : 'text-neutral-800' }} hover:text-orange-500 transition">
                     Reservations
                 </a>
-                <a href="/admin/dishes"
-                   class="hover:text-orange-500 transition">
+                <a href="/admin/dishes" class="{{ request()->is('admin/dishes') ? 'text-orange-500' : 'text-neutral-800' }} hover:text-orange-500 transition">
                     Dishes
                 </a>
-                <a href="/admin/categories"
-                   class="hover:text-orange-500 transition">
+                <a href="/admin/categories" class="{{ request()->is('admin/categories') ? 'text-orange-500' : 'text-neutral-800' }} hover:text-orange-500 transition">
                     Categories
                 </a>
             </div>

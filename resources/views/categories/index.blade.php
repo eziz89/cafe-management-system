@@ -2,7 +2,7 @@
 
 @section('content')
 
-<section class="bg-neutral-900 min-h-screen py-20">
+<section class="bg-neutral-900 min-h-screen pt-20 pb-6 mb-24 mx-16">
 
     <div class="max-w-7xl mx-auto px-12">
         <h1 class="text-5xl font-bold text-white mb-10">

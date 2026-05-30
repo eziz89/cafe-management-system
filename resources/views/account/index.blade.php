@@ -2,15 +2,14 @@
 
 @section('content')
 
-<div class="min-h-screen bg-gray-100 py-10 px-4">
+<div class="min-h-screen bg-gray-100 py-10 pb-24">
 
     <div class="max-w-7xl mx-auto">
 
-        {{-- Welcome --}}
         <div class="bg-white rounded-3xl shadow-sm p-8 mb-8">
 
             <h1 class="text-4xl font-bold text-gray-900 mb-2">
-                Welcome back, {{ $user->name }} 👋
+                Welcome, {{ $user->name }} 👋
             </h1>
 
             <p class="text-gray-500">
@@ -19,7 +18,6 @@
 
         </div>
 
-        {{-- Stats --}}
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
 
             <div class="bg-white rounded-3xl p-6 shadow-sm">
@@ -60,18 +58,19 @@
 
         </div>
 
-        {{-- Recent Orders --}}
         <div class="bg-white rounded-3xl shadow-sm p-8 mb-8">
 
-            <h2 class="text-2xl font-bold mb-6">
-                Recent Orders
-            </h2>
+            <a href="/my-orders">
+                <h2 class="text-2xl font-bold hover:text-orange-500 duration-200 mb-6">
+                    Recent Orders
+                </h2>
+            </a>
 
             @forelse($orders as $order)
 
                 <div class="border-b py-4 flex justify-between">
 
-                    <div>
+                    <a href="{{ route('orders.show', $order->id) }}">
 
                         <p class="font-semibold">
                             Order #{{ $order->id }}
@@ -81,10 +80,9 @@
                             {{ $order->created_at->diffForHumans() }}
                         </p>
 
-                    </div>
+                    </a>
 
-                    <span class="px-4 py-2 rounded-full
-                                 bg-yellow-100 text-yellow-700 text-sm">
+                    <span class="px-4 py-2 rounded-full bg-yellow-100 text-yellow-700 text-sm">
 
                         {{ ucfirst($order->status) }}
 
@@ -102,12 +100,13 @@
 
         </div>
 
-        {{-- Reservations --}}
         <div class="bg-white rounded-3xl shadow-sm p-8 mb-8">
 
-            <h2 class="text-2xl font-bold mb-6">
-                Reservations
-            </h2>
+            <a href="/my-reservations">
+                <h2 class="text-2xl font-bold hover:text-orange-500 duration-200 mb-6">
+                    Reservations
+                </h2>
+            </a>
 
             @forelse($reservations as $reservation)
 
@@ -144,10 +143,9 @@
 
         </div>
 
-        {{-- Reviews --}}
         <div class="bg-white rounded-3xl shadow-sm p-8">
 
-            <h2 class="text-2xl font-bold mb-6">
+            <h2 class="text-2xl font-bold hover:text-orange-500 duration-200 mb-6">
                 Recent Reviews
             </h2>
 

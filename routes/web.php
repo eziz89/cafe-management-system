@@ -15,7 +15,7 @@ use App\Http\Controllers\ReservationController;
 use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
-    $categories = Category::take(3)->get();
+    $categories = Category::withCount('dishes')->take(4)->get();
     
     $featuredDishes = Dish::latest()->take(3)->get();
 

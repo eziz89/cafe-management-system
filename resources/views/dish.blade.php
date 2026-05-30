@@ -2,8 +2,8 @@
 
 @section('content')
 
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-10">
-            <div class="bg-white rounded-2xl border-2 border-gray-800 shadow-sm b p-5">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 bg-gray-100 pb-24 pt-10 px-10">
+            <div class="bg-white rounded-2xl border-2 border-gray-600 shadow-sm b p-5">
 
                 <img src="{{ asset('storage/' . $dish->image) }}"
                      class="w-full h-72 object-cover rounded-xl mb-5">
@@ -48,7 +48,7 @@
                 </a>
             </div>
 
-            <div class="lg:col-span-2 bg-white border-2 border-gray-800 rounded-2xl shadow-sm p-8">
+            <div class="lg:col-span-2 bg-white border-2 border-gray-600 rounded-2xl shadow-sm p-8">
                 <h2 class="text-3xl font-bold text-gray-900 mb-8">
                     Customer Reviews
                 </h2>
@@ -90,9 +90,7 @@
 
                                 <div class="flex-1 bg-gray-200 h-2 rounded-full">
 
-                                    <div
-                                        class="bg-orange-400 h-2 rounded-full"
-                                        style="width: {{ $percentage }}%">
+                                    <div class="bg-orange-400 h-2 rounded-full" style="width: {{ $percentage }}%">
                                     </div>
 
                                 </div>
@@ -110,105 +108,102 @@
                 </div>
 
                 <div class="bg-gray-50 rounded-2xl p-6 mb-10">
-                    <form method="POST"
-      action="{{ route('dishes.review', $dish->id) }}">
+                    <form method="POST" action="{{ route('dishes.review', $dish->id) }}">
+                        @csrf
 
-    @csrf
+                        <div class="grid md:grid-cols-2 gap-8">
 
-    <div class="grid md:grid-cols-2 gap-8">
+                            <div>
+                                <h3 class="text-xl font-semibold mb-4">
+                                    Share your rating
+                                </h3>
 
-        {{-- LEFT SIDE --}}
-        <div>
+                                <p class="text-gray-500 mb-6">
+                                    How would you rate this dish?
+                                </p>
 
-            <h3 class="text-xl font-semibold mb-4">
-                Share your rating
-            </h3>
+                                <div class="rating flex flex-row-reverse justify-end gap-2 mb-6">
 
-            <p class="text-gray-500 mb-6">
-                How would you rate this dish?
-            </p>
+                                    @for($i = 5; $i >= 1; $i--)
 
-            <div class="rating flex flex-row-reverse justify-end gap-2 mb-6">
+                                        <input type="radio"
+                                               name="rating"
+                                               id="star{{ $i }}-{{ $dish->id }}"
+                                               value="{{ $i }}"
+                                               hidden>
 
-                @for($i = 5; $i >= 1; $i--)
+                                        <label for="star{{ $i }}-{{ $dish->id }}">
+                                            ★
+                                        </label>
 
-                    <input type="radio"
-                           name="rating"
-                           id="star{{ $i }}-{{ $dish->id }}"
-                           value="{{ $i }}"
-                           hidden>
+                                    @endfor
 
-                    <label for="star{{ $i }}-{{ $dish->id }}">
-                        ★
-                    </label>
+                                </div>
 
-                @endfor
+                            </div>
 
-            </div>
+                            <div>
 
-        </div>
+                                <h3 class="text-xl font-semibold mb-4">
+                                    Write a review (optional)
+                                </h3>
 
-        {{-- RIGHT SIDE --}}
-        <div>
+                                <textarea
+                                    name="comment"
+                                    rows="5"
+                                    placeholder="Share your experience with this dish..."
+                                    class="w-full border border-gray-300 rounded-2xl
+                                           p-4 resize-none focus:ring-2
+                                           focus:ring-orange-400 focus:outline-none"></textarea>
 
-            <h3 class="text-xl font-semibold mb-4">
-                Write a review (optional)
-            </h3>
+                                <div class="flex justify-end mt-5">
 
-            <textarea
-                name="comment"
-                rows="5"
-                placeholder="Share your experience with this dish..."
-                class="w-full border border-gray-300 rounded-2xl
-                       p-4 resize-none focus:ring-2
-                       focus:ring-orange-400 focus:outline-none"></textarea>
+                                    <button type="submit"
+                                        class="bg-orange-500 hover:bg-orange-600
+                                               text-white px-8 py-3 rounded-2xl
+                                               font-medium transition">
 
-            <div class="flex justify-end mt-5">
+                                        Submit Review
 
-                <button type="submit"
-                    class="bg-orange-500 hover:bg-orange-600
-                           text-white px-8 py-3 rounded-2xl
-                           font-medium transition">
+                                    </button>
 
-                    Submit Review
+                                </div>
 
-                </button>
+                            </div>
 
-            </div>
+                        </div>
 
-        </div>
-
-    </div>
-
-</form>
+                    </form>
                 </div>
 
                 <div class="space-y-5">
-                    @foreach($dish->comments as $comment)
 
-                        <div class="bg-white border border-gray-300 shadow rounded-3xl p-6">
-                            <div class="flex justify-between items-start mb-4">
-                                <div class="flex items-center gap-4">
-                                    <div class="w-12 h-12 rounded-full bg-gray-200"></div>
+                        @foreach($dish->comments as $comment)
 
-                                    <div>
-                                        <h4 class="font-bold text-lg">
-                                            {{ $comment->user->name }}
-                                        </h4>
-                                        <p class="text-sm text-gray-500">
-                                            {{ $comment->created_at->diffForHumans() }}
-                                        </p>
+                            <div class="bg-white border border-gray-300 shadow rounded-3xl p-6">
+                                <div class="flex justify-between items-start mb-4">
+                                    <div class="flex items-center gap-4">
+                                        <div class="w-12 h-12 rounded-full bg-gray-200"></div>
+
+                                        <div>
+                                            <h4 class="font-bold text-lg">
+                                                {{ $comment->user->name }}
+                                            </h4>
+                                            <p class="text-sm text-gray-500">
+                                                {{ $comment->created_at->diffForHumans() }}
+                                            </p>
+                                        </div>
+
                                     </div>
-
                                 </div>
+
+                                <p class="text-gray-700 leading-relaxed">
+                                    {{ $comment->comment }}
+                                </p>
                             </div>
 
-                            <p class="text-gray-700 leading-relaxed">
-                                {{ $comment->comment }}
-                            </p>
-                        </div>
+                        @endforeach
 
-                    @endforeach
                 </div>
             </div>
 

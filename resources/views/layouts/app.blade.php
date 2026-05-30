@@ -28,14 +28,16 @@
     </style>
     
 </head>
-<body class="bg-gray-100">
+<body>
     
     <x-navbar />
-    <div class="max-w-7xl mx-auto px-6">
         
         @yield('content')
-    </div>
+
     <x-footer />
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>lucide.createIcons()</script>
 </body>
 </html>
