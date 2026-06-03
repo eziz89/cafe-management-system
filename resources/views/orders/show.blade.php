@@ -10,7 +10,7 @@
 
                 <div>
                     <h1 class="text-2xl font-bold">
-                        Order #{{ $order->id }}
+                        {{ __('myorder.order') }} #{{ $order->id }}
                     </h1>
                     <p class="text-gray-500">
                         {{ $order->created_at->format('d M Y H:i') }}
@@ -48,13 +48,13 @@
 
             <div class="flex justify-between items-center pb-2">
                 <h2 class="text-xl font-bold">
-                    Order Items
+                    {{ __('myorder.order_items') }}
                 </h2>
                 <form action="{{ route('orders.reorder', $order->id) }}" method="POST">
                     @csrf
 
                     <button type="submit" class="mt-4 bg-orange-500 hover:bg-orange-600 text-white px-5 py-2 rounded-xl transition0">
-                        Reorder
+                        {{ __('myorder.reorder') }}
                     </button>
                 </form>
             </div>
@@ -79,7 +79,7 @@
             @endforeach
 
             <div class="flex justify-between mt-6 text-lg font-bold">
-                <span>Total:</span>
+                <span>{{ __('myorder.total') }}:</span>
                 <span>
                     ${{ number_format($order->total_price, 2) }}
                 </span>

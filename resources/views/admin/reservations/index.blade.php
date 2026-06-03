@@ -23,7 +23,7 @@
 
                 <tbody>
                     @foreach($reservations as $reservation)
-                        <tr class="border-t">   
+                        <tr class="border-t border-gray-200">   
                             <td class="px-6 py-4">{{ $reservation->name }}</td>
                             <td class="px-6 py-4">{{ $reservation->phone }}</td>
                             <td class="px-6 py-4">{{ $reservation->guests }}</td>

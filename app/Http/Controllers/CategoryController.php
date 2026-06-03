@@ -8,7 +8,7 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        $categories = Category::all();
+        $categories = Category::withCount('dishes')->get();
         
         return view('categories.index', compact('categories'));
     }

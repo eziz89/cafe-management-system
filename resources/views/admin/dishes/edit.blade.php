@@ -9,6 +9,8 @@
             @method('PUT')
 
             <input type="text" name="name" value="{{ $dish->name }}" class="block mb-2 p-2 border w-full">
+            <input type="text" name="name_en" value="{{ $dish->name_en }}" class="block mb-2 p-2 border w-full">
+            <input type="text" name="name_ru" value="{{ $dish->name_ru }}" class="block mb-2 p-2 border w-full">
             <textarea name="description" class="block mb-2 p-2 border w-full">{{ $dish->description }}</textarea>
             <input type="number" step="0.01" name="price" value="{{ $dish->price }}" class="block mb-2 p-2 border w-full">
             <select name="category_id" class="block mb-2 p-2 border w-full">

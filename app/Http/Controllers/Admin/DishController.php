@@ -12,11 +12,13 @@ class DishController extends Controller
     public function index()
     {
         $dishes = Dish::with('category')->latest()->get();
+
         return view('admin.dishes.index', compact('dishes'));
     }
     public function create()
     {
         $categories = Category::all();
+
         return view('admin.dishes.create', compact('categories'));
     }
 
@@ -34,6 +36,8 @@ class DishController extends Controller
 
         $validated = $request->validate([
             'name' => 'required|min:2|max:255',
+            'name_en' => 'required|string|max:255',
+            'name_ru' => 'required|string|max:255',
             'description' => 'required|min:5',
             'price' => 'required|numeric|min:0',
             'category_id' => 'required|exists:categories,id'
@@ -48,6 +52,8 @@ class DishController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|min:2|max:255',
+            'name_en' => 'required|string|max:255',
+            'name_ru' => 'required|string|max:255',
             'description' => 'required|min:5',
             'price' => 'required|numeric|min:0',
             'category_id' => 'required|exists:categories,id',

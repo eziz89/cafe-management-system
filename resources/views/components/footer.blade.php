@@ -6,54 +6,59 @@
             <h2 class="text-3xl font-bold mb-4">
                 Canteen
             </h2>
-            <p class="text-gray-400 leading-relaxed">
-                Good food. Good mood. Thank you for choosing us. We always serve the best for you.
+            <p>
+                <div class="text-gray-400 leading-relaxed">
+                    {{ __('footer.slogan') }}
+                </div>
+                <div class="text-gray-400 leading-relaxed">
+                    {{ __('footer.footer_text') }}
+                </div>
             </p>
         </div>
 
         <div>
             <h3 class="text-xl font-semibold mb-4">
-                Navigation
+                {{ __('footer.footer_navigation') }}
             </h3>
             <div class="flex flex-col gap-3 text-gray-400">
                 <a href="/" class="hover:text-white transition">
-                    Home
+                    {{ __('navigation.home') }}
                 </a>
                 <a href="/menu" class="hover:text-white transition">
-                    Menu
+                    {{ __('navigation.menu') }}
                 </a>
                 <a href="/categories" class="hover:text-white transition">
-                    Categories
+                    {{ __('navigation.categories') }}
                 </a>
                 <a href="/reservations/create" class="hover:text-white transition">
-                    Reservations
+                    {{ __('navigation.reservation') }}
                 </a>
             </div>
         </div>
 
         <div>
             <h3 class="text-xl font-semibold mb-4">
-                Customer Service
+                {{ __('footer.footer_customer_service') }}
             </h3>
             <div class="flex flex-col gap-3 text-gray-400">
                 <a href="/account" class="hover:text-white transition">
-                    My Account
+                    {{ __('navigation.account') }}
                 </a>
                 <a href="/my-orders" class="hover:text-white transition">
-                    My Orders
+                    {{ __('navigation.orders') }}
                 </a>
                 <a href="/my-reservations" class="hover:text-white transition">
-                    My Reservations 
+                    {{ __('navigation.reservations') }}
                 </a>
                 <a href="#" class="hover:text-white transition">
-                    Favorites
+                    {{ __('navigation.favorites') }}
                 </a>
             </div>
         </div>
 
         <div>
             <h3 class="text-xl font-semibold mb-4">
-                Information
+                {{ __('footer.footer_information') }}
             </h3>
             <div class="flex flex-col gap-3 text-gray-400">
                 <a href="#" class="hover:text-white transition">
@@ -75,11 +80,11 @@
     <div class="border-t border-gray-700">
         <div class="max-w-7xl mx-auto text-sm py-4 flex justify-between items-center">
             <p class="text-gray-500">
-                Designed with Laravel & Tailwind CSS
+                {{ __('footer.components') }}
             </p>
 
             <p class="text-gray-500">
-                © 2026 Canteen. All rights reserved.
+                © 2026 Canteen. {{ __('footer.copyright') }}
             </p>
         </div>
     </div>

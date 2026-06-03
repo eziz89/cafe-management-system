@@ -6,11 +6,11 @@
 
     <div class="bg-white shadow-xl rounded-3xl p-10 w-full max-w-md">
         <h1 class="text-3xl font-bold text-center mb-2">
-            Create Account
+            {{ __('register.register') }}
         </h1>
 
         <p class="text-gray-500 text-center mb-8">
-            Join us and start ordering delicious meals
+            {{ __('register.join_us') }}
         </p>
 
         @if ($errors->any())
@@ -38,7 +38,7 @@
 
             <div class="mb-5">
                 <label class="block mb-2 text-sm font-medium">
-                    Name
+                    {{ __('register.name') }}
                 </label>
                 <input type="text" name="name" class="w-full border rounded-xl p-3">
 
@@ -52,7 +52,7 @@
 
             <div class="mb-5">
                 <label class="block mb-2 text-sm font-medium">
-                    Email
+                    {{ __('register.email') }}
                 </label>
                 <input type="email" name="email" class="w-full border rounded-xl p-3">
 
@@ -66,7 +66,7 @@
 
             <div class="mb-5">
                 <label class="block mb-2 text-sm font-medium">
-                    Password
+                    {{ __('register.password') }}
                 </label>
                 <input type="password" name="password" class="w-full border rounded-xl p-3">
 
@@ -80,7 +80,7 @@
 
             <div class="mb-8">
                 <label class="block mb-2 text-sm font-medium">
-                    Confirm Password
+                    {{ __('register.confirm_password') }}
                 </label>
                 <input type="password" name="password_confirmation" class="w-full border rounded-xl p-3">
 
@@ -93,16 +93,16 @@
             </div>
 
             <button type="submit" class="w-full bg-orange-500 hover:bg-orange-600 text-white py-3 rounded-xl transition">
-                Create Account
+                {{ __('register.create_account') }}
             </button>
 
         </form>
 
         <p  class="text-sm text-center text-gray-600 mt-6">
-            Already have an account?
+            {{ __('register.already_have_an_account') }}
 
             <a href="{{ route('login') }}" class="text-orange-500 font-semibold hover:underline">
-                Login
+            {{ __('register.login') }}
             </a>
         </p>
     </div>

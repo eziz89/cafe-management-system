@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<section class="bg-neutral-950 min-h-screen py-20 mb-24">
+<section class="bg-neutral-950 min-h-screen py-20">
     <div class="max-w-7xl mx-auto">
         <div class="mb-16">
             <p class="text-orange-400 font-semibold uppercase tracking-widest mb-4">

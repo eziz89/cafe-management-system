@@ -2,25 +2,25 @@
 
 @section('content')
 <div class="bg-gray-50">
-    <div class="max-w-7x mx-aut pb-24">
+    <div class="pb-24">
         <section class="relative">
 
             <img src="{{ asset('images/menu-header.jpg') }}" alt="Our Menu" class="w-full h-92 object-cover">
 
-            <div class="absolute inset-0 bg-black/40 bg-gradient-to-r from-black/70 to-black/20 flex items-center pt-24">
+            <div class="absolute inset-0 bg-gradient-to-r from-black/50 to-black/10 flex items-center pt-28">
 
                 <div class="px-12 text-white">
 
                     <p class="uppercase tracking-[0.3em] text-orange-300 font-semibold">
-                        MENU
+                        {{ __('menu.menu') }}
                     </p>
 
                     <h1 class="text-5xl font-bold mt-4">
-                        Discover Our Delicious Dishes
+                        {{ __('menu.menu_title') }}
                     </h1>
 
                     <p class="mt-4 text-lg max-w-xl text-gray-200">
-                        Fresh ingredients, authentic recipes, and unforgettable flavors.
+                        {{ __('menu.menu_description') }}
                     </p>
 
                 </div>
@@ -31,7 +31,7 @@
 
         <section class="py-20 bg-gray-50">
 
-            <div class="max-w-7xl mx-auto px-6">
+            <div class="max-w-7xl mx-auto">
 
                 <div class="grid lg:grid-cols-4 gap-10">    
 
@@ -41,17 +41,16 @@
                         <div class="bg-white rounded-3xl shadow-lg p-6 sticky top-24 h-fit">
 
                             <h2 class="text-2xl font-bold mb-6">
-                                Categories
+                                {{ __('category.categories') }}
                             </h2>
 
                             <div class="space-y-3">
 
-                                <a href="/menu"
-                                class="flex items-center justify-between px-4 py-3 rounded-2xl bg-orange-100 text-orange-600 font-semibold">
+                                <a href="/menu" class="flex items-center justify-between px-4 py-3 rounded-2xl bg-orange-100 text-orange-600 font-semibold">
 
-                                    <span>All Dishes</span>
+                                <span>{{ __('menu.all_dishes') }}</span>
 
-                                    <span>{{ $dishes->count() }}</span>
+                                <span>{{ $dishes->count() }}</span>
 
                                 </a>
 
@@ -60,7 +59,7 @@
                                     <a href="{{ route('categories.show', $category->id) }}"
                                     class="flex items-center justify-between pr-4 pl-5 py-3 rounded-2xl hover:bg-orange-50 hover:text-orange-500 transition">
 
-                                        <span>{{ $category->name }}</span>
+                                        <span>{{ $category->translated_name }}</span>
 
                                         <span class="text-gray-400">
                                             {{ $category->dishes_count }}
@@ -84,11 +83,13 @@
                             <div>
 
                                 <h2 class="text-4xl font-bold text-gray-900 mb-2">
-                                    All Dishes
+                                    {{ __('menu.all_dishes') }}
                                 </h2>
 
                                 <p class="text-gray-500">
-                                    Showing {{ $dishes->count() }} delicious items
+                                    {{ __('menu.showing') }}
+                                    {{ $dishes->count() }}
+                                    {{ __('menu.delicious_items') }}
                                 </p>
 
                             </div>
@@ -97,16 +98,16 @@
 
                             <select class="bg-white border border-gray-200 rounded-2xl px-4 py-3 shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-300">
                                 
-                                <option>Newest</option>
-                                <option>Price Low to High</option>
-                                <option>Price High to Low</option>
-                                <option>Top Rated</option>
+                                <option>{{ __('menu.sort_newest') }}</option>
+                                <option>{{ __('menu.sort_price_low_to_high') }}</option>
+                                <option>{{ __('menu.sort_price_low_to_high') }}</option>
+                                <option>{{ __('menu.sort_top_rated') }}</option>
 
                             </select>
 
                         </div>
 
-                            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+                            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
                                 @if($dishes->isEmpty())
                                     <p>No dishes available yet.</p>
                                 @else
@@ -126,7 +127,7 @@
                                                 <div class="flex justify-between items-start gap-4 mb-3">
                                                     <a href="/menu/{{ $dish->id }}">
                                                         <h3 class="text-2xl font-bold text-gray-800 hover:text-orange-500 transition">
-                                                            {{ $dish->name }}
+                                                            {{ $dish->translated_name }}
                                                         </h3>
                                                     </a>
 
@@ -137,14 +138,14 @@
                                                 </div>
 
                                                 <p class="text-gray-500 leading-relaxed mb-5">
-                                                    {{ Str::limit($dish->description, 75) }}
+                                                    {{ Str::limit($dish->translated_description, 50) }}
                                                 </p>
 
                                                 <div class="flex justify-between items-center mb-6">
 
                                                     @if($dish->category)
                                                         <a href="{{ route('categories.show', $dish->category->id) }}" class="inline-flex items-center bg-orange-100 text-orange-700 text-sm font-medium rounded-full px-3 py-1 hover:bg-orange-200 transition">
-                                                            {{ $dish->category->name }}
+                                                            {{ $dish->category->translated_name }}
                                                         </a>
                                                     @endif
 
@@ -183,16 +184,16 @@
 
         
 
-        <div class="mt-12 bg-orange-50 rounded-3xl p-10 flex flex-col md:flex-row items-center justify-between gap-6">
+        <div class="mt-6 bg-orange-50 rounded-3xl p-10 flex flex-col md:flex-row items-center justify-between gap-6">
 
             <div>
 
                 <h2 class="text-3xl font-bold text-gray-900 mb-2">
-                    Can't decide what to order?
+                    {{ __('menu.chef_recommendation_title') }}
                 </h2>
 
                 <p class="text-gray-500">
-                    Explore our chef's recommendations and customer favorites.
+                    {{ __('menu.chef_recommendation_description') }}
                 </p>
 
             </div>

@@ -24,6 +24,8 @@
                 <input type="file" name="image" class="w-full border p-3">
             </div>
             <input type="text" name="name" placeholder="Name" class="block mb-2 p-2 border w-full">
+            <input type="text" name="name_en" placeholder="Name in English" class="block mb-2 p-2 border w-full">
+            <input type="text" name="name_ru" placeholder="Name in Russian" class="block mb-2 p-2 border w-full">
             <textarea name="description" placeholder="Description" class="block mb-2 p-2 border w-full"></textarea>
             <input type="number" step="0.01" name="price" placeholder="Price" class="block mb-2 p-2 border w-full">
             <select name="category_id" class="block mb-2 p-2 border w-full">

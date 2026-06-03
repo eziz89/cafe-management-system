@@ -3,10 +3,10 @@
 @section('content')
 
 <div class="bg-gray-100">
-    <div class="max-w-5xl mx-auto px-6 py-20">
+    <div class="max-w-4xl mx-auto py-20">
 
         <h1 class="text-4xl font-bold mb-8">
-            My Reservations
+            {{ __('myreservation.my_reservations') }}
         </h1>
 
         @forelse($reservations as $reservation)
@@ -17,7 +17,7 @@
 
                     <div>
                         <h2 class="text-xl font-semibold">
-                            Reservation for {{ $reservation->guests }} guests
+                            {{ __('myreservation.reservation_for') }} {{ $reservation->guests }} {{ __('myreservation.guests') }}
                         </h2>
 
                         <p class="text-gray-500 mt-1">
@@ -54,18 +54,15 @@
             <div class="bg-white rounded-2xl shadow-md p-8 text-center">
 
                 <h2 class="text-2xl font-bold mb-3">
-                    No reservations yet
+                    {{ __('myreservation.no_reservations') }}
                 </h2>
 
                 <p class="text-gray-500 mb-6">
-                    You have not made any reservations.
+                    {{ __('myreservation.no_reservations_description') }}
                 </p>
 
-                <a href="{{ route('reservations.create') }}"
-                   class="bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded-xl transition">
-
-                    Reserve a Table
-
+                <a href="{{ route('reservations.create') }}" class="bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded-xl transition">
+                    {{ __('navigation.reserve') }}
                 </a>
 
             </div>

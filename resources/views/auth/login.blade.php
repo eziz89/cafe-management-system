@@ -5,7 +5,7 @@
 <div class="max-w-md mx-auto bg-white p-8 rounded-2xl shadow-lg">
 
     <h1 class="text-3xl font-bold mb-6">
-        Login
+        {{ __('login.login') }}
     </h1>
 
     @if ($errors->any())
@@ -31,18 +31,18 @@
     <form method="POST" action="/login">
         @csrf
 
-        <input type="email" name="email" placeholder="Email" class="w-full border p-3 rounded-lg mb-4">
-        <input type="password" name="password" placeholder="Password" class="w-full border p-3 rounded-lg mb-4">
+        <input type="email" name="email" placeholder="{{ __('login.email') }}" class="w-full border p-3 rounded-lg mb-4">
+        <input type="password" name="password" placeholder="{{ __('login.password') }}" class="w-full border p-3 rounded-lg mb-4">
         <button class="w-full bg-orange-500 hover:bg-orange-600 text-white py-3 rounded-xl transition">
-            Login
+            {{ __('login.login') }}
         </button>
     </form>
 
     <p class="text-sm text-center text-gray-600 mt-4">
-        Don't have an account?
+        {{ __("login.don't_have_an_account") }}
 
         <a href="{{ route('register') }}" class="text-orange-500 font-semibold hover:underline">
-            Create Account
+            {{ __('login.create_account') }}
         </a>
     </p>
 

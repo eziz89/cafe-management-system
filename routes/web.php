@@ -68,3 +68,13 @@ Route::post('/dishes/{id}/review', [DishController::class, 'review'])->name('dis
 Route::middleware('auth')->group(function () {
     Route::get('/account', [AccountController::class, 'index'])->name('account');
 });
+
+Route::get('/language/{locale}', function ($locale) {
+    if (! in_array($locale, ['en', 'ru', 'tk'])) {
+        abort(400);
+    }
+
+    session(['locale' => $locale]);
+
+    return back();
+})->name('language.switch');

@@ -14,7 +14,7 @@
                 </h1>
             </div>
     
-            <div class="space-y-8">
+            <div class="space-y-8 mb-12">
 
                 @foreach($orders as $order)
 
@@ -99,7 +99,7 @@
                                                 @method('PATCH')
 
                                                 <input type="hidden" name="status" value="preparing">
-                                                <button class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-md text-sm">
+                                                <button class="bg-yellow-400 hover:bg-yellow-500 text-white px-4 py-2 rounded-md text-sm">
                                                     Preparing
                                                 </button>
                                             </form>

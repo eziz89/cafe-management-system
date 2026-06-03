@@ -9,11 +9,11 @@
         <div class="bg-white rounded-3xl shadow-sm p-8 mb-8">
 
             <h1 class="text-4xl font-bold text-gray-900 mb-2">
-                Welcome, {{ $user->name }} 👋
+                {{ __('account.welcome') }}, {{ $user->name }} 👋
             </h1>
 
             <p class="text-gray-500">
-                Manage your orders, reservations and reviews.
+                {{ __('account.welcome_dashboard') }}
             </p>
 
         </div>
@@ -23,7 +23,7 @@
             <div class="bg-white rounded-3xl p-6 shadow-sm">
 
                 <p class="text-gray-500 mb-2">
-                    Orders
+                    {{ __('account.orders') }}
                 </p>
 
                 <h2 class="text-4xl font-bold text-orange-500">
@@ -35,7 +35,7 @@
             <div class="bg-white rounded-3xl p-6 shadow-sm">
 
                 <p class="text-gray-500 mb-2">
-                    Reservations
+                    {{ __('account.reservations') }}
                 </p>
 
                 <h2 class="text-4xl font-bold text-orange-500">
@@ -47,7 +47,7 @@
             <div class="bg-white rounded-3xl p-6 shadow-sm">
 
                 <p class="text-gray-500 mb-2">
-                    Reviews
+                    {{ __('account.reviews') }}
                 </p>
 
                 <h2 class="text-4xl font-bold text-orange-500">
@@ -62,7 +62,7 @@
 
             <a href="/my-orders">
                 <h2 class="text-2xl font-bold hover:text-orange-500 duration-200 mb-6">
-                    Recent Orders
+                    {{ __('account.recent_orders') }}
                 </h2>
             </a>
 
@@ -73,7 +73,7 @@
                     <a href="{{ route('orders.show', $order->id) }}">
 
                         <p class="font-semibold">
-                            Order #{{ $order->id }}
+                            {{ __('account.order') }} #{{ $order->id }}
                         </p>
 
                         <p class="text-sm text-gray-500">
@@ -93,7 +93,7 @@
             @empty
 
                 <p class="text-gray-500">
-                    No orders yet.
+                    {{ __('account.no_orders') }}
                 </p>
 
             @endforelse
@@ -104,7 +104,7 @@
 
             <a href="/my-reservations">
                 <h2 class="text-2xl font-bold hover:text-orange-500 duration-200 mb-6">
-                    Reservations
+                    {{ __('account.reservations') }}
                 </h2>
             </a>
 
@@ -115,7 +115,7 @@
                     <div>
 
                         <p class="font-semibold">
-                            {{ $reservation->guests }} Guests
+                            {{ $reservation->guests }} {{ __('account.guests') }}
                         </p>
 
                         <p class="text-sm text-gray-500">
@@ -136,7 +136,7 @@
             @empty
 
                 <p class="text-gray-500">
-                    No reservations yet.
+                    {{ __('account.no_reservations') }}
                 </p>
 
             @endforelse
@@ -146,7 +146,7 @@
         <div class="bg-white rounded-3xl shadow-sm p-8">
 
             <h2 class="text-2xl font-bold hover:text-orange-500 duration-200 mb-6">
-                Recent Reviews
+                {{ __('account.recent_reviews') }}
             </h2>
 
             @forelse($comments as $comment)
@@ -166,7 +166,7 @@
             @empty
 
                 <p class="text-gray-500">
-                    No reviews yet.
+                    {{ __('account.no_reviews') }}
                 </p>
 
             @endforelse

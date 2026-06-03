@@ -9,6 +9,8 @@ class Dish extends Model
 {
     protected $fillable = [
         'name',
+        'name_en',
+        'name_ru',
         'description',
         'price',
         'category_id',
@@ -34,4 +36,26 @@ class Dish extends Model
     {
         return $this->hasMany(Comment::class);
     }
-}
+
+    public function getTranslatedNameAttribute()
+    {
+        $locale = app()->getLocale();
+
+        if ($locale === 'tk') {
+            return $this->name;
+        }
+
+        return $this->{"name_{$locale}"} ?: $this->name;
+    }
+
+    public function getTranslatedDescriptionAttribute()
+    {
+        $locale = app()->getLocale();
+
+        if ($locale === 'tk') {
+            return $this->description;
+        }
+
+        return $this->{"description_{$locale}"} ?: $this->description;
+    }
+ }

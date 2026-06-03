@@ -5,8 +5,8 @@
 <div class="bg-gray-100">
     <div class="max-w-4xl mx-auto py-20">
 
-        <h1 class="text-3xl font-bold mb-6">
-            My Orders
+        <h1 class="text-4xl font-bold mb-6">
+            {{ __('myorder.my_orders') }}
         </h1>
 
         @forelse($orders as $order)
@@ -17,7 +17,7 @@
 
                     <div>
                         <h2 class="text-xl font-semibold">
-                            Order #{{ $order->id }}
+                            {{ __('myorder.order') }} #{{ $order->id }}
                         </h2>
 
                         <p class="text-gray-500 text-sm">
@@ -53,14 +53,14 @@
                 
                 <div class="flex justify-between items-center">
                     <div class="mt-4">
-                        <span>Total: </span>
+                        <span>{{ __('myorder.total') }}: </span>
                         <span class="font-bold">
                             {{ number_format($order->total_price, 2) }}
                         </span>
                     </div>
 
                     <a href="{{ route('orders.show', $order->id) }}" class="text-orange-500 hover:underline">
-                        View Details
+                        {{ __('myorder.view_details') }}
                     </a>
                 </div>
 
@@ -68,18 +68,20 @@
 
         @empty
 
-            <div class="text-center py-10">
-                <h2 class="text-2xl font-semibold mb-2">
-                    No orders yet
+            <div class="bg-white rounded-2xl shadow-md p-8 text-center">
+
+                <h2 class="text-2xl font-bold mb-3">
+                    {{ __('myorder.no_orders') }}
                 </h2>
 
-                <p class="text-gray-500 mb-4">
-                    You haven't placed any orders so far
+                <p class="text-gray-500 mb-6">
+                    {{ __('myorder.no_orders_description') }}
                 </p>
 
-                <a href="/menu" class="text-blue-500 underline">
-                    Browse Menu
+                <a href="/menu" class="bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded-xl transition">
+                    {{ __('navigation.browse_menu') }}
                 </a>
+
             </div>
 
         @endforelse

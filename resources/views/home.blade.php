@@ -1,30 +1,37 @@
 @extends('layouts.app')
 
 @section('content')
+@php
+    $icons = [
+        'Pastries & Baked Goods' => '🍕',
+        'Drinks' => '🥤',
+        'Light Bites & Savory Snacks' => '🍰',
+        'Breakfast & Brunch' => '🍳',
+        'Salads & Soups' => '🥗',
+        'Sandwiches, Paninis & Wraps' => '🍔',
+    ];
+@endphp
 
     <section class="grid md:grid-cols-2 gap-12 bg-gray-50 items-center px-14 pt-14 pb-20 mb-10">
         <div class="max-w-7xl mx-auto">
             <p class="text-orange-500 font-semibold uppercase tracking-widest mb-4">
-                Welcome to Our Café
+                {{ __('home.welcome_text') }}
             </p>
 
             <h1 class="text-5xl text-neutral-800 font-bold leading-tight mb-6">
-                Delicious Food,
-                Comfortable Atmosphere,
-                Memorable Experience.
+                {{ __('home.hero_title') }}
             </h1>
 
             <p class="text-gray-600 text-lg mb-8 leading-relaxed">
-                Discover our carefully crafted dishes, reserve your table effortlessly,
-                and enjoy a modern café experience designed for comfort and flavor.
+                {{ __('home.hero_description') }}
             </p>
 
             <div class="flex gap-8">
                 <a href="/categories" class="bg-orange-500 hover:bg-orange-600 hover:scale-102 hover:shadow-lg hover:shadow-orange-500/30 text-white px-5 py-4 rounded-2xl font-semibold transition duration-300 mt-4">
-                    Browse Menu
+                    {{ __('navigation.browse_menu') }}
                 </a>
                 <a href="/reservations/create" class="border border-orange-600 hover:bg-orange-600 hover:shadow-lg hover:shadow-orange-500/30 text-orange-500 hover:text-white px-4 py-4 rounded-2xl font-semibold transition duration-300 mt-4">
-                    Reserve Table
+                    {{ __('navigation.reserve') }}
                 </a>
             </div>
         </div>
@@ -41,15 +48,15 @@
         <div class="flex justify-between items-center mb-12">
             <div>
                 <p class="text-orange-500 uppercase tracking-[0.3em] mb-4 font-semibold">
-                    Categories
+                    {{ __('category.categories') }}
                 </p>
                 <h2 class="text-4xl text-neutral-800 font-bold leading-tight mb-8">
-                    Explore Our Culinary Selection
+                    {{ __('category.culinary_selection') }}
                 </h2>
             </div>
             <a href="/categories"
                class="text-orange-500 hover:text-orange-600 font-medium">
-                View All →
+                {{ __('category.view_all') }} →
             </a>
         </div>
 
@@ -69,12 +76,12 @@
                                    hover:-translate-y-2 hover:border border-orange-400
                                    transition duration-300 px-4 py-8">
 
-                                    <div class="w-14 h-14 rounded-2xl bg-orange-500 flex items-center justify-center mb-4 mx-auto">
-                                        <span class="text-2xl">🍴</span>
+                                    <div class="w-14 h-14 rounded-full bg-orange-300 flex items-center justify-center mb-4 mx-auto">
+                                        {{ $icons[$category->name] ?? '🍽️' }}
                                     </div>
 
                                     <h3 class="text-neutral-800 text-xl font-bold mb-4">
-                                        {{ $category->name }}
+                                        {{ $category->translated_name }}
                                     </h3>
 
                                     <p class="text-gray-600 font-semibold">
@@ -111,16 +118,15 @@
         <div class="flex justify-between items-center mb-12">
             <div>
                 <p class="text-orange-500 uppercase tracking-widest font-semibold">
-                    Featured Dishes
+                    {{ __('dish.featured_dishes') }}
                 </p>
                 <h2 class="text-4xl font-bold text-gray-800 mt-2">
-                    Customer Favorites
+                    {{ __('dish.customer_favorites') }}
                 </h2>
             </div>
 
-            <a href="/menu"
-               class="text-orange-500 hover:text-orange-600 font-medium">
-                View Full Menu →
+            <a href="/menu" class="text-orange-500 hover:text-orange-600 font-medium">
+                {{ __('dish.view_menu') }} →
             </a>
 
         </div>
@@ -142,7 +148,7 @@
                         <div class="flex justify-between items-start gap-4 mb-3">
                             <a href="/menu/{{ $dish->id }}">
                                 <h3 class="text-2xl font-bold text-gray-800 hover:text-orange-500 transition">
-                                    {{ $dish->name }}
+                                    {{ $dish->translated_name }}
                                 </h3>
                             </a>
 
@@ -153,14 +159,14 @@
                         </div>
 
                         <p class="text-gray-500 leading-relaxed mb-5">
-                            {{ Str::limit($dish->description, 75) }}
+                            {{ Str::limit($dish->translated_description, 75) }}
                         </p>
 
                         <div class="flex justify-between items-center mb-6">
 
                             @if($dish->category)
                                 <a href="{{ route('categories.show', $dish->category->id) }}" class="inline-flex items-center bg-orange-100 text-orange-700 text-sm font-medium rounded-full px-3 py-1 hover:bg-orange-200 transition">
-                                    {{ $dish->category->name }}
+                                    {{ $dish->category->translated_name }}
                                 </a>
                             @endif
 
@@ -196,13 +202,13 @@
         <div class="max-w-7xl mx-auto">
             <div class="text-center mb-14">
                 <p class="text-orange-500 uppercase tracking-[0.3em] font-semibold">
-                    Location
+                    {{ __('location.location') }}
                 </p>
                 <h2 class="text-5xl text-neutral-800 font-bold mt-4">
-                    Visit Our Cafe
+                    {{ __('location.location_header') }}
                 </h2>
                 <p class="text-gray-600 max-w-2xl mx-auto mt-4">
-                    Experience delicious food, a cozy atmosphere, and unforgettable moments in our cafe.
+                    {{ __('location.location_description') }}
                 </p>
             </div>
 
@@ -211,34 +217,34 @@
                 <div class="space-y-4">
 
                     <div>
-                        <h3 class="text-xl text-neutral-800 font-semibold">📍 Where to find us</h3>
-                        <p class="text-gray-600 mb-4 mt-2">Ashgabat, Turkmenistan</p>
+                        <h3 class="text-xl text-neutral-800 font-semibold">📍 {{ __('location.where_to_find') }}</h3>
+                        <p class="text-gray-600 mb-4 mt-2">{{ __('location.address') }}</p>
                         <a href="https://www.google.com/maps?q=Ashgabat"
                            target="_blank"
                            class="text-white bg-orange-500 hover:bg-orange-500 hover:shadow-orange-500/30 border border-orange-500 rounded-xl transition duration-300 py-1 px-3">
-                            Open in Google Maps
+                            {{ __('location.open_map') }}
                         </a>
                     </div>
 
                     <div>
-                        <h3 class="text-xl text-neutral-800 font-semibold mt-9">🕒 Opening Hours</h3>
-                        <p class="text-gray-600 mt-2">Mon - Sun: 8:00 AM - 10:00 PM</p>
-                        <p class="text-gray-600">All day without break</p>
+                        <h3 class="text-xl text-neutral-800 font-semibold mt-9">🕒 {{ __('location.opening_hours') }}</h3>
+                        <p class="text-gray-600 mt-2">{{ __('location.open_hours') }}</p>
+                        <p class="text-gray-600">{{ __('location.open_hours_description') }}</p>
                     </div>
 
                     <div>
-                        <h3 class="text-xl text-neutral-800 font-semibold mt-9">📞 Contact</h3>
+                        <h3 class="text-xl text-neutral-800 font-semibold mt-9">📞 {{ __('contact.contact') }}</h3>
                         <div class="flex mb-4">
                             <p class="text-gray-400 pr-5">+993 XX XXX XXX</p>
                             <p class="text-gray-400">+993 XX XXX XXX</p>
                         </div>
                         <a href="tel:+993XXXXXXXX" class="text-white bg-orange-500 rounded-xl hover:bg-orange-500 hover:shadow-orange-500/30 border border-orange-500 transition duration-300 py-1 px-3">
-                            Call Us
+                            {{ __('contact.call_us') }}
                         </a>
                         <p class="text-gray-400 mt-4 mb-2">canteen@example.com</p>
                         <a href="mailto:canteen@example.com"
                            class="text-white bg-orange-500 rounded-xl hover:bg-orange-500 hover:shadow-orange-500/30 border border-orange-500 transition duration-300 py-1 px-3">
-                            Send Email
+                            {{ __('contact.send_email') }}
                         </a>
                     </div>
                 </div>
