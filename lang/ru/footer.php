@@ -8,4 +8,8 @@ return [
     'footer_information' => 'Информация',
     'components' => 'Разработано с использованием Laravel & Tailwind CSS.',
     'copyright' => 'Все права защищены.',
+    'about_us' => 'О нас',
+    'privacy_policy' => 'Политика конфиденциальности',
+    'terms_and_conditions' => 'Условия и положения',
+    'delivery_information' => 'Информация о доставке',
 ];

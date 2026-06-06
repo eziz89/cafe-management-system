@@ -8,9 +8,45 @@ use App\Models\Category;
 
 class MenuController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $dishes = Dish::orderBy('created_at', 'desc')->get();
+        $query = Dish::query();
+
+        if ($request->filled('search')) {
+
+            $search = $request->search;
+
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                ->orWhere('name_en', 'like', "%{$search}%")
+                ->orWhere('name_ru', 'like', "%{$search}%")
+                ->orWhere('description', 'like', "%{$search}%")
+                ->orWhere('description_en', 'like', "%{$search}%")
+                ->orWhere('description_ru', 'like', "%{$search}%");
+            });
+        }
+
+        $sort = $request->get('sort', 'newest');
+
+        switch ($sort) {
+            case 'price_low':
+                $query->orderBy('price');
+                break;
+            
+            case 'price_high':
+                $query->orderByDesc('price');
+                break;
+
+            case 'top_rated':
+                $query->withAvg('ratings', 'rating')
+                ->orderByDesc('ratings_avg_rating');
+                break;
+
+            default:
+                $query->orderByDesc('created_at');
+        }
+
+        $dishes = $query->get();
 
         $categories = Category::withCount('dishes')->get();
         

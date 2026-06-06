@@ -5,13 +5,13 @@
     <div class="max-w-7xl mx-auto">
         <div class="mb-16">
             <p class="text-orange-400 font-semibold uppercase tracking-widest mb-4">
-                Menu Category
+                {{ __('category.menu_category') }}
             </p>
             <h1 class="text-5xl font-bold text-white mb-6">
-                {{ $category->name }}
+                {{ $category->translated_name }}
             </h1>
             <p class="text-neutral-400 max-w-3xl text-lg">
-                Discover carefully prepared dishes from our {{ strtolower($category->name) }} collection.
+                {{ __('category.discover_text') }} {{ ($category->translated_name) }} {{ __('category.collection') }}
             </p>
         </div>
 
@@ -29,7 +29,7 @@
 
                             <a href="/menu/{{ $dish->id }}">
                                 <h2 class="text-2xl font-bold text-white hover:text-orange-500 transition">
-                                        {{ $dish->name }}
+                                    {{ $dish->translated_name }}
                                 </h2>
                             </a>
 
@@ -39,7 +39,7 @@
                         </div>
 
                         <p class="text-neutral-400 mb-6 leading-relaxed">
-                            {{ Str::limit($dish->description, 80) }}
+                            {{ Str::limit($dish->translated_description, 80) }}
                         </p>
 
                         @php
@@ -52,7 +52,7 @@
                             @csrf
 
                             <button type="submit" class="w-full bg-orange-500 hover:bg-orange-600 hover:shadow-lg hover:shadow-orange-500/30 text-white py-3 rounded-2xl font-semibold transition duration-300 mt-4">
-                                Add to Cart
+                                {{ __('cart.add_to_cart') }}
                             </button>
                         </form>
 

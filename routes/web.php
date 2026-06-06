@@ -22,7 +22,7 @@ Route::get('/', function () {
     return view('home', compact('featuredDishes', 'categories'));
 });
 
-Route::get('/menu', [MenuController::class, 'index']);
+Route::get('/menu', [MenuController::class, 'index'])->name('menu.index');
 Route::get('/menu/{id}', [MenuController::class, 'show']);
 
 Route::get('/categories', [CategoryController::class, 'index']);

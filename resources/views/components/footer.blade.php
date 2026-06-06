@@ -62,16 +62,16 @@
             </h3>
             <div class="flex flex-col gap-3 text-gray-400">
                 <a href="#" class="hover:text-white transition">
-                    About us
+                    {{ __('footer.about_us') }}
                 </a>
                 <a href="#" class="hover:text-white transition">
-                    Privacy Policy
+                    {{ __('footer.privacy_policy') }}
                 </a>
                 <a href="#" class="hover:text-white transition">
-                    Terms & Contitions
+                    {{ __('footer.terms_and_conditions') }}
                 </a>
                 <a href="#" class="hover:text-white transition">
-                    Delivery Information
+                    {{ __('footer.delivery_information') }}
                 </a>
             </div>
         </div>

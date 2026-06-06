@@ -13,4 +13,5 @@ return [
     'sort_top_rated' => 'С самым высоким рейтингом',
     'chef_recommendation_title' => 'Не знаете, что заказать?',
     'chef_recommendation_description' => 'Ознакомьтесь с рекомендациями наших шеф-поваров и любимыми блюдами наших клиентов.',
+    'back_to_menu' => 'Вернуться в меню',
 ];

@@ -6,4 +6,7 @@ return [
     'explore' => 'Gözläň',
     'culinary_selection' => 'Kulinar saýlamamyzy öwreniň',
     'view_all' => 'Hemmesini gör',
+    'menu_category' => 'Menýu Kategoriýasy',
+    'discover_text' => '',
+    'collection' => 'kolleksiýamyzdan seresaplylyk bilen taýýarlanan tagamlary tapyň.',
 ];

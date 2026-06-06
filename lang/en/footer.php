@@ -8,4 +8,8 @@ return [
     'footer_information' => 'Information',
     'components' => 'Designed with Laravel & Tailwind CSS',
     'copyright' => 'All rights reserved.',
+    'about_us' => 'About us',
+    'privacy_policy' => 'Privacy Policy',
+    'terms_and_conditions' => 'Terms & Contitions',
+    'delivery_information' => 'Delivery Information',
 ];

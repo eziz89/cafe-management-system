@@ -8,4 +8,8 @@ return [
     'footer_information' => 'Maglumat',
     'components' => 'Laravel & Tailwind CSS bilen işlenip düzüldi',
     'copyright' => 'Ähli hukuklary goragly.',
+    'about_us' => 'Biz hakda',
+    'privacy_policy' => 'Gizlinlik Syýasaty',
+    'terms_and_conditions' => 'Şertler we Şertler',
+    'delivery_information' => 'Eltip bermek maglumatlary',
 ];

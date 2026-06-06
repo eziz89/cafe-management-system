@@ -3,13 +3,13 @@
 @section('content')
 
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 bg-gray-100 pb-24 pt-10 px-10">
-            <div class="bg-white rounded-2xl border-2 border-gray-600 shadow-sm b p-5">
+            <div class="bg-white rounded-2xl border-2 border-orange-600 shadow-sm b p-5">
 
                 <img src="{{ asset('storage/' . $dish->image) }}"
                      class="w-full h-72 object-cover rounded-xl mb-5">
 
                 <h1 class="text-4xl font-bold text-gray-900 mb-3">
-                    {{ $dish->name }}
+                    {{ $dish->translated_name }}
                 </h1>
 
                 <p class="text-3xl font-bold text-orange-500 mb-5">
@@ -17,7 +17,7 @@
                 </p>
 
                 <p class="text-gray-600 leading-relaxed mb-8">
-                    {{ $dish->description }}
+                    {{ $dish->translated_description }}
                 </p>
 
                 <div class="space-y-4 text-gray-700">
@@ -39,18 +39,18 @@
                     @csrf
 
                     <button type="submit" class="w-full bg-orange-500 hover:bg-orange-600 hover:shadow-lg hover:shadow-orange-500/30 text-white py-3 rounded-xl font-semibold transition duration-300 mt-6">
-                        Add to Cart
+                        {{ __('cart.add_to_cart') }}
                     </button>
                 </form>
 
                 <a href="/menu" class="text-blue-500 mt-4 inline-block">
-                    <- Back to menu
+                    <- {{ __('menu.back_to_menu') }}
                 </a>
             </div>
 
-            <div class="lg:col-span-2 bg-white border-2 border-gray-600 rounded-2xl shadow-sm p-8">
+            <div class="lg:col-span-2 bg-white border-2 border-orange-400 rounded-2xl shadow-sm p-8">
                 <h2 class="text-3xl font-bold text-gray-900 mb-8">
-                    Customer Reviews
+                    {{ __('review.customer_reviews') }}
                 </h2>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-10 mb-10">
@@ -68,9 +68,9 @@
                         </div>
 
                         <p class="text-gray-400">
-                            Based on
+                            {{ __('review.based_on') }}
                             {{ $dish->ratings->count() }}
-                            {{ $dish->ratings->count() == 1 ? 'review' : 'reviews' }}
+                            {{ trans_choice('review.review_count', $dish->ratings->count()) }}
                         </p>
                     </div>
 
@@ -115,11 +115,11 @@
 
                             <div>
                                 <h3 class="text-xl font-semibold mb-4">
-                                    Share your rating
+                                    {{ __('review.share_rating') }}
                                 </h3>
 
                                 <p class="text-gray-500 mb-6">
-                                    How would you rate this dish?
+                                    {{ __('review.rate_dish') }}
                                 </p>
 
                                 <div class="rating flex flex-row-reverse justify-end gap-2 mb-6">
@@ -127,10 +127,10 @@
                                     @for($i = 5; $i >= 1; $i--)
 
                                         <input type="radio"
-                                               name="rating"
-                                               id="star{{ $i }}-{{ $dish->id }}"
-                                               value="{{ $i }}"
-                                               hidden>
+                                            name="rating"
+                                            id="star{{ $i }}-{{ $dish->id }}"
+                                            value="{{ $i }}"
+                                            hidden>
 
                                         <label for="star{{ $i }}-{{ $dish->id }}">
                                             ★
@@ -145,26 +145,21 @@
                             <div>
 
                                 <h3 class="text-xl font-semibold mb-4">
-                                    Write a review (optional)
+                                    {{ __('review.writ_review') }}
                                 </h3>
 
                                 <textarea
                                     name="comment"
                                     rows="5"
-                                    placeholder="Share your experience with this dish..."
+                                    placeholder="{{ __('review.share_experience') }}"
                                     class="w-full border border-gray-300 rounded-2xl
                                            p-4 resize-none focus:ring-2
                                            focus:ring-orange-400 focus:outline-none"></textarea>
 
                                 <div class="flex justify-end mt-5">
 
-                                    <button type="submit"
-                                        class="bg-orange-500 hover:bg-orange-600
-                                               text-white px-8 py-3 rounded-2xl
-                                               font-medium transition">
-
-                                        Submit Review
-
+                                    <button type="submit" class="bg-orange-500 hover:bg-orange-600 text-white px-8 py-3 rounded-2xl font-medium transition">
+                                        {{ __('review.submit_review') }}
                                     </button>
 
                                 </div>

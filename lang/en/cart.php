@@ -11,4 +11,5 @@ return [
     'total_items' => 'Total Items',
     'total' => 'Total',
     'checkout' => 'Proceed to Checkout',
+    'add_to_cart' => 'Add to Cart',
 ];

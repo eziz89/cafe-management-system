@@ -53,15 +53,15 @@
                             <i data-lucide="star" class="w-5 h-5"></i>
                             {{ __('navigation.reviews') }}
                         </a>
-                        <div class="flex items-center text-center gap-2">
+                        <div class="flex items-center text-center text-neutral-800">
                             <a href="{{ route('language.switch', 'tk') }}" class="flex items-center gap-2 block px-5 py-3 hover:bg-orange-50 hover:text-orange-500 transition">
-                                tk
+                                TKM
                             </a>
                             <a href="{{ route('language.switch', 'en') }}" class="flex items-center gap-2 block px-5 py-3 hover:bg-orange-50 hover:text-orange-500 transition">
-                                en
+                                ENG
                             </a>
                             <a href="{{ route('language.switch', 'ru') }}" class="flex items-center gap-2 block px-5 py-3 hover:bg-orange-50 hover:text-orange-500 transition">
-                                ru
+                                RUS
                             </a>
                         </div>
 
@@ -87,20 +87,40 @@
                 {{ __('navigation.login') }}
             </a>
             
+            
+
             <div class="relative group">
+
+                <div class="px-2 py-3 border-b border-gray-400">
+                    <p class="text-xs uppercase tracking-wider text-gray-400 x-transition.scale">
+                        {{ __('language.language') }}
+                    </p>
+                </div>
                 
-                <a href="{{ route('language.switch', 'tk') }}" class="flex items-center gap-2 hover:text-orange-500 transition py-2">
-                    🇹🇲tk
-                </a>
-                <div class="absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-2xl border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-                    <div class="flex items-center gap-3">
-                        <a href="{{ route('language.switch', 'en') }}" class="flex items-center gap-2 block px-5 py-3 hover:bg-orange-50 hover:text-orange-500 transition">
-                            en
+                <div class="absolute right-0 mt-2 w-48 bg-white rounded-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible shadow-lg border border-gray-100 x-transition.scale">
+
+                    @php
+                    $currentLocale = app()->getLocale();
+        
+                    $languages = [
+                        'tk' => 'Türkmen',
+                        'ru' => 'Русский',
+                        'en' => 'English',
+                    ];
+                    @endphp
+                
+                    @foreach($languages as $code => $name)
+                
+                        <a href="{{ route('language.switch', $code) }}" class="flex items-center justify-between px-4 py-3 rounded-2xl hover:bg-orange-50 x-transition.scale {{ app()->getLocale() == $code ? 'text-orange-500 font-semibold bg-orange-50' : 'text-gray-700' }}">
+                            <span>{{ $name }}</span>
+                
+                            @if(app()->getLocale() == $code)
+                                *
+                            @endif
                         </a>
-                        <a href="{{ route('language.switch', 'ru') }}" class="flex items-center gap-2 block px-5 py-3 hover:bg-orange-50 hover:text-orange-500 transition">
-                            ru
-                        </a>
-                    </div>
+                
+                    @endforeach
+
                 </div>
                 
             </div>

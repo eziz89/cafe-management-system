@@ -94,22 +94,53 @@
 
                             </div>
 
-                            {{-- SORT --}}
+                            <form action="{{ route('menu.index') }}" method="GET">
+                                <div class="flex gap-3">
+                                    <input
+                                        type="text" name="search"
+                                        value="{{ request('search') }}"
+                                        placeholder="Search dishes..."
+                                        class="px-4 py-3 border rounded-2xl w-full focus:ring-2 focus:ring-orange-300">
 
-                            <select class="bg-white border border-gray-200 rounded-2xl px-4 py-3 shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-300">
-                                
-                                <option>{{ __('menu.sort_newest') }}</option>
-                                <option>{{ __('menu.sort_price_low_to_high') }}</option>
-                                <option>{{ __('menu.sort_price_low_to_high') }}</option>
-                                <option>{{ __('menu.sort_top_rated') }}</option>
+                                    <select 
+                                        name="sort"
+                                        onchange="this.form.submit()"
+                                        class="bg-white border border-gray-200 rounded-2xl px-4 py-3 shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-300">
+                                        
+                                        <option value="newest" {{ request('sort') == 'newest' ? 'selected' : '' }}>
+                                            {{ __('menu.sort_newest') }}
+                                        </option>
+                                        <option value="price_low" {{ request('sort') == 'price_low' ? 'selected' : '' }}>
+                                            {{ __('menu.sort_price_low_to_high') }}
+                                        </option>
+                                        <option value="price_high" {{ request('sort') == 'price_high' ? 'selected' : '' }}>
+                                            {{ __('menu.sort_price_high_to_low') }}
+                                        </option>
+                                        <option value="top_rated" {{ request('sort') == 'top_rated' ? 'selected' : '' }}>
+                                            {{ __('menu.sort_top_rated') }}
+                                        </option>
+        
+                                    </select>
 
-                            </select>
+                                    <button type="submit" class="bg-orange-500 text-white px-6 rounded-2xl hover:bg-orange-600 transition">
+                                        Search
+                                    </button>
+                                </div>
+                            </form>
 
                         </div>
 
                             <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
                                 @if($dishes->isEmpty())
-                                    <p>No dishes available yet.</p>
+                                    <div class="col-span-full text-center py-16">
+                                        <h3 class="text-2xl font-bold text-gray-700 mb-2">
+                                            No dishes found
+                                        </h3>
+
+                                        <p class="text-gray-700">
+                                            Try another search term.
+                                        </p>
+                                    </div>
                                 @else
 
                                     @foreach($dishes as $dish)
@@ -153,9 +184,9 @@
                                                         $avg = $dish->ratings->avg('rating');
                                                     @endphp
 
-                                                    <p class="font-semibold text-gray-700">
+                                                    <p class="font-semibold text-gray-700 text-end ">
                                                         ⭐
-                                                        {{ $avg ? number_format($avg, 1) : 'New' }}
+                                                        {{ $avg ? number_format($avg, 1) : __('dish.new') }}
                                                     </p>
 
                                                 </div>
@@ -164,7 +195,7 @@
                                                     @csrf
 
                                                     <button type="submit" class="w-full bg-orange-500 hover:bg-orange-600 text-white rounded-2xl font-semibold py-2 hover:shadow-lg hover:shadow-orange-500/30 transition duration-300">
-                                                        Add to Cart
+                                                        {{ __('cart.add_to_cart') }}
                                                     </button>
                                                 </form>
 

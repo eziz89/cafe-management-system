@@ -71,13 +71,13 @@
                             @foreach($chunk as $category)
 
                                 <a href="/categories/{{ $category->id }}"
-                                   class="bg-gray-100 text-center rounded-[1rem]
-                                   shadow-md hover:shadow-xl
-                                   hover:-translate-y-2 hover:border border-orange-400
-                                   transition duration-300 px-4 py-8">
+                                    class="bg-gray-100 text-center rounded-[1rem]
+                                    shadow-md hover:shadow-xl
+                                    hover:-translate-y-2 hover:border border-orange-400
+                                    transition duration-300 px-4 py-8">
 
                                     <div class="w-14 h-14 rounded-full bg-orange-300 flex items-center justify-center mb-4 mx-auto">
-                                        {{ $icons[$category->name] ?? '🍽️' }}
+                                        {{ $icons[$category->translated_name] ?? '🍽️' }}
                                     </div>
 
                                     <h3 class="text-neutral-800 text-xl font-bold mb-4">
@@ -85,8 +85,7 @@
                                     </h3>
 
                                     <p class="text-gray-600 font-semibold">
-                                        {{ $category->dishes_count }}
-                                        {{ Str::plural('dish', $category->dishes_count) }}
+                                        {{ trans_choice('dish.dish_count', $category->dishes_count, ['count' => $category->dishes_count]) }}
                                     </p>
                                 </a>
 
@@ -176,7 +175,7 @@
 
                             <p class="font-semibold text-gray-700">
                                 ⭐
-                                {{ $avg ? number_format($avg, 1) : 'New' }}
+                                {{ $avg ? number_format($avg, 1) : __('dish.new') }}
                             </p>
 
                         </div>
@@ -185,7 +184,7 @@
                             @csrf
 
                             <button type="submit" class="w-full bg-orange-500 hover:bg-orange-600 text-white rounded-2xl font-semibold py-2 hover:shadow-lg hover:shadow-orange-500/30 transition duration-300">
-                                Add to Cart
+                                {{ __('cart.add_to_cart') }}
                             </button>
                         </form>
 

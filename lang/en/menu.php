@@ -13,4 +13,5 @@ return [
     'sort_top_rated' => 'Top Rated',
     'chef_recommendation_title' => "Can't decide what to order?",
     'chef_recommendation_description' => "Check out our chefs' recommendations and our customers' favorite dishes.",
+    'back_to_menu' => 'Back to Menu',
 ];

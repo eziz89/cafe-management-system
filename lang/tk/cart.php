@@ -11,4 +11,5 @@ return [
     'total_items' => 'Jemi önümler',
     'total' => 'Jemi',
     'checkout' => 'Hasaba Geçiň',
+    'add_to_cart' => 'Sebede Goş',
 ];

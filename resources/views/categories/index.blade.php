@@ -40,18 +40,17 @@
                     <div class="flex justify-between items-start mb-">
                         <div>
                             <div class="text-4xl text-center mb-3">
-                                {{ $icons[$category->name] ?? '🍽️' }}
+                                {{ $icons[$category->translated_name] ?? '🍽️' }}
                             </div>
                             <h2 class="text-2xl font-bold text-white mb-3">
                                 {{ $category->translated_name }}
                             </h2>
                             <p class="text-neutral-400 my-6">
-                                {{ $descriptions[$category->name] ?? 'Explore our delicious selection.' }}
+                                {{ $descriptions[$category->translated_name] ?? 'Explore our delicious selection.' }}
                             </p>
                             <div class="flex justify-between">
                                 <span class="bg-orange-500/10 text-orange-400 px-3 py-1 rounded-full text-sm">
-                                    {{ $category->dishes_count }}
-                                    {{ Str::plural('dish', $category->dishes_count) }}
+                                    {{ trans_choice('dish.dish_count', $category->dishes_count, ['count' => $category->dishes_count]) }}
                                 </span>
                                 <a href="{{ route('categories.show', $category->id) }}" class="text-orange-400 font-semibold hover:text-orange-300 transition">
                                     {{ __('category.explore') }} →
