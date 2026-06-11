@@ -53,6 +53,10 @@
                             <i data-lucide="star" class="w-5 h-5"></i>
                             {{ __('navigation.reviews') }}
                         </a>
+                        <a href="{{ route('favorites.index') }}" class="{{ request()->is('favorites') ? 'text-orange-500' : 'text-gray-700' }} flex items-center gap-2 block px-5 py-3 text-gray-700 hover:bg-orange-50 hover:text-orange-500 transition">
+                            <i data-lucide="heart" class="w-5 h-5"></i>
+                            Favorites
+                        </a>
                         <div class="flex items-center text-center text-neutral-800">
                             <a href="{{ route('language.switch', 'tk') }}" class="flex items-center gap-2 block px-5 py-3 hover:bg-orange-50 hover:text-orange-500 transition">
                                 TKM

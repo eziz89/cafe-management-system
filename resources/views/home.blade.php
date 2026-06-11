@@ -3,12 +3,12 @@
 @section('content')
 @php
     $icons = [
-        'Pastries & Baked Goods' => '🍕',
-        'Drinks' => '🥤',
-        'Light Bites & Savory Snacks' => '🍰',
-        'Breakfast & Brunch' => '🍳',
-        'Salads & Soups' => '🥗',
-        'Sandwiches, Paninis & Wraps' => '🍔',
+        '1' => '🍕',
+        '2' => '🥤',
+        '3' => '🍰',
+        '4' => '🍳',
+        '5' => '🥗',
+        '6' => '🍔',
     ];
 @endphp
 
@@ -45,7 +45,7 @@
     </section>
 
     <section class="max-w-7xl mx-auto text-stone-800 pt-18 pb-12">
-        <div class="flex justify-between items-center mb-12">
+        <div class="flex justify-between items-center mb-6">
             <div>
                 <p class="text-orange-500 uppercase tracking-[0.3em] mb-4 font-semibold">
                     {{ __('category.categories') }}
@@ -59,59 +59,45 @@
                 {{ __('category.view_all') }} →
             </a>
         </div>
+        
+        <div class="swiper categorySwiper">
+            <div class="swiper-wrapper">
 
-        <div id="categoryCarousel" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-inner">
+                @foreach($categories as $category )
 
-                @foreach($categories->chunk(4) as $chunkIndex => $chunk)
+                    <div class="swiper-slide h-auto px-1 py-3">
 
-                    <div class="carousel-item {{ $chunkIndex === 0 ? 'active' : '' }}">
-                        <div class="grid md:grid-cols-4 gap-14">
+                        <a href="/categories/{{ $category->id }}"
+                            class="flex flex-col bg-gray-100 text-center rounded-[1rem]
+                            shadow-md hover:shadow-2xl
+                            hover:scale-[1.03] border border-transparent hover:border-orange-400
+                            transition duration-300 px-4 py-8 h-full mb-16">
+                            
+                            <div class="w-14 h-14 rounded-full bg-orange-300 flex items-center justify-center mb-4 mx-auto">
+                                {{ $icons[$category->id] ?? '🍽️' }}
+                            </div>
 
-                            @foreach($chunk as $category)
+                            <h3 class="text-neutral-800 text-xl font-bold mb-4 min-h-[60px] flex items-center justify-center">
+                                {{ $category->translated_name }}
+                            </h3>
+                            
+                            <p class="text-gray-600 font-semibold">
+                                {{ trans_choice('dish.dish_count', $category->dishes_count, ['count' => $category->dishes_count]) }}
+                            </p>
+                        </a>
 
-                                <a href="/categories/{{ $category->id }}"
-                                    class="bg-gray-100 text-center rounded-[1rem]
-                                    shadow-md hover:shadow-xl
-                                    hover:-translate-y-2 hover:border border-orange-400
-                                    transition duration-300 px-4 py-8">
-
-                                    <div class="w-14 h-14 rounded-full bg-orange-300 flex items-center justify-center mb-4 mx-auto">
-                                        {{ $icons[$category->translated_name] ?? '🍽️' }}
-                                    </div>
-
-                                    <h3 class="text-neutral-800 text-xl font-bold mb-4">
-                                        {{ $category->translated_name }}
-                                    </h3>
-
-                                    <p class="text-gray-600 font-semibold">
-                                        {{ trans_choice('dish.dish_count', $category->dishes_count, ['count' => $category->dishes_count]) }}
-                                    </p>
-                                </a>
-
-                            @endforeach
-
-                        </div>
                     </div>
 
                 @endforeach
 
             </div>
-        
-            <button class="carousel-control-prev" type="button"
-                    data-bs-target="#categoryCarousel" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon"></span>
-            </button>
 
-            <button class="carousel-control-next" type="button"
-                    data-bs-target="#categoryCarousel" data-bs-slide="next">
-                <span class="carousel-control-next-icon"></span>
-            </button>
+            <div class="swiper-pagination"></div>
 
         </div>
 
     </section>
-
+ 
     <section class="max-w-7xl mx-auto py-18 mb-10">
 
         <div class="flex justify-between items-center mb-12">
@@ -136,11 +122,30 @@
                 
                 <div class="bg-white rounded-3xl overflow-hidden shadow-lg border border-gray-100 hover:border-orange-300 hover:-translate-y-2 hover:shadow-2xl transition duration-300 flex flex-col">
 
-                    <a href="/menu/{{ $dish->id }}" class="overflow-hidden">
-                        @if($dish->image)
-                            <img src="{{ asset('storage/' . $dish->image) }}" class="w-full h-56 object-cover hover:scale-105 transition duration-500" alt="{{ $dish->name }}">
-                        @endif
-                    </a>
+                    <div class="relative">
+                        <a href="/menu/{{ $dish->id }}" class="overflow-hidden">
+                
+                            @if($dish->image)
+                                <img src="{{ asset('storage/' . $dish->image) }}" alt="{{ $dish->name }}" class="w-full h-56 object-cover hover:scale-105 transition duration-500">
+                            @endif
+                
+                            
+                            @auth
+                
+                                @php
+                                    $isFavorited = auth()->user()->favorites->contains($dish->id);
+                                @endphp
+                            
+                                <button class="favorite-btn absolute top-4 right-4 z-30 w-12 h-12 rounded-full shadow-xl flex items-center justify-center transition duration-300 hover:scale-110 active:scale-95 hover:-translate-y-1
+                                    {{ $isFavorited ? 'bg-red-500 text-white' : 'bg-white/90 text-gray-600' }}"
+                                    data-id="{{ $dish->id }}">
+                                    🤍
+                                </button>
+                
+                            @endauth
+                
+                        </a>
+                    </div>
 
                     <div class="p-6 flex flex-col flex-grow">
 

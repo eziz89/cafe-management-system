@@ -33,6 +33,14 @@ class User extends Authenticatable
     {
         return $this->role === 'admin';
     }
+
+    public function favorites()
+    {
+        return $this->belongsToMany(
+            Dish::class, 'favorites'
+        );
+    }
+    
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 

@@ -3,7 +3,7 @@
 @section('content')
 
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 bg-gray-100 pb-24 pt-10 px-10">
-            <div class="bg-white rounded-2xl border-2 border-orange-600 shadow-sm b p-5">
+            <div class="bg-white rounded-2xl border-2 border-gray-300 shadow-sm b p-5">
 
                 <img src="{{ asset('storage/' . $dish->image) }}"
                      class="w-full h-72 object-cover rounded-xl mb-5">
@@ -43,12 +43,12 @@
                     </button>
                 </form>
 
-                <a href="/menu" class="text-blue-500 mt-4 inline-block">
+                <a href="/menu" class="text-orange-500 mt-4 inline-block">
                     <- {{ __('menu.back_to_menu') }}
                 </a>
             </div>
 
-            <div class="lg:col-span-2 bg-white border-2 border-orange-400 rounded-2xl shadow-sm p-8">
+            <div class="lg:col-span-2 bg-white border-2 border-gray-300 rounded-2xl shadow-sm p-8">
                 <h2 class="text-3xl font-bold text-gray-900 mb-8">
                     {{ __('review.customer_reviews') }}
                 </h2>

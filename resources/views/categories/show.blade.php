@@ -18,11 +18,29 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
             @foreach($category->dishes as $dish)
                 <div class="bg-neutral-900/80 backdrop-blur rounded-3xl overflow-hidden shadow-2xl border border-neutral-800 hover:border-orange-500/40 hover:-translate-y-2 transition duration-300">
-                    <a href="/menu/{{ $dish->id }}" class="overflow-hidden">
-                        @if($dish->image)
-                            <img src="{{ asset('storage/' . $dish->image) }}" alt="{{ $dish->name }}" class="w-full h-64 object-cover hover:scale-105 transition duration-500">
-                        @endif
-                    </a>
+                    <div class="relative">
+                        <a href="/menu/{{ $dish->id }}" class="overflow-hidden">
+                
+                            @if($dish->image)
+                                <img src="{{ asset('storage/' . $dish->image) }}" alt="{{ $dish->name }}" class="w-full h-56 object-cover hover:scale-105 transition duration-500">
+                            @endif
+                
+                            @auth
+                
+                                @php
+                                    $isFavorited = auth()->user()->favorites->contains($dish->id);
+                                @endphp
+                            
+                                <button class="favorite-btn absolute top-4 right-4 z-30 w-12 h-12 rounded-full shadow-xl flex items-center justify-center transition duration-300 hover:scale-110 active:scale-95 hover:-translate-y-1
+                                    {{ $isFavorited ? 'bg-red-500 text-white' : 'bg-white/90 text-gray-600' }}"
+                                    data-id="{{ $dish->id }}">
+                                    🤍
+                                </button>
+                
+                            @endauth
+                
+                        </a>
+                    </div>
 
                     <div class="p-6">
                         <div class="flex justify-between items-start mb-4">
@@ -64,4 +82,5 @@
     </div>
 
 </section>
+
 @endsection

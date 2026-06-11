@@ -2,6 +2,7 @@
 
 return [
     'categories' => 'Categories',
+    'category' => 'Category',
     'category_description' => 'Discover carefully crafted meals, desserts, and beverages prepared for every taste.',
     'explore' => 'Explore',
     'culinary_selection' => 'Explore Our Culinary Selection',

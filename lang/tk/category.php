@@ -2,6 +2,7 @@
 
 return [
     'categories' => 'Kategoriýalar',
+    'category' => 'Kategoriýa',
     'category_description' => 'Her tagam üçin taýýarlanan naharlary, desertleri we içgileri öwreniň.',
     'explore' => 'Gözläň',
     'culinary_selection' => 'Kulinar saýlamamyzy öwreniň',

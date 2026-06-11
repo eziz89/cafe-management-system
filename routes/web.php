@@ -11,11 +11,12 @@ use App\Http\Controllers\DishController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\ReservationController;
 use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
-    $categories = Category::withCount('dishes')->take(4)->get();
+    $categories = Category::withCount('dishes')->get();
     
     $featuredDishes = Dish::latest()->take(3)->get();
 
@@ -75,6 +76,9 @@ Route::get('/language/{locale}', function ($locale) {
     }
 
     session(['locale' => $locale]);
-
+ 
     return back();
 })->name('language.switch');
+
+Route::post('/favorites/{dish}', [FavoriteController::class, 'toggle'])->middleware('auth')->name('favorites.toggle');
+Route::get('/favorites', [FavoriteController::class, 'index'])->middleware('auth')->name('favorites.index');

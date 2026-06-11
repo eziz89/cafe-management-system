@@ -26,6 +26,10 @@ class MenuController extends Controller
             });
         }
 
+        if ($request->filled('category')) {
+            $query->where('category_id', $request->category);
+        }
+
         $sort = $request->get('sort', 'newest');
 
         switch ($sort) {
@@ -46,11 +50,13 @@ class MenuController extends Controller
                 $query->orderByDesc('created_at');
         }
 
-        $dishes = $query->get();
+        $dishes = $query->paginate(9);
+
+        $totalDishes = Dish::count();
 
         $categories = Category::withCount('dishes')->get();
         
-        return view('menu', compact('dishes', 'categories'));
+        return view('menu', compact('dishes', 'categories', 'totalDishes'));
     }
 
     public function show($id)

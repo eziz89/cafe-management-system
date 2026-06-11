@@ -58,4 +58,11 @@ class Dish extends Model
 
         return $this->{"description_{$locale}"} ?: $this->description;
     }
+
+    public function favoritedBy()
+    {
+        return $this->belongsToMany(
+            User::class, 'favorites'
+        );
+    }
  }
