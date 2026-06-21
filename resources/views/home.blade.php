@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+
 @php
     $icons = [
         '1' => '🍕',
@@ -65,7 +66,7 @@
 
                 @foreach($categories as $category )
 
-                    <div class="swiper-slide h-auto px-1 py-3">
+                    <div class="swiper-slide h-auto px-2 py-3">
 
                         <a href="/categories/{{ $category->id }}"
                             class="flex flex-col bg-gray-100 text-center rounded-[1rem]
@@ -185,14 +186,10 @@
 
                         </div>
 
-                        <form action="{{ route('cart.add', $dish->id) }}" method="POST" class="mt-auto">
-                            @csrf
-
-                            <button type="submit" class="w-full bg-orange-500 hover:bg-orange-600 text-white rounded-2xl font-semibold py-2 hover:shadow-lg hover:shadow-orange-500/30 transition duration-300">
-                                {{ __('cart.add_to_cart') }}
-                            </button>
-                        </form>
-
+                        <button class="add-to-cart-btn w-full bg-orange-500 hover:bg-orange-600 text-white rounded-2xl font-semibold py-2 hover:shadow-lg hover:shadow-orange-500/30 transition duration-300"
+                            data-id="{{ $dish->id }}">
+                            {{ __('cart.add_to_cart') }}
+                        </button>
                     </div>
                 </div>
 

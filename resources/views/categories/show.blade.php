@@ -66,14 +66,10 @@
 
                         <p class="text-white">⭐ {{ number_format($avg, 1) }}/5</p>
 
-                        <form action="{{ route('cart.add', $dish->id) }}" method="POST">
-                            @csrf
-
-                            <button type="submit" class="w-full bg-orange-500 hover:bg-orange-600 hover:shadow-lg hover:shadow-orange-500/30 text-white py-3 rounded-2xl font-semibold transition duration-300 mt-4">
-                                {{ __('cart.add_to_cart') }}
-                            </button>
-                        </form>
-
+                        <button class="add-to-cart-btn w-full bg-orange-500 hover:bg-orange-600 text-white rounded-2xl font-semibold py-2 hover:shadow-lg hover:shadow-orange-500/30 transition duration-300"
+                            data-id="{{ $dish->id }}">
+                            {{ __('cart.add_to_cart') }}
+                        </button>
                     </div>
                 </div>
                 

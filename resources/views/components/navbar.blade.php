@@ -21,9 +21,15 @@
                 <i data-lucide="calendar-check" class="w-5 h-5"></i>
                 {{ __('navigation.reservation') }}
             </a>
-            <a href="/cart" class="{{ request()->is('cart') ? 'text-orange-500 font-semibold' : 'text-black' }} flex items-center gap-2 hover:text-orange-500 py-2 transition">
+            <a href="/cart" class="{{ request()->is('cart') ? 'text-orange-500 font-semibold' : 'text-black' }} cart-link relative flex items-center gap-2 hover:text-orange-500 py-2 transition">
                 <i data-lucide="shopping-cart" class="w-5 h-5"></i>
                 {{ __('navigation.cart') }}
+
+                @if($cartCount > 0)
+                    <span id="cart-count" class="absolute -top-0 -right-5 min-w-5 h-5 px-1 bg-red-500 text-white text-xs font-bold rounded-full flex items-center justify-center">
+                        {{ $cartCount }}
+                    </span>
+                @endif
             </a>
 
             @auth

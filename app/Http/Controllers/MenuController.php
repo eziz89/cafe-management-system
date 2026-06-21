@@ -50,11 +50,15 @@ class MenuController extends Controller
                 $query->orderByDesc('created_at');
         }
 
-        $dishes = $query->paginate(9);
-
+        $dishes = $query->paginate(9)->withQueryString();
+ 
         $totalDishes = Dish::count();
 
         $categories = Category::withCount('dishes')->get();
+
+        if ($request->ajax()) {
+            return view('partials.dishes-grid', compact('dishes'))->render();
+        }
         
         return view('menu', compact('dishes', 'categories', 'totalDishes'));
     }

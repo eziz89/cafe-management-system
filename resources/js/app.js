@@ -1,4 +1,8 @@
 import './bootstrap';
+import './menu';
+import './cart';
+import './favoriteButton';
+import './categorySwiper';
 
 import Swiper from 'swiper';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';

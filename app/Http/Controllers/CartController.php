@@ -29,7 +29,10 @@ class CartController extends Controller
 
         session()->put('cart', $cart);
         
-        return redirect()->back()->with('success', 'Dish added to cart.');
+        return response()->json([
+            'success' => true,
+            'cart_count' => array_sum(array_column($cart, 'quantity'))
+        ]);
     }
 
     public function index()
@@ -47,13 +50,23 @@ class CartController extends Controller
     {
         $cart = session()->get('cart', []);
 
-        if(isset($cart[$id])) {
+        if (isset($cart[$id])) {
             unset($cart[$id]);
         }
 
         session()->put('cart', $cart);
+        $total = 0;
 
-        return redirect()->back();
+        foreach ($cart as $item) {
+            $total += $item['price'] * $item['quantity'];
+        }
+
+        $cartHtml = view('partials.cart-items', [
+            'cart' => $cart,
+        ])->render();
+
+
+        return $this->cartResponse($cart, $id);
     }
 
     public function checkout()
@@ -92,29 +105,90 @@ class CartController extends Controller
     {
         $cart = session()->get('cart', []);
 
-        if(isset($cart[$id])) {
-            $cart[$id]['quantity']++;
-
-            session()->put('cart', $cart);
+        if (!isset($cart[$id])) {
+            return response()->json(['success' => false], 404);
         }
 
-        return back();
+        $cart[$id]['quantity']++;
+
+        session()->put('cart', $cart);
+
+        $total = 0;
+
+        foreach ($cart as $item) {
+            $total += $item['price'] * $item['quantity'];
+        }
+
+        $cartHtml = view('partials.cart-items', [
+            'cart' => $cart,
+        ])->render();
+
+        return $this->cartResponse($cart, $id);
     }
 
     public function decrease($id)
     {
         $cart = session()->get('cart', []);
 
-        if(isset($cart[$id])) {
-            $cart[$id]['quantity']--;
-
-            if($cart[$id]['quantity'] <= 0) {
-                unset($cart[$id]);
-            }
-
-            session()->put('cart', $cart);
+        if (!isset($cart[$id])) {
+            return response()->json(['success' => false], 404);
         }
 
-        return back();
+        $cart[$id]['quantity']--;
+
+        if ($cart[$id]['quantity'] <= 0) {
+            unset($cart[$id]);
+        }
+
+        session()->put('cart', $cart);
+
+        $total = 0;
+
+        foreach ($cart as $item) {
+            $total += $item['price'] * $item['quantity'];
+        }
+
+        $cartHtml = view('partials.cart-items', [
+            'cart' => $cart,
+        ])->render();
+
+        return $this->cartResponse($cart, $id);
     }
+
+    public function count()
+    {
+        $cart = session()->get('cart', []);
+
+        return response()->json([
+            'count' => array_sum(array_column($cart, 'quantity'))
+        ]);
+    }
+
+    private function cartResponse(array $cart, $id = null)
+    {
+        $totalItems = array_sum(array_column($cart, 'quantity'));
+
+        $totalPrice = 0;
+
+        foreach ($cart as $item) {
+            $totalPrice += $item['price'] * $item['quantity'];
+        }   
+
+        $cartHtml = view('partials.cart-items', [
+            'cart' => $cart,
+        ])->render();
+
+        return response()->json([
+            'success' => true,
+            'quantity' => $id && isset($cart[$id]) ? $cart[$id]['quantity'] : 0,
+            'total_items' => $totalItems,
+            'total_price' => number_format($totalPrice, 2),
+            'cart_count' => $totalItems,
+            'removed' => $id ? !isset($cart[$id]) : false,
+            'empty' => empty($cart),
+            'cart_html' => $cartHtml,
+        ]);
+    }
+
+
 }

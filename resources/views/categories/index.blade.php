@@ -4,12 +4,12 @@
 
 @php
     $icons = [
-        'Pastries & Baked Goods' => '🍕',
-        'Drinks' => '🥤',
-        'Light Bites & Savory Snacks' => '🍰',
-        'Breakfast & Brunch' => '🍳',
-        'Salads & Soups' => '🥗',
-        'Sandwiches, Paninis & Wraps' => '🍔',
+        '1' => '🍕',
+        '2' => '🥤',
+        '3' => '🍰',
+        '4' => '🍳',
+        '5' => '🥗',
+        '6' => '🍔',
     ];
 
     $descriptions = [
@@ -40,7 +40,7 @@
                     <div class="flex justify-between items-start mb-">
                         <div>
                             <div class="text-4xl text-center mb-3">
-                                {{ $icons[$category->translated_name] ?? '🍽️' }}
+                                {{ $icons[$category->id] ?? '🍽️' }}
                             </div>
                             <h2 class="text-2xl font-bold text-white mb-3">
                                 {{ $category->translated_name }}
