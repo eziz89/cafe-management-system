@@ -2,42 +2,109 @@
 
 @section('content')
 
-    <div class="max-w-7xl mx-auto">
-        <a href="/admin/dishes/create" class="bg-green-500 text-white px-4 py-2 rounded mb-4 inline-block">
-            + Add Dish
-        </a>
+    <div class="max-w-7xl mx-auto px-6 py-8">
 
-        <table class="w-full bg-white shadow rounded">
-            <thead>
-                <tr class="border-b">
-                    <th class="py-2">Name</th>
-                    <th class="py-2">Category</th>
-                    <th class="py-2">Price</th>
-                    <th class="py-2">Actions</th>
-                </tr>
-            </thead>
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-10">
 
-            <tbody>
-                @foreach($dishes as $dish)
-                    <tr class="border-b text-center">
-                        <td class="py-2">{{ $dish->name }}</td>
-                        <td class="py-2">{{ $dish->category->name ?? 'No Category' }}</td>
-                        <td class="py-2">{{ $dish->price }}</td>
-                        <td class="py-2">
-                            <a href="/admin/dishes/{{ $dish->id }}/edit" class="text-yellow-500 mr-2">
-                                Edit
-                            </a>
+            <div>
+                <p class="text-orange-500 uppercase tracking-[0.3em] font-semibold mb-2">
+                    Admin Panel
+                </p>
 
-                            <form action="/admin/dishes/{{ $dish->id }}" method="POST" class="inline" onsubmit="return confirm('Are you sure you want to delete this dish?');">
-                                @csrf
-                                @method('DELETE')
+                <h1 class="text-4xl font-bold text-stone-900">
+                    🍽 Dishes
+                </h1>
 
-                                <button type="submit" class="text-red-500">Delete</button>
-                            </form>
-                        </td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
+                <p class="text-stone-500 mt-2">
+                    Manage your restaurant menu items.
+                </p>
+            </div>
+
+            <a href="/admin/dishes/create"
+                class="mt-6 md:mt-0 inline-flex items-center gap-2
+                       bg-orange-500 hover:bg-orange-600
+                       text-white font-semibold
+                       px-6 py-3 rounded-2xl
+                       shadow-lg hover:shadow-orange-500/30
+                       transition">
+
+                <span class="text-xl">+</span>
+
+                Add Dish
+
+            </a>
+
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 mb-10">
+
+            <div class="bg-white rounded-3xl shadow-lg p-6">
+                <p class="text-stone-500">Total Dishes</p>
+                <h2 class="text-3xl font-bold mt-2">
+                    {{ $dishes->count() }}
+                </h2>
+            </div>
+
+            <div class="bg-white rounded-3xl shadow-lg p-6">
+                <p class="text-stone-500">Categories</p>
+                <h2 class="text-3xl font-bold mt-2">
+                    {{ $stats['totalCategories'] }}
+                </h2>
+            </div>
+
+            <div class="bg-white rounded-3xl shadow-lg p-6">
+                <p class="text-stone-500">Average Price</p>
+                <h2 class="text-3xl font-bold mt-2">
+                    ${{ number_format($dishes->avg('price'),2) }}
+                </h2>
+            </div>
+
+            <div class="bg-white rounded-3xl shadow-lg p-6">
+                <p class="text-stone-500">Highest Price</p>
+                <h2 class="text-3xl font-bold mt-2">
+                    ${{ number_format($dishes->max('price'),2) }}
+                </h2>
+            </div>
+
+        </div>
+
+        <div class="bg-white rounded-3xl shadow-lg p-6 mb-8">
+
+            <div class="flex flex-col md:flex-row gap-4">
+
+                <div class="flex-1">
+                    <input
+                        id="dish-search"
+                        type="text"
+                        placeholder="🔍 Search dishes..."
+                        class="w-full px-5 py-3 rounded-2xl border border-stone-200
+                               focus:outline-none focus:ring-2 focus:ring-orange-300">
+                </div>
+
+                <select
+                    id="category-filter"
+                    class="px-5 py-3 rounded-2xl border border-stone-200
+                           focus:outline-none focus:ring-2 focus:ring-orange-300">
+
+                    <option value="">All Categories</option>
+
+                    @foreach($categories as $category)
+                        <option value="{{ $category->id }}">
+                            {{ $category->name }}
+                        </option>
+                    @endforeach
+
+                </select>
+
+            </div>
+
+        </div>
+
+        <div id="table-wrapper">
+            <div id="dishes-table">
+                @include('admin.dishes.partials.table')
+            </div>
+        </div>
+
     </div>
 @endsection

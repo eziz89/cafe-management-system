@@ -170,7 +170,7 @@
                         <div class="flex justify-between items-center mb-6">
 
                             @if($dish->category)
-                                <a href="{{ route('categories.show', $dish->category->id) }}" class="inline-flex items-center bg-orange-100 text-orange-700 text-sm font-medium rounded-full px-3 py-1 hover:bg-orange-200 transition">
+                                <a href="{{ route('categories.show', $dish->category->id) }}" class="inline-flex items-center bg-orange-100 text-orange-600 text-sm font-medium rounded-full px-3 py-1 hover:bg-orange-200 transition">
                                     {{ $dish->category->translated_name }}
                                 </a>
                             @endif

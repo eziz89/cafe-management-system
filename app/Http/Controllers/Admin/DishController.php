@@ -9,12 +9,37 @@ use Illuminate\Http\Request;
 
 class DishController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $dishes = Dish::with('category')->latest()->get();
+        $query = Dish::with('category');
 
-        return view('admin.dishes.index', compact('dishes'));
+        if ($request->filled('search')) {
+            $query->where('name', 'like', '%' . $request->search . '%');
+        }
+
+        if ($request->filled('category')) {
+            $query->where('category_id', $request->category);
+        }
+
+        $dishes = $query->latest()->get();
+
+        $categories = Category::all();
+
+        if ($request->ajax()) {
+            return view('admin.dishes.partials.table', compact('dishes'));
+        }
+
+        return view('admin.dishes.index', [
+            'dishes' => $dishes,
+            'stats' => [
+                'totalDishes' => $dishes->count(),
+                'totalCategories' => Category::count(),
+                'averagePrice' => $dishes->avg('price'),
+                'highestPrice' => $dishes->max('price'),
+            ],
+        ], compact('dishes', 'categories'));
     }
+
     public function create()
     {
         $categories = Category::all();
@@ -45,7 +70,7 @@ class DishController extends Controller
 
         $dish->update($validated);
 
-        return redirect('/admin/dishes')->with('success', 'Dish updated successfully!');
+        return redirect()->route('admin.dishes.index')->with('success', 'Dish updated successfully!');
     }
 
     public function store(Request $request)
@@ -67,7 +92,7 @@ class DishController extends Controller
 
         Dish::create($validated);
 
-        return redirect('/admin/dishes')->with('success', 'Dish created successfully!');
+        return redirect()->route('admin.dishes.index')->with('success', 'Dish created successfully!');
     }
 
     public function destroy($id)
@@ -75,6 +100,6 @@ class DishController extends Controller
         $dish = Dish::findOrFail($id);
         $dish->delete();
 
-        return redirect('/admin/dishes')->with('success', 'Dish deleted successfully!');
+        return redirect()->route('admin.dishes.index')->with('success', 'Dish deleted successfully!');
     }
 }

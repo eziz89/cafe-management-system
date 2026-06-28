@@ -4,7 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite([
+        'resources/css/app.css',
+        'resources/js/app.js',
+        'resources/js/admin.js',
+    ])
 
     <title>Admin Panel</title>
 
@@ -41,5 +45,13 @@
         @yield('content')
     </main>
 
+    @if(session('success'))
+        <div id="flash-message"
+             class="fixed top-6 right-6 bg-green-500 text-white px-6 py-3 rounded-xl shadow-lg z-50">
+            {{ session('success') }}
+        </div>
+    @endif
+    
 </body>
+
 </html>

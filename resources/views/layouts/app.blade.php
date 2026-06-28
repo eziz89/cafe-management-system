@@ -6,8 +6,11 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Canteen</title>
 
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-    @vite(['resources/js/app.js'])
+    @vite([
+        'resources/css/app.css',
+        'resources/js/app.js',
+        'resources/js/app.js',
+    ])
 
     <style>
 

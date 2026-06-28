@@ -8,9 +8,19 @@ use App\Models\Order;
 
 class OrderController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $orders = Order::with('orderItems.dish', 'user')->latest()->get();
+        $query = Order::with(['user', 'orderItems.dish']);
+
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+
+        $orders = $query->latest()->get();
+
+        if ($request->ajax()) {
+            return view('admin.orders.partials.orders-table', compact('orders'));
+        }
 
         return view('admin.orders.index', compact('orders'));
     }
