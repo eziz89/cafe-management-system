@@ -12,6 +12,19 @@
 
     <title>Admin Panel</title>
 
+    <style>
+        
+        .scrollbar-thin::-webkit-scrollbar{
+            width:6px;
+        }
+
+        .scrollbar-thin::-webkit-scrollbar-thumb{
+            background:#d6d3d1;
+            border-radius:9999px;
+        }
+
+    </style>
+    
 </head>
 
 <body class="bg-stone-100 min-h-screen">
@@ -51,7 +64,9 @@
             {{ session('success') }}
         </div>
     @endif
-    
-</body>
 
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>lucide.createIcons()</script>
+</body>
 </html>
+ 

@@ -16,6 +16,14 @@ class CartController extends Controller
 
         $cart = session()->get('cart', []);
 
+        if ($dish->status !== 'available') {
+
+            return back()->with(
+                'error',
+                'This dish is currently unavailable.'
+            );
+        }
+
         if(isset($cart[$id])) {
             $cart[$id]['quantity']++;
         } else {

@@ -2,10 +2,16 @@
 
 @section('content')
 
-    <div class="max-w-7xl mx-auto">
-        <h1 class="text-5xl font-bold mb-10">
-            Reservations
-        </h1>
+    <div class="max-w-7xl mx-auto pt-4 pb-8">
+
+        <div class="mb-10">
+            <p class="text-orange-500 uppercase tracking-[0.3em] font-semibold mb-2">
+                Administration
+            </p>
+            <h1 class="text-4xl font-bold text-stone-900">
+                Reservations
+            </h1>
+        </div>
 
         <div class="bg-white shadow-lg rounded-2xl overflow-hidden">
             <table class="w-full">

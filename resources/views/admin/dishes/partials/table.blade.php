@@ -45,9 +45,9 @@
 
                     <td class="px-6 py-5">
                         @if($dish->category)
-                                <a href="{{ route('categories.show', $dish->category->id) }}" class="inline-flex items-center bg-orange-100 text-orange-600 text-sm font-medium rounded-full px-3 py-1 hover:bg-orange-200 transition">
+                                <span class="inline-flex items-center bg-orange-100 text-orange-600 text-sm font-medium rounded-full px-3 py-1 hover:bg-orange-200 transition">
                                     {{ $dish->category->translated_name }}
-                                </a>
+                                </span>
                             @endif
                     </td>
 
@@ -55,13 +55,86 @@
                         ${{ number_format($dish->price,2) }}
                     </td>
 
-                    <td class="px-6 py-5">
-                        <span
-                            class="bg-green-100 text-green-700
-                                   px-3 py-1 rounded-full
-                                   text-sm font-semibold">
-                            Available
-                        </span>
+                    <td>
+                        @if($dish->status === 'available')
+
+                            <span id="dish-status-badge-{{ $dish->id }}"
+                                class="inline-flex items-center px-3 py-1 rounded-full
+                                @if($dish->status === 'available')
+                                    bg-green-100 text-green-700
+                                @elseif($dish->status === 'coming_soon')
+                                    bg-yellow-100 text-yellow-700
+                                @else
+                                    bg-red-100 text-red-700
+                                @endif">
+
+                                🟢 Available
+                                
+                            </span>
+
+                        @elseif($dish->status === 'coming_soon')
+
+                            <span id="dish-status-badge-{{ $dish->id }}"
+                                class="inline-flex items-center px-3 py-1 rounded-full
+                                @if($dish->status === 'available')
+                                    bg-green-100 text-green-700
+                                @elseif($dish->status === 'coming_soon')
+                                    bg-yellow-100 text-yellow-700
+                                @else
+                                    bg-red-100 text-red-700
+                                @endif">
+
+                                🟡 Coming Soon
+
+                            </span>
+
+                        @elseif($dish->status === 'out_of_stock')
+
+                            <span id="dish-status-badge-{{ $dish->id }}"
+                                class="inline-flex items-center px-3 py-1 rounded-full
+                                @if($dish->status === 'available')
+                                    bg-green-100 text-green-700
+                                @elseif($dish->status === 'coming_soon')
+                                    bg-yellow-100 text-yellow-700
+                                @else
+                                    bg-red-100 text-red-700
+                                @endif">
+
+                                🔴 Out of Stock
+
+                            </span>
+
+                        @endif
+                        
+                        <form method="POST"
+                            action="{{ route('admin.dishes.status', $dish) }}"
+                            class="dish-status-form mt-3"
+                            data-dish-id="{{ $dish->id }}">
+
+                            @csrf
+                            @method('PATCH')
+
+                            <select name="status"
+                                class="dish-status-select text-sm border rounded-lg px-2 py-1">
+
+                                <option value="available"
+                                    @selected($dish->status === 'available')>
+                                    Available
+                                </option>
+
+                                <option value="coming_soon"
+                                    @selected($dish->status === 'coming_soon')>
+                                    Coming Soon
+                                </option>
+
+                                <option value="out_of_stock"
+                                    @selected($dish->status === 'out_of_stock')>
+                                    Out of Stock
+                                </option>
+
+                            </select>
+
+                        </form>
                     </td>
 
                     <td class="px-6 py-5">
@@ -110,4 +183,9 @@
             @endforelse
         </tbody>
     </table>
+
+</div>
+
+<div class="mt-6 mx-6">
+    {{ $dishes->links() }}
 </div>

@@ -2,13 +2,13 @@
 
 @section('content')
 
-    <div class="max-w-7xl mx-auto px-6 py-8">
+    <div class="max-w-7xl mx-auto pt-4 pb-8">
 
         <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-10">
 
             <div>
                 <p class="text-orange-500 uppercase tracking-[0.3em] font-semibold mb-2">
-                    Admin Panel
+                    Administration
                 </p>
 
                 <h1 class="text-4xl font-bold text-stone-900">

@@ -21,7 +21,37 @@ class DishController extends Controller
             $query->where('category_id', $request->category);
         }
 
-        $dishes = $query->latest()->get();
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+        
+        switch ($request->get('sort', 'newest')) {
+        
+            case 'oldest':
+                $query->oldest();
+                break;
+            
+            case 'price_asc':
+                $query->orderBy('price');
+                break;
+            
+            case 'price_desc':
+                $query->orderByDesc('price');
+                break;
+            
+            case 'name_asc':
+                $query->orderBy('name');
+                break;
+            
+            case 'name_desc':
+                $query->orderByDesc('name');
+                break;
+            
+            default:
+                $query->latest();
+        }
+        
+        $dishes = $query->latest()->paginate(5)->withQueryString();
 
         $categories = Category::all();
 
@@ -32,7 +62,7 @@ class DishController extends Controller
         return view('admin.dishes.index', [
             'dishes' => $dishes,
             'stats' => [
-                'totalDishes' => $dishes->count(),
+                'totalDishes' => Dish::count(),
                 'totalCategories' => Category::count(),
                 'averagePrice' => $dishes->avg('price'),
                 'highestPrice' => $dishes->max('price'),
@@ -65,7 +95,8 @@ class DishController extends Controller
             'name_ru' => 'required|string|max:255',
             'description' => 'required|min:5',
             'price' => 'required|numeric|min:0',
-            'category_id' => 'required|exists:categories,id'
+            'category_id' => 'required|exists:categories,id',
+            'status' => 'required', 'in:available,coming_soon,out_of_stock',
         ]);
 
         $dish->update($validated);
@@ -82,7 +113,8 @@ class DishController extends Controller
             'description' => 'required|min:5',
             'price' => 'required|numeric|min:0',
             'category_id' => 'required|exists:categories,id',
-            'image' => 'nullable|image|mimes:jpg,png,jpeg,webp|max:2048'
+            'image' => 'nullable|image|mimes:jpg,png,jpeg,webp|max:2048',
+            'status' => 'required', 'in:available,coming_soon,out_of_stock',
         ]);
 
         if ($request->hasFile('image')) {
@@ -101,5 +133,21 @@ class DishController extends Controller
         $dish->delete();
 
         return redirect()->route('admin.dishes.index')->with('success', 'Dish deleted successfully!');
+    }
+
+    public function updateStatus(Request $request, Dish $dish)
+    {
+        $request->validate([
+            'status' => 'required|in:available,coming_soon,out_of_stock'
+        ]);
+    
+        $dish->update([
+            'status' => $request->status
+        ]);
+    
+        return response()->json([
+            'success' => true,
+            'status' => $dish->status,
+        ]);
     }
 }

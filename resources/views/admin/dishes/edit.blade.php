@@ -54,7 +54,7 @@
                         class="mb-3 p-3 rounded-2xl border w-full focus:ring-2 focus:ring-orange-300">
 
                     <select name="category_id"
-                        class="p-3 rounded-2xl border w-full focus:ring-2 focus:ring-orange-300">
+                        class="p-3 mb-3 rounded-2xl border w-full focus:ring-2 focus:ring-orange-300">
 
                         @foreach($categories as $category)
                             <option value="{{ $category->id }}"
@@ -64,6 +64,32 @@
                         @endforeach
 
                     </select>
+
+                    <div>
+                        <select
+                            name="status"
+                            class="w-full rounded-xl border px-4 py-3 focus:ring-2 focus:ring-orange-400 focus:outline-none"
+                        >
+                            <option value="available"
+                                {{ old('status', $dish->status) == 'available' ? 'selected' : '' }}>
+                                🟢 Available
+                            </option>
+
+                            <option value="coming_soon"
+                                {{ old('status', $dish->status) == 'coming_soon' ? 'selected' : '' }}>
+                                🟡 Coming Soon
+                            </option>
+
+                            <option value="out_of_stock"
+                                {{ old('status', $dish->status) == 'out_of_stock' ? 'selected' : '' }}>
+                                🔴 Out of Stock
+                            </option>
+                        </select>
+
+                        @error('status')
+                            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
                 </div>
 
                 {{-- Multilingual Names --}}

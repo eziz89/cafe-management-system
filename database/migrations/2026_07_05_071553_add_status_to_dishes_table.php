@@ -12,7 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('dishes', function (Blueprint $table) {
-            $table->foreignId('category_id')->nullable()->constrained()->cascadeOnDelete();
+            $table->enum('status', [
+                'available',
+                'coming_soon',
+                'out_of_stock',
+            ])->default('available')->after('price');
         });
     }
 
@@ -22,7 +26,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('dishes', function (Blueprint $table) {
-            //
+            $table->dropColumn('status');
         });
     }
 };

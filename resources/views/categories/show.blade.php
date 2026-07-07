@@ -64,7 +64,7 @@
                             $avg = $dish->ratings->avg('rating');
                         @endphp
 
-                        <p class="text-white">⭐ {{ number_format($avg, 1) }}/5</p>
+                        <p class="text-white mb-4">⭐ {{ number_format($avg, 1) }}/5</p>
 
                         <button class="add-to-cart-btn w-full bg-orange-500 hover:bg-orange-600 text-white rounded-2xl font-semibold py-2 hover:shadow-lg hover:shadow-orange-500/30 transition duration-300"
                             data-id="{{ $dish->id }}">

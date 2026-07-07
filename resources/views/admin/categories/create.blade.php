@@ -11,7 +11,7 @@
         </p>
 
         <h1 class="text-4xl font-bold text-stone-900">
-            📂 Create Category
+            ➕ Create Category
         </h1>
 
         <p class="text-stone-500 mt-2">

@@ -3,6 +3,8 @@ import './menu';
 import './cart';
 import './favoriteButton';
 import './categorySwiper';
+import './admin/orders';
+import './admin/dishes';
 
 import Swiper from 'swiper';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
