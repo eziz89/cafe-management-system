@@ -1,5 +1,6 @@
 import './admin/dishes';
 import './admin/orders';
+import './admin/reservations';
 
 document.addEventListener('DOMContentLoaded', () => {
     const flash = document.getElementById('flash-message');

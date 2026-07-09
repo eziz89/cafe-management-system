@@ -51,16 +51,17 @@
                         placeholder="Dish name"
                         class="mb-3 p-3 rounded-2xl border w-full focus:ring-2 focus:ring-orange-300">
 
-                    <select name="category_id"
-                        class="p-3 mb-3 rounded-2xl border w-full focus:ring-2 focus:ring-orange-300">
+                    <select name="category_id" class="p-3 mb-3 rounded-2xl border w-full focus:ring-2 focus:ring-orange-300">
 
                         <option value="">Select category</option>
 
                         @foreach($categories as $category)
+                            
                             <option value="{{ $category->id }}"
-                                {{ old('category_id') == $category->id ? 'selected' : '' }}>
-                                {{ $category->name }}
+                                @selected(old('category_id', $selectedCategory) == $category->id)>
+                                {{ $category->translated_name }}
                             </option>
+                            
                         @endforeach
 
                     </select>

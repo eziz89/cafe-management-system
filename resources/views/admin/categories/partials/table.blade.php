@@ -15,11 +15,13 @@
 
             @forelse($categories as $category)
 
-            <tr class="border-b border-gray-400 hover:bg-orange-50 hover:shadow-sm transition">
+            <tr onclick="window.location='{{ route('admin.categories.show', $category) }}'" class="cursor-pointer border-b border-stone-200 hover:bg-orange-50 hover:shadow-sm transition">
                 <td class="px-6 py-5">
-                    <div class="font-semibold text-stone-800 text-lg">
+                    <span class="font-semibold text-lg text-orange-600">
+                        
                         {{ $category->name }}
-                    </div>
+                        
+                    </span>
                 </td>
 
                 <td class="px-6 py-5">
@@ -32,16 +34,15 @@
                 </td>
                 
                 <td class="px-6 py-5 text-stone-500">
+                    <div>
+                        {{ $category->created_at->format('M d, Y') }}
+                    </div>
                 </td>
 
-                <td class="px-6 py-5">
+                <td onclick="event.stopPropagation()" class="px-6 py-5">
                     <div class="flex items-center gap-3">
-                        <a href="{{ route('admin.categories.edit', $category) }}"
-                           class="w-10 h-10 rounded-xl
-                                  bg-yellow-100 hover:bg-yellow-200
-                                  flex items-center justify-center
-                                  transition">
-                            ✏️
+                        <a href="{{ route('admin.categories.edit', $category) }}" class="px-4 py-2 rounded-xl bg-yellow-100 text-yellow-700 hover:bg-yellow-200 transition">
+                            ✏️ Edit
                         </a>
 
                         <form
@@ -51,12 +52,8 @@
                             @csrf
                             @method('DELETE')
 
-                            <button
-                                class="w-10 h-10 rounded-xl
-                                       bg-red-100 hover:bg-red-200
-                                       flex items-center justify-center
-                                       transition">
-                                🗑️
+                            <button class="px-4 py-2 rounded-xl bg-red-100 text-red-600 hover:bg-red-200 transition">
+                                🗑️ Delete
                             </button>
                         </form>
 

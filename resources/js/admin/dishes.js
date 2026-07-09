@@ -6,6 +6,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const status = document.getElementById('status-filter');
     const sort = document.getElementById('sort-filter');
 
+    if (!search) return;
+    
     const params = new URLSearchParams(window.location.search);
 
     let timeout;
@@ -123,10 +125,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
         reset.addEventListener('click', () => {
 
-            search.value = '';
-            category.value = '';
-            status.value = '';
-            sort.value = 'newest';
+            if (search) {
+                search.value = '';
+            }
+            
+            if (category) {
+                category.value = '';
+            }
+            
+            if (status) {
+                status.value = '';
+            }
+            
+            if (sort) {
+                sort.value = 'newest';
+            }
 
             fetchDishes();
 

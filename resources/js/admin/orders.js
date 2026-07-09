@@ -2,13 +2,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const search = document.getElementById('order-search');
 
+    const reset = document.getElementById('reset-filters');
+
     if (!search) return;
+
+    let timeout;
 
     // -----------------------------
     // ACTIVE FILTER STATE
     // -----------------------------
-    let activeFilter =
-        new URLSearchParams(window.location.search).get('status') || '';
+    let activeFilter = new URLSearchParams(window.location.search).get('status') || '';
 
     const buttons = document.querySelectorAll('.order-filter');
 
@@ -22,6 +25,16 @@ document.addEventListener('DOMContentLoaded', () => {
     // -----------------------------
     // FILTER UI
     // -----------------------------
+    search.addEventListener('input', () => {
+
+        clearTimeout(timeout);
+
+        timeout = setTimeout(() => {
+
+            fetchOrders(activeFilter);
+        }, 300);
+    });
+    
     function updateActiveButton(status) {
 
         buttons.forEach(button => {
@@ -96,10 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderActions(status, orderId) {
 
         const base = (value, label, color) => `
-            <form class="order-status-form"
-                  data-order-id="${orderId}"
-                  action="/admin/orders/${orderId}/status"
-                  method="POST">
+            <form class="order-status-form" data-order-id="${orderId}" action="/admin/orders/${orderId}/status"   method="POST">
                 <input type="hidden" name="status" value="${value}">
                 <button class="${color} px-4 py-2 rounded-xl text-sm">
                     ${label}
@@ -219,17 +229,27 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    reset?.addEventListener('click', () => {
+        
+        search.value = '';
+
+        activeFilter = '';
+
+        updateActiveButton('');
+        
+        fetchOrders('');
+
+    });
+
     document.addEventListener('click', (e) => {
 
-        const link = e.target.closest('a[href*="page"]');
+        const link = e.target.closest('.pagination a');
         
         if (!link) return;
         
         e.preventDefault();
         
-        console.log('Pagination clicked:', link.href);
-        
-        fetchDishes(link.href);
+        fetchOrders(activeFilter, link.href);
         
     });
 

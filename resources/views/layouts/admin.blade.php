@@ -6,7 +6,6 @@
 
     @vite([
         'resources/css/app.css',
-        'resources/js/app.js',
         'resources/js/admin.js',
     ])
 
@@ -29,7 +28,8 @@
 
 <body class="bg-stone-100 min-h-screen">
 
-    <nav class="bg-white shadow-md border-b border-stone-200 mb-12">
+    <nav class="sticky top-0 z-50 bg-white shadow-md border-b border-stone-200 mb-12">
+        
         <div class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
             <h1 class="text-2xl font-bold text-stone-800">
                 Admin Panel

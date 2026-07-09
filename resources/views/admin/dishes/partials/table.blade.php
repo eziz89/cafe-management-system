@@ -1,23 +1,16 @@
 <div class="bg-white rounded-3xl shadow-lg overflow-hidden">
 
     <table class="w-full">
+
         <thead class="bg-stone-100">
             <tr>
-                <th class="px-6 py-4 text-left text-sm font-semibold text-stone-600">
-                    Dish
-                </th>
-                <th class="px-6 py-4 text-left text-sm font-semibold text-stone-600">
-                    Category
-                </th>
-                <th class="px-6 py-4 text-left text-sm font-semibold text-stone-600">
-                    Price
-                </th>
-                <th class="px-6 py-4 text-center text-sm font-semibold text-stone-600">
-                    Status
-                </th>
-                <th class="px-6 py-4 text-left text-sm font-semibold text-stone-600">
-                    Actions
-                </th>
+                <th class="px-6 py-4 text-left">Dish</th>
+                @if(!($hideCategory ?? false))
+                    <th class="px-6 py-4 text-left">Category</th>
+                @endif
+                <th class="px-6 py-4 text-left">Price</th>
+                <th class="px-6 py-4 text-center">Status</th>
+                <th class="px-6 py-4">Actions</th>
             </tr>
         </thead>
 
@@ -25,7 +18,7 @@
 
             @forelse($dishes as $dish)
 
-                <tr class="border-b border-gray-400 hover:bg-orange-50 hover:shadow-sm transition">
+                <tr class="border-b border-stone-200 hover:bg-orange-50 hover:shadow-sm transition">
 
                     <td class="px-6 py-5">
                         <div class="flex items-center gap-4">
@@ -43,19 +36,25 @@
                         </div>
                     </td>
 
-                    <td class="px-6 py-5">
-                        @if($dish->category)
+                    @if(!($hideCategory ?? false))
+
+                        <td class="px-6 py-5">
+
+                            @if($dish->category)
                                 <span class="inline-flex items-center bg-orange-100 text-orange-600 text-sm font-medium rounded-full px-3 py-1 hover:bg-orange-200 transition">
                                     {{ $dish->category->translated_name }}
                                 </span>
                             @endif
-                    </td>
+                            
+                        </td>
+
+                    @endif
 
                     <td class="px-6 py-5 font-semibold text-lg">
                         ${{ number_format($dish->price,2) }}
                     </td>
 
-                    <td>
+                    <td class="text-center">
                         @if($dish->status === 'available')
 
                             <span id="dish-status-badge-{{ $dish->id }}"

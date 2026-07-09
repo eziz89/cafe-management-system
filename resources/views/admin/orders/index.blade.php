@@ -4,7 +4,7 @@
 
 <section class="min-h-screen bg-stone-100">
 
-    <div class="max-w-7xl mx-auto pt-4 pb-8">
+    <div class="max-w-7xl mx-auto pt-4 pb-6">
         
         <div class="mb-10">
             <p class="text-orange-500 uppercase tracking-[0.3em] font-semibold mb-2">

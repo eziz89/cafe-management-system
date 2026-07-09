@@ -53,4 +53,60 @@ class CategoryController extends Controller
 
         return redirect()->route('admin.categories.index')->with('success', 'Category deleted successfully.');
     }
+
+    public function show(Request $request, Category $category)
+    {
+        $query = $category->dishes();
+
+        if ($request->filled('search')) {
+            $query->where(
+                'name',
+                'like',
+                '%' . $request->search . '%'
+            );
+        }
+
+        if ($request->filled('status')) {
+            $query->where(
+                'status',
+                $request->status
+            );
+        }
+
+        switch ($request->get('sort', 'newest')) {
+    
+            case 'oldest':
+                $query->oldest();
+                break;
+            
+            case 'price_asc':
+                $query->orderBy('price');
+                break;
+            
+            case 'price_desc':
+                $query->orderByDesc('price');
+                break;
+            
+            case 'name_asc':
+                $query->orderBy('name');
+                break;
+            
+            case 'name_desc':
+                $query->orderByDesc('name');
+                break;
+            
+            default:
+                $query->latest();
+        }
+
+        $dishes = $query->paginate(10)->withQueryString();
+
+        if ($request->ajax()) {
+
+            return view('admin.dishes.partials.table', compact('dishes'));
+
+        }
+
+        return view('admin.categories.show', compact('category', 'dishes'));
+    }
 }

@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <div class="max-w-7xl mx-auto pt-4 pb-8">
+    <div class="max-w-7xl mx-auto pt-4 pb-6">
 
         <div class="mb-10">
             <p class="text-orange-500 uppercase tracking-[0.3em] font-semibold mb-2">
@@ -13,73 +13,79 @@
             </h1>
         </div>
 
-        <div class="bg-white shadow-lg rounded-2xl overflow-hidden">
-            <table class="w-full">
+        <div class="bg-white rounded-3xl shadow-lg p-6 mb-8">
 
-                <thead class="bg-gray-100">
-                    <tr>
-                        <th class="px-6 py-4 text-left">Name</th>
-                        <th class="px-6 py-4 text-left">Phone</th>
-                        <th class="px-6 py-4 text-left">Guests</th>
-                        <th class="px-6 py-4 text-left">Reservation Time</th>
-                        <th class="px-6 py-4 text-left">Status</th>
-                        <th class="px-6 py-4 text-left">Actions</th>
-                    </tr>
-                </thead>
+            <div class="flex flex-col md:flex-row gap-4">
+        
+                <input
+                    id="reservation-search"
+                    type="text"
+                    value="{{ request('search') }}"
+                    placeholder="🔍 Search by name or phone..."
+                    class="flex-1 px-5 py-3 rounded-2xl border border-stone-200 focus:outline-none focus:ring-2 focus:ring-orange-300">
+        
+        
+                <select
+                    id="reservation-status-filter"
+                    class="px-5 py-3 rounded-2xl border border-stone-200">
+        
+                    <option value="">All Statuses</option>
+        
+                    <option value="pending">
+                        Pending
+                    </option>
+        
+                    <option value="confirmed">
+                        Confirmed
+                    </option>
+        
+                    <option value="cancelled">
+                        Cancelled
+                    </option>
+        
+                </select>
+        
+        
+                <select
+                    id="reservation-sort-filter"
+                    class="px-5 py-3 rounded-2xl border border-stone-200">
+        
+                    <option value="newest">
+                        Newest
+                    </option>
+        
+                    <option value="oldest">
+                        Oldest
+                    </option>
+        
+                    <option value="guests_desc">
+                        Most Guests
+                    </option>
+        
+                    <option value="time">
+                        Reservation Time
+                    </option>
+        
+                </select>
+        
+        
+                <button id="reservation-reset" type="button" class="px-4 py-3 rounded-2xl border border-stone-300 hover:bg-stone-100 transition">
 
-                <tbody>
-                    @foreach($reservations as $reservation)
-                        <tr class="border-t border-gray-200">   
-                            <td class="px-6 py-4">{{ $reservation->name }}</td>
-                            <td class="px-6 py-4">{{ $reservation->phone }}</td>
-                            <td class="px-6 py-4">{{ $reservation->guests }}</td>
-                            <td class="px-6 py-4">{{ $reservation->reservation_time }}</td>
-                            <td class="px-6 py-4">
-                                @if($reservation->status === 'pending')
-                                    <span class="bg-gray-200 text-gray-700 px-4 py-2 rounded-full text-sm font-semibold">
-                                        Pending
-                                    </span>
-                                    
-                                @elseif($reservation->status === 'confirmed')
-                                    <span class="bg-green-100 text-green-700 px-4 py-2 rounded-full text-sm font-semibold">
-                                        Confirmed
-                                    </span>
-                                @elseif($reservation->status === 'cancelled')
-                                    <span class="bg-red-100 text-red-700 px-4 py-2 rounded-full text-sm font-semibold">
-                                        Cancelled
-                                    </span>
-                                @endif
-                            </td>
-                            <td>
-                                <div class="flex gap-3">
-                                    <form action="/admin/reservations/{{ $reservation->id }}/status" method="POST">
-                                        @csrf
-                                        @method('PATCH')
-
-                                        <input type="hidden" name="status" value="confirmed">
-                                        <button class="bg-green-500 hover:bg-green-600 text-white px-4 py-1.5 rounded-md">
-                                            Confirm
-                                        </button>
-                                    </form>
-
-                                    <form action="/admin/reservations/{{ $reservation->id }}/status" method="POST">
-                                        @csrf
-                                        @method('PATCH')
-
-                                        <input type="hidden" name="status" value="cancelled">
-                                        <button class="bg-red-500 hover:bg-red-600 text-white px-4 py-1.5 rounded-md">
-                                            Cancel
-                                        </button>
-                                    </form>
-                                </div>
-                            </td> 
-                        </tr>
-                              
-                    @endforeach
-                </tbody>
-
-            </table>
+                    <div class="flex items-center gap-2">
+                        <i data-lucide="circle-x" class="w-5 h-5"></i>
+                        Reset
+                    </div>
+        
+                </button>
+        
+            </div>
+        
         </div>
+
+        <div id="reservations-table">
+            @include('admin.reservations.partials.table')
+        </div>
+
     </div>
 
 @endsection

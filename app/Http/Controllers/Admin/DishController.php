@@ -70,11 +70,14 @@ class DishController extends Controller
         ], compact('dishes', 'categories'));
     }
 
-    public function create()
+    public function create(Request $request)
     {
         $categories = Category::all();
 
-        return view('admin.dishes.create', compact('categories'));
+        return view('admin.dishes.create', [
+            'categories' => $categories,
+            'selectedCategory' => $request->category,
+        ]);
     }
 
     public function edit($id)
@@ -123,6 +126,10 @@ class DishController extends Controller
         }
 
         Dish::create($validated);
+
+        if ($dish->category) {
+            return redirect()->route('admin.categories.show', $dish->category)->with('success', 'Dish created successfully.');
+        }
 
         return redirect()->route('admin.dishes.index')->with('success', 'Dish created successfully!');
     }

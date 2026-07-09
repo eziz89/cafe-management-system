@@ -1,5 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
 
+    const menuContainer = document.getElementById('menu-container');
+
+    if (!menuContainer) return;
+    
     /**
      * =========================
      * 1. STATE (SOURCE OF TRUTH)

@@ -2,9 +2,6 @@
 
     <div class="flex flex-wrap justify-between">
         <div class="flex items-center gap-3">
-            <span class="font-semibold text-stone-700">
-                Filter:
-            </span>
             <button data-status="" class="order-filter px-4 py-2 rounded-full bg-orange-500 text-white">
                 All
                 <span id="all-count" class="ml-2 bg-white text-stone-700 text-xs font-semibold px-2 py-1 rounded-full">
@@ -51,6 +48,13 @@
                 px-5 py-3 focus:ring-2 focus:ring-orange-400
                 outline-none">
         </div>
+
+        <button id="reset-filters" type="button" class="px-4 py-3 rounded-2xl border border-stone-300 hover:bg-stone-100 transition">
+            <div class="flex items-center gap-2">
+                <i data-lucide="circle-x" class="w-5 h-5"></i>
+                Reset
+            </div>
+        </button>
     
     </div>
 </div>
