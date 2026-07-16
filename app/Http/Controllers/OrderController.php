@@ -10,7 +10,7 @@ class OrderController extends Controller
 {
     public function myOrders()
     {
-        $orders = Order::where('user_id', Auth::id())->latest()->get();
+        $orders = Order::where('user_id', Auth::id())->latest()->paginate(5);
 
         return view('orders.my-orders', compact('orders'));
     }
@@ -28,24 +28,64 @@ class OrderController extends Controller
 
     public function reorder(Order $order)
     {
-        foreach ($order->orderItems as $item)
-        {
-            $cart = session()->get('cart', []);
+        $cart = [];
 
-            if(isset($cart[$item->dish_id])) {
-                $cart[$item->dish_id]['quantity'] += $item->quantity;
-            } else {
-                $cart[$item->dish_id] = [
-                    'name' => $item->dish->name,
-                    'price' => $item->dish->price,
-                    'image' => $item->dish->image,
-                    'quantity' => $item->dish->quantity,
-                ];
-            }
+        foreach ($order->orderItems as $item) {
 
-            session()->put('cart', $cart);
+            $cart[$item->dish_id] = [
+                'name' => $item->dish->name,
+                'price' => $item->dish->price,
+                'image' => $item->dish->image,
+                'quantity' => $item->quantity,
+            ];
         }
 
-        return redirect()->route('cart.index')->with('success', 'Order added cart to cart again.');
+        session()->put('cart', $cart);
+
+        session([
+            'checkout' => [
+                'customer_name'    => $order->customer_name,
+                'customer_phone'   => $order->customer_phone,
+                'customer_address' => $order->customer_address,
+                'order_type'       => $order->order_type,
+                'payment_method'   => $order->payment_method,
+                'notes'            => $order->notes,
+            ],
+        ]);
+
+        return redirect()->route('cart.index')->with('success', 'Order added to cart again.');
+    }
+
+    public function status(Order $order)
+    {
+        return response()->json([
+            'timeline' => view('orders.partials.timeline', [
+                'order' => $order
+            ])->render(),
+
+            'badge' => view('orders.partials.status-badge', [
+                'order' => $order
+            ])->render(),
+
+        ]);
+    }
+
+    public function statuses()
+    {
+        $orders = Order::where('user_id', Auth::id())->get();
+    
+        $statuses = $orders->map(function ($order) {
+        
+            return [
+                'id' => $order->id,
+            
+                'badge' => view('orders.partials.badge', [
+                    'order' => $order,
+                ])->render(),
+            ];
+        
+        });
+    
+        return response()->json($statuses);
     }
 }

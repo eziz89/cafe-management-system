@@ -11,57 +11,122 @@
 
         @forelse($orders as $order)
 
-            <div class="bg-white p-6 rounded-2xl shadow mb-6">
+            <div class="bg-white rounded-3xl shadow-lg hover:shadow-xl transition duration-300 overflow-hidden mb-8">
 
-                <div class="flex justify-between items-center">
+                <div class="flex justify-between items-start border-b border-stone-200 p-6">
 
                     <div>
-                        <h2 class="text-xl font-semibold">
+                        <h2 class="text-3xl font-bold text-stone-800">
                             {{ __('myorder.order') }} #{{ $order->id }}
                         </h2>
 
-                        <p class="text-gray-500 text-sm">
-                            {{ $order->created_at->format('d M Y H:i') }}
+                        <p class="text-stone-500 mt-2">
+                            {{ $order->created_at->format('d M Y') }}
+                        </p>
+
+                        <p class="text-stone-400 text-sm">
+                            {{ $order->created_at->format('H:i') }}
                         </p>
                     </div>
 
-                    <div>
-                        @if($order->status === 'pending')
-                            <span class="bg-gray-200 text-gray-700 px-4 py-2 rounded-full text-sm font-semibold">
-                                {{ __('status.pending') }}
-                            </span>
-
-                        @elseif($order->status === 'preparing')
-                            <span class="bg-yellow-100 text-yellow-700 px-4 py-2 rounded-full text-sm font-semibold">
-                                {{ __('status.preparing') }}
-                            </span>
-
-                        @elseif($order->status === 'completed')
-                            <span class="bg-green-100 text-green-700 px-4 py-2 rounded-full text-sm font-semibold">
-                                {{ __('status.completed') }}
-                            </span>
-
-                        @elseif($order->status === 'cancelled')
-                            <span class="bg-red-100 text-red-700 px-4 py-2 rounded-full text-sm font-semibold">
-                                {{ __('status.cancelled') }}
-                            </span>
-                        @endif
+                    <div id="order-badge-{{ $order->id }}">
+                        @include('orders.partials.badge', ['order' => $order])
                     </div>
 
                 </div>
 
-                
-                <div class="flex justify-between items-center">
-                    <div class="mt-4">
-                        <span>{{ __('myorder.total') }}: </span>
-                        <span class="font-bold">
-                            {{ number_format($order->total_price, 2) }}
-                        </span>
+                <div class="p-6 grid md:grid-cols-2 gap-8">
+
+                    <div class="space-y-5">
+
+                        <div>
+                            <p class="text-xs uppercase tracking-widest text-stone-400">
+                                Order Type
+                            </p>
+
+                            <p class="font-semibold mt-2">
+
+                                @if($order->order_type=='delivery')
+                                    Delivery
+                                @elseif($order->order_type=='takeaway')
+                                    Take Away
+                                @else
+                                    Eat In
+                                @endif
+
+                            </p>
+
+                        </div>
+
+                        <div>
+                            <p class="text-xs uppercase tracking-widest text-stone-400">
+                                Payment
+                            </p>
+
+                            <p class="font-semibold mt-2">
+
+                                @if($order->payment_method=='cash')
+                                    Cash
+                                @else
+                                    Card
+                                @endif
+
+                            </p>
+                        </div>
+
                     </div>
 
-                    <a href="{{ route('orders.show', $order->id) }}" class="text-orange-500 hover:underline">
+                    <div class="space-y-5">
+
+                        <div>
+                            <p class="text-xs uppercase tracking-widest text-stone-400">
+                                Dishes
+                            </p>
+
+                            <p class="font-semibold mt-2">
+                                {{ $order->orderItems->count() }}
+                            </p>
+                        </div>
+
+                        <div>
+                            <p class="text-xs uppercase tracking-widest text-stone-400">
+                                Total
+                            </p>
+
+                            <p class="text-3xl font-bold text-orange-500 mt-2">
+
+                                ${{ number_format($order->total_price,2) }}
+
+                            </p>
+                        </div>
+
+                    </div>
+
+                    @if($order->order_type == 'delivery')
+
+                        <div>
+
+                            <p class="text-xs uppercase tracking-widest text-stone-400">
+                                Delivery Address
+                            </p>
+
+                            <p class="font-medium mt-2 text-stone-700">
+
+                                📍 {{ Str::limit($order->customer_address, 60) }}
+
+                            </p>
+
+                        </div>
+                    @endif
+
+                </div>
+                
+                <div class="border-t border-stone-200 px-8 py-4 flex justify-end">
+
+                    <a href="{{ route('orders.show',$order) }}" class="font-semibold text-orange-500 hover:text-orange-600 transition">
                         {{ __('myorder.view_details') }}
                     </a>
+
                 </div>
 
             </div>
@@ -86,7 +151,12 @@
 
         @endforelse
 
+    <div class="mt-10">
+        {{ $orders->links() }}
     </div>
+    
+    </div>
+
 </div>
 
 @endsection

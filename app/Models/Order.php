@@ -20,5 +20,12 @@ class Order extends Model
         'user_id',
         'total_price',
         'status',
+        'customer_name',
+        'customer_phone',
+        'customer_address',
+        'order_type',
+        'payment_method',
+        'notes',
+        'status',
     ];
 }

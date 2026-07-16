@@ -61,34 +61,112 @@
 
             </div>
 
-            <hr class="my-8">
+            <hr class="my-6">
 
-            <div class="space-y-6">
+            <div class="space-y-5">
 
-                <div>
+                <div class="flex justify-between items-center">
 
-                    <p class="text-xs uppercase tracking-widest text-stone-400">
-                        Customer
-                    </p>
+                    <div>
+                        <p class="text-xs uppercase tracking-widest text-stone-400">
+                            Customer
+                        </p>
 
-                    <p class="font-semibold text-lg mt-2">
-                        {{ $order->user->name ?? 'Guest' }}
-                    </p>
+                        <p class="font-semibold text-lg mt-2">
+                            {{ $order->user->name ?? 'Guest' }}
+                        </p>
+                    </div>
 
+                    <div>
+                        <p class="text-xs uppercase tracking-widest text-stone-400">
+                            Order Type
+                        </p>
+
+                        <p class="font-semibold text-lg mt-2">
+
+                            @if($order->order_type === 'delivery')
+
+                                Delivery
+
+                            @elseif($order->order_type === 'takeaway')
+                                
+                                Take Away
+
+                            @else
+
+                                Eat In
+
+                            @endif
+
+                        </p>
+                    </div>
+                    
                 </div>
 
-                <div>
+                
+                <div class="flex justify-between items-center">
 
-                    <p class="text-xs uppercase tracking-widest text-stone-400">
-                        Total
-                    </p>
+                    <div>
+                        <p class="text-xs uppercase tracking-widest text-stone-400">
+                            Phone
+                        </p>
 
-                    <p class="text-3xl font-bold text-orange-500 mt-2">
-                        ${{ number_format($order->total_price,2) }}
-                    </p>
+                        <p class="font-semibold text-lg mt-2">
+                            {{ $order->customer_phone }}
+                        </p>
+                    </div>
 
+                    <div>
+                        <p class="text-xs uppercase tracking-widest text-stone-400">
+                            Payment
+                        </p>
+
+                        <p class="font-semibold text-lg mt-2">
+
+                            @if($order->payment_method === 'cash')
+                                💵 Cash
+
+                            @else
+                                💳 Card
+
+                            @endif
+
+                        </p>
+                    </div>
+                
                 </div>
 
+                
+                <div class="flex justify-between items-center">
+                    @if($order->order_type === 'delivery')
+                    
+                        <div>
+                            <p class="text-xs uppercase tracking-widest text-stone-400">
+                            Delivery Address
+                        </p>
+                    
+                        <p class="font-semibold mt-2">
+                            📍 {{ $order->customer_address }}
+                        </p>
+                        </div>
+                    
+                    @endif
+    
+                    
+                    @if($order->notes)
+    
+                        <div>
+                            <p class="text-xs uppercase tracking-widest text-stone-400">
+                                Notes
+                            </p>
+    
+                            <p class="font-semibold text-lg mt-2">
+                                {{ $order->notes }}
+                            </p>
+                        </div>
+    
+                    @endif
+                </div>
             </div>
 
         </div>
@@ -109,14 +187,18 @@
 
             </h3>
 
-            <div class="space-y-4 max-h-70 overflow-y-auto scrollbar-thin pr-2">
+            <div class="space-y-4 max-h-70 overflow-y-auto scrollbar-thin pr-2 mb-4">
 
                 @foreach($order->orderItems as $item)
 
-                    <div
-                        class="rounded-2xl border border-stone-200 p-5 flex justify-between items-center hover:shadow-sm transition">
+                    <div class="rounded-2xl border border-stone-200 p-5 flex justify-between items-center hover:shadow-sm transition">
 
-                        <div>
+                        <div class="flex items-center gap-4">
+
+                            <img
+                                src="{{ asset('storage/' . $item->dish->image) }}"
+                                alt="{{ $item->dish->name }}"
+                                class="w-16 h-16 rounded-xl object-cover">
 
                             <p class="font-semibold text-lg">
                                 {{ $item->dish->name }}
@@ -129,7 +211,7 @@
                         </div>
 
                         <p class="text-xl font-bold text-orange-500">
-                            ${{ number_format($item->price,2) }}
+                            ${{ number_format($item->price * $item->quantity,2) }}
                         </p>
 
                     </div>
@@ -137,6 +219,19 @@
                 @endforeach
 
             </div>
+
+            <div class="rounded-2xl border border-green-300 bg-green-200 py-3 px-5 flex justify-between items-center hover:shadow-sm transition">
+                
+                <p class="font-semibold tracking-widest text-green-600">
+                    Total Amount
+                </p>
+
+                <p class="text-2xl font-bold  text-green-600 mt-2">
+                    ${{ number_format($order->total_price,2) }}
+                </p>
+
+            </div>
+
 
         </div>
 

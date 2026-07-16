@@ -63,21 +63,11 @@ class CartController extends Controller
         }
 
         session()->put('cart', $cart);
-        $total = 0;
-
-        foreach ($cart as $item) {
-            $total += $item['price'] * $item['quantity'];
-        }
-
-        $cartHtml = view('partials.cart-items', [
-            'cart' => $cart,
-        ])->render();
-
 
         return $this->cartResponse($cart, $id);
     }
 
-    public function checkout()
+    public function checkout(Request $request)
     {
         $cart = session()->get('cart', []);
 
@@ -89,8 +79,62 @@ class CartController extends Controller
             return $item['price'] * $item['quantity'];
         });
 
+        $phone = preg_replace('/\D/', '', $request->customer_phone);
+        $phone = '+993' . $phone;
+
+        $request->merge([
+            'customer_phone' => $phone,
+        ]);
+
+        $request->validate([
+            'customer_name' => [
+                'required',
+                'string',
+                'max:255'
+            ],
+        
+            'customer_phone' => [
+                'required',
+                'regex:/^\+993[0-9]{8}$/',
+            ],
+        
+            'order_type' => [
+                'required',
+                'in:delivery,takeaway,eat_in',
+            ],
+
+            'payment_method' => [
+                'required',
+                'in:cash,card',
+            ],
+
+            'customer_address' => [
+                'required_if:order_type,delivery',
+                'nullable',
+                'string',
+                'max:500',
+            ],
+
+            'notes' => [
+                'nullable',
+                'string',
+                'max:1000'
+            ],
+        ], [
+            'customer_name.required' => 'Please enter your name.',
+            'customer_phone.required' => 'Please enter your phone number.',
+            'customer_phone.regex' => 'Please enter a valid Turkmen phone number.',
+            'notes.max' => 'Notes cannot be longer than 1000 characters.',
+        ]);
+            
         $order = Order::create([
             'user_id' => Auth::id(),
+            'customer_name' => $request->customer_name,
+            'customer_phone'=> $request->customer_phone,
+            'order_type' => $request->order_type,
+            'payment_method' => $request->payment_method,
+            'customer_address'=> $request->customer_address,
+            'notes' => $request->notes,
             'total_price' => $total,
             'status' => 'pending',
         ]);
@@ -103,10 +147,26 @@ class CartController extends Controller
                 'price' => $item['price'],
             ]);
         }
-
+ 
         session()->forget('cart');
+        session()->forget('checkout');
 
-        return redirect()->route('checkout.success');
+        return redirect()->route('checkout.success', $order);
+    }
+
+    public function showCheckout()
+    {
+        $cart = session()->get('cart', []);
+
+        if (empty($cart)) {
+            return redirect()->route('cart.index');
+        }
+
+        $total = collect($cart)->sum(function ($item) {
+            return $item['price'] * $item['quantity'];
+        });
+
+        return view('checkout.index', compact('cart', 'total'));
     }
 
     public function increase($id)
@@ -120,16 +180,6 @@ class CartController extends Controller
         $cart[$id]['quantity']++;
 
         session()->put('cart', $cart);
-
-        $total = 0;
-
-        foreach ($cart as $item) {
-            $total += $item['price'] * $item['quantity'];
-        }
-
-        $cartHtml = view('partials.cart-items', [
-            'cart' => $cart,
-        ])->render();
 
         return $this->cartResponse($cart, $id);
     }
@@ -150,19 +200,9 @@ class CartController extends Controller
 
         session()->put('cart', $cart);
 
-        $total = 0;
-
-        foreach ($cart as $item) {
-            $total += $item['price'] * $item['quantity'];
-        }
-
-        $cartHtml = view('partials.cart-items', [
-            'cart' => $cart,
-        ])->render();
-
         return $this->cartResponse($cart, $id);
     }
-
+ 
     public function count()
     {
         $cart = session()->get('cart', []);
@@ -182,7 +222,7 @@ class CartController extends Controller
             $totalPrice += $item['price'] * $item['quantity'];
         }   
 
-        $cartHtml = view('partials.cart-items', [
+        $cartHtml = view('cart.items', [
             'cart' => $cart,
         ])->render();
 
@@ -197,6 +237,5 @@ class CartController extends Controller
             'cart_html' => $cartHtml,
         ]);
     }
-
 
 }

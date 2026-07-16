@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 badge.id = 'cart-count';
 
                 badge.className =
-                    'absolute -top-2 -right-2 min-w-5 h-5 px-1 bg-red-500 text-white text-xs font-bold rounded-full flex items-center justify-center';
+                    'absolute -top-0 -right-5 min-w-5 h-5 px-1 bg-red-500 text-white text-xs font-bold rounded-full flex items-center justify-center';
 
                 link.appendChild(badge);
             }

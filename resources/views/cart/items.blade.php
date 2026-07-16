@@ -7,6 +7,7 @@
         <div class="flex-1">
 
             <div class="flex justify-between mb-8">
+
                 <h2 class="text-2xl text-neutral-800 font-bold">
                     {{ $item['name'] }}
                 </h2>
@@ -14,6 +15,7 @@
                 <span class="text-orange-400 font-bold text-xl">
                     ${{ $item['price'] }}
                 </span>
+                
             </div>
 
             <div class="flex justify-between">
@@ -56,7 +58,7 @@
 @empty
 
     <div class="empty-cart-template" class="hidden">
-        @include('partials.cart-empty')
+        @include('cart.empty')
     </div>
 
 @endforelse

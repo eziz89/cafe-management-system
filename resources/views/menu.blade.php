@@ -209,7 +209,9 @@
                         </div>
                         
                         <div id="dishes-container">
-                            @include('partials.dishes-grid')
+
+                            @include('dishes.grid')
+    
                         </div>
 
                     </div>

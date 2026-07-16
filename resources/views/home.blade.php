@@ -129,14 +129,28 @@
                             @if($dish->image)
                                 <img src="{{ asset('storage/' . $dish->image) }}" alt="{{ $dish->name }}" class="w-full h-56 object-cover hover:scale-105 transition duration-500">
                             @endif
-                
                             
+                            <div class="absolute top-1 left-4 z-30  rounded-full shadow-xl flex items-center justify-center transition duration-300 hover:scale-110 active:scale-95 hover:-translate-y-1">
+                                @if($dish->status === 'coming_soon')
+
+                                    <p class="text-yellow-600 bg-yellow-100 border border-yellow-600 rounded-full text-sm font-medium p-2 mt-2">
+                                        Coming Soon
+                                    </p>
+
+                                @elseif($dish->status === 'out_of_stock')
+
+                                    <p class="text-red-600 bg-red-100 border border-red-600 rounded-full text-sm font-medium p-2 mt-2">
+                                        Out of Stock
+                                    </p>
+                                @endif
+                            </div>
+
                             @auth
-                
+
                                 @php
                                     $isFavorited = auth()->user()->favorites->contains($dish->id);
                                 @endphp
-                            
+
                                 <button class="favorite-btn absolute top-4 right-4 z-30 w-12 h-12 rounded-full shadow-xl flex items-center justify-center transition duration-300 hover:scale-110 active:scale-95 hover:-translate-y-1
                                     {{ $isFavorited ? 'bg-red-500 text-white' : 'bg-white/90 text-gray-600' }}"
                                     data-id="{{ $dish->id }}">
@@ -186,10 +200,32 @@
 
                         </div>
 
-                        <button class="add-to-cart-btn w-full bg-orange-500 hover:bg-orange-600 text-white rounded-2xl font-semibold py-2 hover:shadow-lg hover:shadow-orange-500/30 transition duration-300"
-                            data-id="{{ $dish->id }}">
-                            {{ __('cart.add_to_cart') }}
-                        </button>
+                        <div class="mt-auto">
+                            @if($dish->status === 'available')
+
+                                <button class="add-to-cart-btn w-full bg-orange-500 hover:bg-orange-600 text-white rounded-2xl font-semibold py-2 hover:shadow-lg hover:shadow-orange-500/30 transition duration-300"
+                                    data-id="{{ $dish->id }}">
+                                    {{ __('cart.add_to_cart') }}
+                                </button>
+
+                            @elseif($dish->status === 'coming_soon')
+
+                                <button
+                                    disabled
+                                    class="w-full py-2 rounded-2xl bg-yellow-100 text-yellow-700 font-semibold cursor-not-allowed">
+                                    Coming Soon
+                                </button>
+
+                            @else
+
+                                <button
+                                    disabled
+                                    class="w-full py-2 rounded-2xl bg-red-100 text-red-700 font-semibold cursor-not-allowed">
+                                    Out of Stock
+                                </button>
+
+                            @endif
+                        </div>
                     </div>
                 </div>
 
