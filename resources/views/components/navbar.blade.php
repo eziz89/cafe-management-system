@@ -43,7 +43,7 @@
 
             <div class="relative group">
 
-                <button class="flex items-center gap-2 text-gray-700 hover:text-orange-500 transition font-medium py-2">
+                <button class="flex items-center gap-2 hover:text-orange-500 transition py-2">
                     
                     <i data-lucide="user" class="w-5 h-5"></i>
                     {{ __('navigation.account') }} 
@@ -116,8 +116,6 @@
                 <i data-lucide="log-in" class="w-5 h-5"></i>
                 {{ __('navigation.login') }}
             </a>
-            
-            
 
             <div class="relative group">
 
@@ -157,6 +155,37 @@
             </div>
 
             @endauth
+
+            <div class="relative py-2">
+
+                <a href="{{ route('notifications.index') }}" class="relative transition">
+
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                        class="w-6 h-6 text-stone-700"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor">
+
+                        <path stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M15 17h5l-1.4-1.4A2 2 0 0118 14.17V11a6 6 0 10-12 0v3.17a2 2 0 01-.6 1.42L4 17h5m6 0a3 3 0 11-6 0m6 0H9"/>
+
+                    </svg>
+
+                    <span id="notification-count"
+                        class="hidden absolute -top-3 -right-2
+                            bg-red-500 text-white
+                            text-xs font-bold
+                            min-w-5 h-5
+                            px-1
+                            rounded-full
+                            flex items-center justify-center">
+                    </span>
+
+                </a>
+
+            </div>
 
         </div>
     </div>

@@ -54,3 +54,19 @@ All notable changes to this project will be documented in this file.
 * Restaurant menu
 * Shopping cart
 * Favorite dishes
+
+## [Unreleased]
+
+### Added
+- Customer checkout page with address, payment and order type.
+- Reorder now prefills checkout information.
+- Redesigned order success page.
+- Redesigned My Orders page.
+- Redesigned Order Details page.
+- Live order status polling without page refresh.
+- Reusable status badge and timeline components.
+
+### Improved
+- Customer order experience.
+- Checkout validation.
+- Blade partial organization.

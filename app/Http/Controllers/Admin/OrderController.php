@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Order;
+use App\Models\Notification;
+use App\Services\NotificationService;
 
 class OrderController extends Controller
 {
@@ -23,8 +25,8 @@ class OrderController extends Controller
             $ordersQuery->where(function ($query) use ($search) {
             
                 $query->where('id', 'like', "%{$search}%")
-                      ->orWhereHas('user', function ($q) use ($search) {
-                          $q->where('name', 'like', "%{$search}%");
+                    ->orWhereHas('user', function ($q) use ($search) {
+                        $q->where('name', 'like', "%{$search}%");
                       });
                   
             });
@@ -49,13 +51,19 @@ class OrderController extends Controller
         return view('admin.orders.index', compact('orders', 'counters'));
     }
 
-    public function updateStatus(Request $request, Order $order)
+    public function updateStatus(Request $request, Order $order, NotificationService $notifications)
     {
+        $oldStatus = $order->status;
+        
         $order->update([
             'status' => $request->status,
         ]);
 
         $order->refresh();
+
+        if ($oldStatus !== $order->status) {
+            $notifications->orderStatusChanged($order);
+        }
 
         $counters = [
             'all' => Order::count(),

@@ -44,12 +44,13 @@ class OrderController extends Controller
 
         session([
             'checkout' => [
-                'customer_name'    => $order->customer_name,
-                'customer_phone'   => $order->customer_phone,
+                'customer_name' => $order->customer_name,
+                'customer_phone' => $order->customer_phone,
                 'customer_address' => $order->customer_address,
-                'order_type'       => $order->order_type,
-                'payment_method'   => $order->payment_method,
-                'notes'            => $order->notes,
+                'order_type' => $order->order_type,
+                'payment_method' => $order->payment_method,
+                'notes' => $order->notes,
+                'reorder_from' => $order->id,
             ],
         ]);
 
@@ -63,7 +64,7 @@ class OrderController extends Controller
                 'order' => $order
             ])->render(),
 
-            'badge' => view('orders.partials.status-badge', [
+            'badge' => view('orders.partials.badge', [
                 'order' => $order
             ])->render(),
 

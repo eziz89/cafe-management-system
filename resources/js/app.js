@@ -6,6 +6,8 @@ import './categorySwiper';
 import './checkout';
 import './orders';
 import './my-orders';
+import './notifications';
+import './reservations';
 
 import Swiper from 'swiper';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';

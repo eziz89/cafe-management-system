@@ -40,6 +40,11 @@ class User extends Authenticatable
             Dish::class, 'favorites'
         );
     }
+
+    public function notifications()
+    {
+        return $this->hasMany(Notification::class)->latest();
+    }
     
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;

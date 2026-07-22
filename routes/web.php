@@ -13,6 +13,7 @@ use App\Http\Controllers\AccountController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\ReservationController;
+use App\Http\Controllers\NotificationController;
 use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
@@ -32,6 +33,7 @@ Route::get('/categories/{id}', [CategoryController::class, 'show'])->name('categ
 Route::get('/reservations/create', [ReservationController::class, 'create'])->name('reservations.create');
 Route::post('/reservations', [ReservationController::class, 'store'])->name('reservations.store');
 Route::get('/my-reservations', [ReservationController::class, 'myReservations'])->middleware('auth')->name('reservations.my');
+Route::get('/reservations/{reservation}/status', [ReservationController::class, 'status'])->middleware('auth')->name('reservations.status');
 
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index'); 
 Route::middleware('auth')->group(function () {
@@ -87,3 +89,13 @@ Route::get('/language/{locale}', function ($locale) {
 
 Route::post('/favorites/{dish}', [FavoriteController::class, 'toggle'])->middleware('auth')->name('favorites.toggle');
 Route::get('/favorites', [FavoriteController::class, 'index'])->middleware('auth')->name('favorites.index');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');
+    Route::get('/notifications/unread', [NotificationController::class, 'unread'])->name('notifications.unread');
+    Route::post('/notifications/{notification}/read', [NotificationController::class, 'markAsRead'])->name('notifications.read');
+});
+
+Route::middleware('auth')->group(function () {
+    Route::get('/notifications/poll', [NotificationController::class, 'poll'])->name('notifications.poll');
+});

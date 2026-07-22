@@ -137,6 +137,7 @@ class CartController extends Controller
             'notes' => $request->notes,
             'total_price' => $total,
             'status' => 'pending',
+            'reordered_from_id' => session('reorder_from'),
         ]);
 
         foreach($cart as $dishId => $item) {
@@ -150,6 +151,7 @@ class CartController extends Controller
  
         session()->forget('cart');
         session()->forget('checkout');
+        session()->forget('reorder_from');
 
         return redirect()->route('checkout.success', $order);
     }

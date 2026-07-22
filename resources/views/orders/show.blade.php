@@ -42,18 +42,6 @@
                 <h2 class="text-xl font-bold">
                     {{ __('myorder.order_items') }}
                 </h2>
-
-                @if($order->status == 'pending')
-
-                    <form action="{{ route('orders.reorder', $order->id) }}" method="POST">
-                        @csrf
-
-                        <button type="submit" class="mt-4 bg-orange-500 hover:bg-orange-600 text-white px-5 py-2 rounded-xl transition0">
-                            {{ __('myorder.reorder') }}
-                        </button>
-                    </form>
-                    
-                @endif
             </div>
 
             @foreach($order->orderItems as $item)
