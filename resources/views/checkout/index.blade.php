@@ -84,11 +84,10 @@
                                 Full Name *
                             </label>
 
-
                             <input
                                 name="customer_name"
                                 value="{{ old('customer_name', session('checkout.customer_name')) }}"
-                                class="w-full rounded-2xl px-5 py-4
+                                class="w-full rounded-2xl border border-orange-400 px-5 py-4
                                 @error('customer_name')
                                     border-red-500
                                 @enderror"
@@ -112,7 +111,7 @@
                                 Phone Number *
                             </label>
 
-                            <div class="flex">
+                            <div class="flex rounded-2xl border border-orange-400">
 
                                 <span class="flex items-center px-4 rounded-l-2xl text-stone-600">
                                     +993
@@ -123,7 +122,7 @@
                                     name="customer_phone"
                                     value="{{ old('customer_phone', session('checkout.customer_phone')) }}"
                                     placeholder="61 00 00 00"
-                                    class="flex-1 rounded-r-2xl border-stone-200 px-5 py-4
+                                    class="flex-1 rounded-r-2xl px-5 py-4
                                     @error('customer_phone')
                                         border-red-500
                                     @enderror"
@@ -242,7 +241,7 @@
                                 name="customer_address"
                                 value="{{ old('customer_address', session('checkout.customer_address')) }}"
                                 placeholder="Street, building, apartment"
-                                class="w-full rounded-2xl px-5 py-4
+                                class="w-full rounded-2xl border border-orange-400 px-5 py-4
                                 @error('customer_address')
                                     border-red-500
                                 @enderror">
@@ -269,7 +268,7 @@
                                 name="notes"
                                 rows="3"
                                 placeholder="Example: No onions, extra spicy..."
-                                class="w-full rounded-2xl px-5 py-4 focus:ring-2 focus:ring-orange-300">{{ old('notes', session('checkout.notes')) }}</textarea>
+                                class="w-full rounded-2xl px-5 py-4 border border-orange-400 focus:ring-2 focus:ring-orange-300">{{ old('notes', session('checkout.notes')) }}</textarea>
 
                             @error('notes')
 

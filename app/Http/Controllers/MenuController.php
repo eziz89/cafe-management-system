@@ -57,7 +57,31 @@ class MenuController extends Controller
         $categories = Category::withCount('dishes')->get();
 
         if ($request->ajax()) {
-            return view('partials.dishes-grid', compact('dishes'))->render();
+
+            return response()->json([
+
+                'grid' => view(
+                    'dishes.grid',
+                    compact('dishes')
+                )->render(),
+                
+                'info' => view(
+                    'dishes.info',
+                    compact(
+                        'dishes',
+                        'categories'
+                    )
+                )->render(),
+                    
+                'filters' => view(
+                    'dishes.filters',
+                    compact(
+                        'categories'
+                    )
+                )->render(),
+                    
+            ]);
+        
         }
         
         return view('menu', compact('dishes', 'categories', 'totalDishes'));

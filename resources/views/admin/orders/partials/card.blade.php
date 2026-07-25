@@ -72,9 +72,19 @@
                             Customer
                         </p>
 
-                        <p class="font-semibold text-lg mt-2">
-                            {{ $order->user->name ?? 'Guest' }}
-                        </p>
+                        @if($order->user)
+                            <span class="font-semibold">
+                                {{ $order->user->name }}
+                            </span>
+                        @else
+                            <div class="font-semibold">
+                                {{ $order->customer_name }}
+                            </div>
+                        
+                            <span class="ml-2 text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">
+                                Guest
+                            </span>
+                        @endif
                     </div>
 
                     <div>

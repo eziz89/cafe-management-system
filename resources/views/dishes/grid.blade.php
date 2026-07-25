@@ -129,6 +129,6 @@
     @endif
 </div>
 
-<div class="mt-10">
+<div id="pagination-container" class="mt-10">
     {{ $dishes->appends(request()->query())->links() }}
 </div>

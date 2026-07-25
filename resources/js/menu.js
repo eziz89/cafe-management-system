@@ -3,6 +3,24 @@ document.addEventListener('DOMContentLoaded', () => {
     const menuContainer = document.getElementById('menu-container');
 
     if (!menuContainer) return;
+
+    const loadingOverlay = document.getElementById('menu-loading');
+
+    function showLoading() {
+
+        if (!loadingOverlay) return;
+
+        loadingOverlay.classList.remove('hidden');
+
+    }
+
+    function hideLoading() {
+
+        if (!loadingOverlay) return;
+
+        loadingOverlay.classList.add('hidden');
+
+    }
     
     /**
      * =========================
@@ -17,7 +35,6 @@ document.addEventListener('DOMContentLoaded', () => {
         category: params.get('category') || '',
     };
 
-
     /**
      * =========================
      * 2. DOM ELEMENTS
@@ -28,7 +45,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const resetBtn = document.getElementById('resetBtn');
 
     let timeout;
-
 
     /**
      * =========================
@@ -62,7 +78,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-
     /**
      * =========================
      * 4. MAIN AJAX ENGINE
@@ -82,7 +97,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
         });
 
-        window.history.replaceState({}, '', url);
+        await loadPage(url);
+
+    }
+
+    async function loadPage(url) {
+
+        showLoading();
 
         try {
 
@@ -93,17 +114,27 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
 
-            const html = await response.text();
+            const data = await response.json();
 
-            const container = document.getElementById('dishes-container');
+            document.getElementById('dishes-container').innerHTML = data.grid;
 
-            container.innerHTML = html;
+            document.getElementById('menu-info-container').innerHTML = data.info;
+            
+            document.getElementById('active-filters-container').innerHTML = data.filters;
+
+            hideLoading();
+
+            window.history.replaceState({}, '', url);
 
         } catch (error) {
-            console.error('AJAX error:', error);
-        }
-    }
 
+            hideLoading();
+
+            console.error(error);
+
+        }
+
+    }
 
     /**
      * =========================
@@ -128,7 +159,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     }
 
-
     /**
      * =========================
      * 6. SORTING
@@ -145,7 +175,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
     }
-
 
     /**
      * =========================
@@ -167,6 +196,32 @@ document.addEventListener('DOMContentLoaded', () => {
         updateDishes();
     });
 
+    /**
+     * =========================
+     * AJAX PAGINATION
+     * =========================
+     */
+    document.addEventListener('click', async (e) => {
+    
+        const link = e.target.closest('#pagination-container a');
+    
+        if (!link) return;
+    
+        e.preventDefault();
+    
+        const url = new URL(link.href);
+    
+        Object.keys(state).forEach(key => {
+        
+            if (state[key]) {
+                url.searchParams.set(key, state[key]);
+            }
+        
+        });
+    
+        await loadPage(url);
+    
+    });
 
     /**
      * =========================
@@ -192,7 +247,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
     }
-
 
     /**
      * =========================

@@ -34,7 +34,7 @@
 
         </section>
 
-        <section class="py-20 bg-gray-50">
+        <section class="py-20 bg-gray-50" id="menu-container">
 
             <div class="max-w-7xl mx-auto">
 
@@ -83,37 +83,13 @@
 
                     </div>
 
-                    
-
                     {{-- DISHES --}}
                     <div class="lg:col-span-3">
 
                         <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-6 gap-4">
-
-                            <div>
-
-                                <h2 class="text-4xl font-bold text-gray-900 mb-2">
-                                    {{ __('menu.all_dishes') }}
-                                </h2>
-
-                                @if(request('category'))
-
-                                    @php
-                                        $selectedCategory = $categories->firstWhere('id', request('category'));
-                                    @endphp
-
-                                    <p class="text-orange-500 font-medium mt-2">
-                                        {{ __('category.category') }}: {{ $selectedCategory?->translated_name }}
-                                    </p>
-
-                                @endif
-
-                                <p class="text-gray-500">
-                                    {{ __('menu.showing') }}
-                                    {{ $dishes->count() }}
-                                    {{ __('menu.delicious_items') }}
-                                </p>
-
+                                
+                            <div id="menu-info-container">
+                                @include('dishes.info')
                             </div>
 
                             <form action="{{ route('menu.index') }}" method="GET">
@@ -162,56 +138,32 @@
 
                         </div>
 
-                        <div class="flex flex-wrap gap-3">
-
-                            @if(request('search'))
-                                <a href="{{ route('menu.index', request()->except('search')) }}"
-                                    class="flex items-center gap-2 bg-orange-100 text-orange-600 px-4 py-2 rounded-full hover:bg-orange-200 transition mb-4">
-
-                                    Search: {{ request('search') }}
-
-                                    <span class="font-bold">✕</span>
-                                </a>
-                            @endif
-
-                            @if(request('category'))
-                                @php
-                                    $selectedCategory = $categories->firstWhere('id', request('category'));
-                                @endphp
-
-                                <a href="{{ route('menu.index', request()->except('category')) }}"
-                                    class="flex items-center gap-2 bg-blue-100 text-blue-600 px-4 py-2 rounded-full hover:bg-blue-200 transition mb-4">
-                                    
-                                    {{ $selectedCategory?->translated_name }}
-
-                                    <span class="font-bold">✕</span>
-                                </a>
-                            @endif
-
-                            @if(request('sort') && request('sort') !== 'newest')
-                                @php
-                                    $sortLabels = [
-                                        'price_low' => 'Price: Low → High',
-                                        'price_high' => 'Price: High → Low',
-                                        'top_rated' => 'Top Rated'    
-                                    ];
-                                @endphp
-                                
-                                <a href="{{ route('menu.index', request()->except('sort')) }}"
-                                    class="flex items-center gap-2 bg-green-100 text-green-600 px-4 py-2 rounded-full hover:bg-green-200 transition mb-4">
-                                
-                                    {{ $sortLabels[request('sort')] ?? 'Sort' }}
-                                
-                                    <span class="font-bold">✕</span>
-                                </a>
-                            @endif
-                                
+                        <div id="active-filters-container">
+                            @include('dishes.filters')
                         </div>
-                        
-                        <div id="dishes-container">
 
-                            @include('dishes.grid')
-    
+                        <div id="dishes-wrapper" class="relative">
+
+                            <div id="menu-loading" class="hidden absolute inset-0 bg-white/70 backdrop-blur-sm z-20 flex items-center justify-center">
+
+                                <div class="flex flex-col items-center">
+
+                                    <div
+                                        class="w-10 h-10 border-4 border-orange-500 border-t-transparent rounded-full animate-spin">
+                                    </div>
+
+                                    <p class="mt-3 text-orange-600 font-semibold">
+                                        Loading dishes...
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+                            <div id="dishes-container">
+                                @include('dishes.grid')
+                            </div>
+
                         </div>
 
                     </div>
@@ -221,8 +173,6 @@
             </div>
 
         </section>
-
-        
 
         <div class="mt-6 bg-orange-50 rounded-3xl p-10 flex flex-col md:flex-row items-center justify-between gap-6">
 

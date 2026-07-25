@@ -34,7 +34,7 @@
 
             {{-- Order Info --}}
 
-            <div class="grid md:grid-cols-2 gap-8">
+            <div class="grid md:grid-cols-2 gap-8 mb-8">
 
                 <div class="space-y-5">
 
@@ -130,9 +130,53 @@
 
             </div>
 
+            @if(auth()->check())
+
+                <p class="text-gray-600">
+                    You can track your order live in
+                    <a href="{{ route('orders.my') }}"
+                       class="text-orange-600 font-semibold">
+                        My Orders
+                    </a>.
+                </p>
+
+            @else
+
+                <p class="text-gray-600">
+                    We have received your order successfully.
+                    Our team will contact you when your order is ready.
+                </p>
+
+                <div class="mt-6 rounded-3xl bg-orange-50 p-4 border border-orange-200">
+
+                    <h3 class="font-semibold text-orange-700 text-xl">
+                        Want live order tracking?
+                    </h3>
+
+                    <p class="text-gray-600 mt-2">
+                        Create an account to:
+                    </p>
+
+                    <ul class="list-disc ml-6 mt-2 text-gray-700">
+                        <li>Track orders live</li>
+                        <li>View order history</li>
+                        <li>Receive instant notifications</li>
+                    </ul>
+
+                    <a href="{{ route('register') }}"
+                       class="inline-block mt-4 px-5 py-2 bg-orange-600 text-white rounded-xl hover:bg-orange-700">
+
+                        Create Account
+
+                    </a>
+
+                </div>
+
+            @endif
+
             {{-- Timeline --}}
 
-            <div class="mt-12 rounded-3xl bg-orange-50 border border-orange-200 p-8">
+            <div class="mt-8 rounded-3xl bg-orange-50 border border-orange-200 p-8">
 
                 <h2 class="font-bold text-xl mb-5">
                     What happens next?

@@ -46,12 +46,12 @@ Route::post('/cart/increase/{id}', [CartController::class, 'increase'])->name('c
 Route::post('/cart/decrease/{id}', [CartController::class, 'decrease'])->name('cart.decrease');
 Route::get('/cart/count', [CartController::class, 'count']);
 
-Route::get('/checkout', [CartController::class, 'showCheckout'])->middleware('auth')->name('checkout.show');
-Route::post('/checkout', [CartController::class, 'checkout'])->middleware('auth')->name('checkout');
+Route::get('/checkout', [CartController::class, 'showCheckout'])->name('checkout.show');
+Route::post('/checkout', [CartController::class, 'checkout'])->name('checkout');
 Route::get('/checkout/success/{order}', function (Order $order) {
     return view('checkout.success', compact('order'));
 })->name('checkout.success');
- 
+
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');

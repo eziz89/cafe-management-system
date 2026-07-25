@@ -24,8 +24,6 @@
 
     </div>
 
-    @auth
-
     <a href="{{ route('checkout.show') }}"
         class="block text-center w-full
             bg-orange-500 hover:bg-orange-600
@@ -34,13 +32,5 @@
             font-semibold transition duration-300">
         {{ __('cart.checkout') }}
     </a>
-
-    @else
-
-    <a href="{{ route('login') }}" class="w-full bg-gray-800 text-white text-center font-semibold px-6 py-3 rounded-xl inline-block">
-        Login to Order
-    </a>
-
-    @endauth
 
 </div>

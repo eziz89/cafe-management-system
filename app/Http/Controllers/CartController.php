@@ -80,8 +80,13 @@ class CartController extends Controller
         });
 
         $phone = preg_replace('/\D/', '', $request->customer_phone);
-        $phone = '+993' . $phone;
 
+        if (str_starts_with($phone, '993')) {
+            $phone = '+' . $phone;
+        } else {
+            $phone = '+993' . $phone;
+        }
+        
         $request->merge([
             'customer_phone' => $phone,
         ]);
@@ -128,7 +133,7 @@ class CartController extends Controller
         ]);
             
         $order = Order::create([
-            'user_id' => Auth::id(),
+            'user_id' => Auth::check() ? Auth::id() : null,
             'customer_name' => $request->customer_name,
             'customer_phone'=> $request->customer_phone,
             'order_type' => $request->order_type,
