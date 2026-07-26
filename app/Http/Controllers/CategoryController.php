@@ -8,7 +8,13 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        $categories = Category::withCount('dishes')->get();
+        $categories = Category::with([
+            'dishes' => function ($query) {
+            
+                $query->withAvg('ratings', 'rating')->orderByDesc('ratings_avg_rating')->take(3);
+            
+            }
+        ])->withCount('dishes')->get();
         
         return view('categories.index', compact('categories'));
     }

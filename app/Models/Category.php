@@ -8,6 +8,14 @@ class Category extends Model
 {
     protected $fillable = [
         'name',
+        'name_en',
+        'name_ru',
+        
+        'description',
+        'description_en',
+        'description_ru',
+        
+        'image',
     ];
 
     public function dishes()

@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <section class="bg-stone-100 min-h-screen py-12">
+    <section class="bg-gray-50 min-h-screen py-12">
 
         <div class="max-w-7xl mx-auto">
             

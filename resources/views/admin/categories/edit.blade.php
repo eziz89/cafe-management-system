@@ -22,11 +22,49 @@
 
     <div class="bg-white rounded-3xl shadow-lg p-8">
 
-        <form action="{{ route('admin.categories.update', $category) }}" method="POST">
+        <form action="{{ route('admin.categories.update', $category) }}" method="POST" enctype="multipart/form-data">
             @method('PUT')
             @csrf
         
-            <div class="mb-6">
+            <div class="mb-5">
+        
+                <label class="block font-semibold mb-2">
+                    Category Image
+                </label>
+        
+                <input
+                    type="file"
+                    name="image"
+                    accept="image/*"
+                    class="w-full rounded-2xl border border-gray-300 px-5 py-3">
+        
+                @error('image')
+        
+                    <p class="text-red-500 mt-2 text-sm">
+                        {{ $message }}
+                    </p>
+        
+                @enderror
+        
+            </div>
+
+            @if($category->image)
+
+                <div class="mt-2 mb-5">
+
+                    <p class="text-sm text-gray-500 mb-2">
+                        Current image
+                    </p>
+
+                    <img
+                        src="{{ asset('storage/' . $category->image) }}"
+                        class="w-48 rounded-2xl border">
+
+                </div>
+
+            @endif
+
+            <div class="mb-5">
         
                 <label class="block font-semibold mb-2">
                     Category Name
@@ -43,6 +81,27 @@
                            focus:ring-orange-300">
         
                 @error('name')
+        
+                    <p class="text-red-500 mt-2 text-sm">
+                        {{ $message }}
+                    </p>
+        
+                @enderror
+        
+            </div>
+
+            <div class="mb-5">
+        
+                <label class="block font-semibold mb-2">
+                    Description
+                </label>
+        
+                <textarea
+                    name="description"
+                    rows="4"
+                    class="w-full rounded-2xl border border-gray-300 px-5 py-4">{{ old('description', $category->description) }}</textarea>
+        
+                @error('description')
         
                     <p class="text-red-500 mt-2 text-sm">
                         {{ $message }}

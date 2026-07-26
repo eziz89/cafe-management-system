@@ -51,34 +51,38 @@
 
                             <div class="space-y-3">
 
-                                <a href="{{ route('menu.index') }}"
-                                    class="category-filter flex items-center justify-between px-4 py-3 rounded-2xl transition hover:bg-orange-50 hover:text-orange-500"
-                                    data-category="">
-
-                                    <span>{{ __('menu.all_dishes') }}</span>
-
-                                    <span>{{ $totalDishes }}</span>
-
-                                </a>
-
-                                @foreach($categories as $category)
+                                <div class="max-h-96 overflow-y-auto pr-2 custom-scrollbar">
 
                                     <a href="{{ route('menu.index') }}"
-                                    class="category-filter flex items-center justify-between px-4 py-3 rounded-2xl transition hover:bg-orange-50 hover:text-orange-500"
-                                    data-category="{{ $category->id }}">
+                                        class="category-filter flex items-center justify-between px-4 py-3 rounded-2xl transition hover:bg-orange-50 hover:text-orange-500"
+                                        data-category="">
 
-                                        <span>{{ $category->translated_name }}</span>
+                                        <span>{{ __('menu.all_dishes') }}</span>
 
-                                        <span class="text-gray-400">
-                                            {{ $category->dishes_count }}
-                                        </span>
+                                        <span>{{ $totalDishes }}</span>
 
                                     </a>
 
-                                @endforeach
+                                    @foreach($categories as $category)
 
+                                        <a href="{{ route('menu.index') }}"
+                                        class="category-filter flex items-center justify-between px-4 py-3 rounded-2xl transition hover:bg-orange-50 hover:text-orange-500"
+                                        data-category="{{ $category->id }}">
+
+                                            <span>{{ $category->translated_name }}</span>
+
+                                            <span class="text-gray-400">
+                                                {{ $category->dishes_count }}
+                                            </span>
+
+                                        </a>
+
+                                    @endforeach
+                                    
+                                </div>
+                            
                             </div>
-
+                                    
                         </div>
 
                     </div>

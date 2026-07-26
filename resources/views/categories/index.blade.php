@@ -2,33 +2,19 @@
 
 @section('content')
 
-@php
-    $icons = [
-        '1' => '🍕',
-        '2' => '🥤',
-        '3' => '🍰',
-        '4' => '🍳',
-        '5' => '🥗',
-        '6' => '🍔',
-    ];
+<section class="bg-gray-50 min-h-screen pt-12">
 
-    $descriptions = [
-        'Pastries & Baked Goods' => 'Freshly baked pizzas with premium ingredients.',
-        'Drinks' => 'Refreshing beverages for every taste.',
-        'Light Bites & Savory Snacks' => 'Sweet treats crafted by our chefs.',
-        'Breakfast & Brunch' => 'Start your day with delicious meals.',
-        'Salads & Soups' => 'Healthy and flavorful options prepared daily.',
-        'Sandwiches, Paninis & Wraps' => 'Juicy burgers made from quality ingredients.',
-    ];
-@endphp
+    <div class="max-w-7xl mx-auto">
 
-<section class="bg-neutral-900 min-h-screen pt-20 pb-6 mb-24 mx-16">
+        <p class="uppercase tracking-[0.3em] text-orange-400 font-semibold mb-4">
+            {{ __('category.categories') }}
+        </p>
 
-    <div class="max-w-7xl mx-auto px-12">
-        <h1 class="text-5xl font-bold text-white mb-10">
+        <h1 class="text-5xl font-bold text-neutral-900 mb-4">
             {{ __('category.categories') }}
         </h1>
-        <p class="text-neutral-400 mb-6 max-w-2xl">
+
+        <p class="text-neutral-400 mb-10 max-w-2xl">
             {{ __('category.category_description') }}
         </p>
 
@@ -36,32 +22,81 @@
 
             @foreach($categories as $category)
 
-                <div class="bg-neutral-800 rounded-3xl overflow-hidden shadow-lg hover:-translate-y-2 border hover:border-orange-500/40 transition duration-300 p-6">
-                    <div class="flex justify-between items-start mb-">
-                        <div>
-                            <div class="text-4xl text-center mb-3">
-                                {{ $icons[$category->id] ?? '🍽️' }}
+                <div class="group bg-white rounded-3xl relative overflow-hidden shadow-lg hover:-translate-y-2 border border-orange-200 hover:border-orange-500/40 transition duration-300">
+
+                    <a href="{{ route('categories.show', $category->id) }}">
+
+                        @if($category->image)
+
+                            <div class="mb-5 overflow-hidden">
+
+                                <img
+                                    src="{{ asset('storage/' . $category->image) }}"
+                                    alt="{{ $category->name }}"
+                                    class="w-full h-48 object-cover transition duration-500 group-hover:scale-105">
+
                             </div>
-                            <h2 class="text-2xl font-bold text-white mb-3">
-                                {{ $category->translated_name }}
-                            </h2>
-                            <p class="text-neutral-400 my-6">
-                                {{ $descriptions[$category->translated_name] ?? 'Explore our delicious selection.' }}
-                            </p>
-                            <div class="flex justify-between">
-                                <span class="bg-orange-500/10 text-orange-400 px-3 py-1 rounded-full text-sm">
-                                    {{ trans_choice('dish.dish_count', $category->dishes_count, ['count' => $category->dishes_count]) }}
-                                </span>
-                                <a href="{{ route('categories.show', $category->id) }}" class="text-orange-400 font-semibold hover:text-orange-300 transition">
-                                    {{ __('category.explore') }} →
-                                </a>
-                            </div>
+
+                        @endif
+
+                        <div class="absolute top-1 left-4 z-3 pt-2">
+
+                            <span class="bg-orange-100 text-orange-500 px-3 py-1 rounded-full text-sm">
+                                {{ trans_choice('dish.dish_count', $category->dishes_count, ['count' => $category->dishes_count]) }}
+                            </span>
+                            
                         </div>
-                    </div>
+
+                        <h2 class="text-2xl font-bold text-neutral-800 hover:text-orange-500 transition duration-300 my-3 px-6">
+                            {{ $category->translated_name }}
+                        </h2>
+
+                        @if($category->description)
+
+                            <p class="text-gray-500 leading-relaxed my-3 line-clamp-2 px-6">
+
+                                {{ $category->description }}
+
+                            </p>
+
+                        @endif
+
+                    </a>
+
+                    @if($category->dishes->count())
+
+                        <div class="px-6 my-4">
+
+                            <p class="font-semibold text-gray-700 mb-2">
+                                Popular:
+                            </p>
+
+                            <ul class="space-y-1 text-gray-500 text-sm">
+
+                                @foreach($category->dishes as $dish)
+
+                                    <li class="flex justify-between">
+
+                                        <span>
+                                            {{ $dish->translated_name }}
+                                        </span>
+
+                                    </li>
+
+                                @endforeach
+
+                            </ul>
+
+                        </div>
+
+                    @endif
+
                 </div>
 
             @endforeach
+
         </div>
+
     </div>
 
 </section>

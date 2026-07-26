@@ -2,23 +2,32 @@
 
 @section('content')
 
-<section class="bg-neutral-950 min-h-screen py-20">
+<section class="bg-gray-50 min-h-screen py-20">
+
     <div class="max-w-7xl mx-auto">
-        <div class="mb-16">
+
+        <div class="mb-10">
+
             <p class="text-orange-400 font-semibold uppercase tracking-widest mb-4">
                 {{ __('category.menu_category') }}
             </p>
-            <h1 class="text-5xl font-bold text-white mb-6">
+
+            <h1 class="text-5xl font-bold text-neutral-900 mb-6">
                 {{ $category->translated_name }}
             </h1>
-            <p class="text-neutral-400 max-w-3xl text-lg">
+
+            <p class="text-neutral-500 max-w-3xl text-lg">
                 {{ __('category.discover_text') }} {{ ($category->translated_name) }} {{ __('category.collection') }}
             </p>
+
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+
             @foreach($category->dishes as $dish)
-                <div class="bg-neutral-900/80 backdrop-blur rounded-3xl overflow-hidden shadow-2xl border border-neutral-800 hover:border-orange-500/40 hover:-translate-y-2 transition duration-300">
+
+                <div class="backdrop-blur rounded-3xl overflow-hidden shadow-xl border border-gray-100 hover:border-orange-300 hover:-translate-y-2 hover:shadow-2xl transition duration-300">
+                    
                     <div class="relative">
                         <a href="/menu/{{ $dish->id }}" class="overflow-hidden">
                 
@@ -62,12 +71,12 @@
                         <div class="flex justify-between items-start mb-4">
 
                             <a href="/menu/{{ $dish->id }}">
-                                <h2 class="text-2xl font-bold text-white hover:text-orange-500 transition">
+                                <h2 class="text-2xl font-bold text-neutral-900 hover:text-orange-500 transition duration-300">
                                     {{ $dish->translated_name }}
                                 </h2>
                             </a>
 
-                            <span class="text-orange-400 font-bold text-lg">
+                            <span class="text-orange-500 font-bold text-xl whitespace-nowrap">
                                 ${{ $dish->price }}
                             </span>
                         </div>
@@ -80,7 +89,7 @@
                             $avg = $dish->ratings->avg('rating');
                         @endphp
 
-                        <p class="text-white mb-4">⭐ {{ number_format($avg, 1) }}/5</p>
+                        <p class="font-semibold text-gray-700 pb-4">⭐ {{ $avg ? number_format($avg, 1) : __('dish.new') }}</p>
 
                         <div class="mt-auto">
                             @if($dish->status === 'available')

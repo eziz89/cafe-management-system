@@ -2,302 +2,279 @@
 
 @section('content')
 
-@php
-    $icons = [
-        '1' => '🍕',
-        '2' => '🥤',
-        '3' => '🍰',
-        '4' => '🍳',
-        '5' => '🥗',
-        '6' => '🍔',
-    ];
-@endphp
+<section class="grid md:grid-cols-2 gap-12 bg-gray-50 items-center px-14 pt-14 pb-18">
 
-    <section class="grid md:grid-cols-2 gap-12 bg-gray-50 items-center px-14 pt-14 pb-20 mb-10">
-        <div class="max-w-7xl mx-auto">
-            <p class="text-orange-500 font-semibold uppercase tracking-widest mb-4">
-                {{ __('home.welcome_text') }}
-            </p>
-
-            <h1 class="text-5xl text-neutral-800 font-bold leading-tight mb-6">
-                {{ __('home.hero_title') }}
-            </h1>
-
-            <p class="text-gray-600 text-lg mb-8 leading-relaxed">
-                {{ __('home.hero_description') }}
-            </p>
-
-            <div class="flex gap-8">
-                <a href="/categories" class="bg-orange-500 hover:bg-orange-600 hover:scale-102 hover:shadow-lg hover:shadow-orange-500/30 text-white px-5 py-4 rounded-2xl font-semibold transition duration-300 mt-4">
-                    {{ __('navigation.browse_menu') }}
-                </a>
-                <a href="/reservations/create" class="border border-orange-600 hover:bg-orange-600 hover:shadow-lg hover:shadow-orange-500/30 text-orange-500 hover:text-white px-4 py-4 rounded-2xl font-semibold transition duration-300 mt-4">
-                    {{ __('navigation.reserve') }}
-                </a>
-            </div>
+    <div class="max-w-7xl mx-auto">
+        <p class="text-orange-500 font-semibold uppercase tracking-widest mb-4">
+            {{ __('home.welcome_text') }}
+        </p>
+        <h1 class="text-5xl text-neutral-800 font-bold leading-tight mb-6">
+            {{ __('home.hero_title') }}
+        </h1>
+        <p class="text-gray-600 text-lg mb-8 leading-relaxed">
+            {{ __('home.hero_description') }}
+        </p>
+        <div class="flex gap-8">
+            <a href="/categories" class="bg-orange-500 hover:bg-orange-600 hover:scale-102 hover:shadow-lg hover:shadow-orange-500/30 text-white px-5 py-4 rounded-2xl font-semibold transition duration-300 mt-4">
+                {{ __('navigation.browse_menu') }}
+            </a>
+            <a href="/reservations/create" class="border border-orange-600 hover:bg-orange-600 hover:shadow-lg hover:shadow-orange-500/30 text-orange-500 hover:text-white px-4 py-4 rounded-2xl font-semibold transition duration-300 mt-4">
+                {{ __('navigation.reserve') }}
+            </a>
         </div>
+    </div>
+    <div>
+        <img
+            src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5"
+            class="rounded-2xl shadow-2xl h-[500px] w-full object-cover"
+        >
+    </div>
+</section>
 
+<section class="max-w-7xl mx-auto text-stone-800 pt-18">
+
+    <div class="flex justify-between items-center mb-6">
         <div>
-            <img
-                src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5"
-                class="rounded-2xl shadow-2xl h-[500px] w-full object-cover"
-            >
+            <p class="text-orange-500 uppercase tracking-[0.3em] mb-4 font-semibold">
+                {{ __('category.categories') }}
+            </p>
+            <h2 class="text-4xl text-neutral-800 font-bold leading-tight mb-8">
+                {{ __('category.culinary_selection') }}
+            </h2>
         </div>
-    </section>
+        <a href="/categories"
+           class="text-orange-500 hover:text-orange-600 font-medium">
+            {{ __('category.view_all') }} →
+        </a>
+    </div>
+    
+    <div class="swiper categorySwiper">
 
-    <section class="max-w-7xl mx-auto text-stone-800 pt-18 pb-12">
-        <div class="flex justify-between items-center mb-6">
-            <div>
-                <p class="text-orange-500 uppercase tracking-[0.3em] mb-4 font-semibold">
-                    {{ __('category.categories') }}
-                </p>
-                <h2 class="text-4xl text-neutral-800 font-bold leading-tight mb-8">
-                    {{ __('category.culinary_selection') }}
-                </h2>
-            </div>
-            <a href="/categories"
-               class="text-orange-500 hover:text-orange-600 font-medium">
-                {{ __('category.view_all') }} →
-            </a>
-        </div>
-        
-        <div class="swiper categorySwiper">
-            <div class="swiper-wrapper">
+        <div class="swiper-wrapper mb-14">
 
-                @foreach($categories as $category )
+            @foreach($categories as $category )
 
-                    <div class="swiper-slide h-auto px-2 py-3">
+                <div class="swiper-slide h-auto px-2 py-3">
 
-                        <a href="/categories/{{ $category->id }}"
-                            class="flex flex-col bg-gray-100 text-center rounded-[1rem]
-                            shadow-md hover:shadow-2xl
-                            hover:scale-[1.03] border border-transparent hover:border-orange-400
-                            transition duration-300 px-4 py-8 h-full mb-16">
-                            
-                            <div class="w-14 h-14 rounded-full bg-orange-300 flex items-center justify-center mb-4 mx-auto">
-                                {{ $icons[$category->id] ?? '🍽️' }}
+                    <div class="group bg-white rounded-3xl relative overflow-hidden shadow-lg hover:-translate-y-2 border border-orange-200 hover:border-orange-500/40 transition duration-300">
+
+                        <a href="{{ route('categories.show', $category->id) }}">
+
+                            @if($category->image)
+
+                                <div class="mb-5 overflow-hidden">
+
+                                    <img
+                                        src="{{ asset('storage/' . $category->image) }}"
+                                        alt="{{ $category->name }}"
+                                        class="w-full h-36 object-cover transition duration-500 group-hover:scale-105">
+
+                                </div>
+
+                            @endif
+
+                            <div class="absolute top-1 left-4 z-3 pt-2">
+
+                                <span class="bg-orange-100 text-orange-500 px-3 py-1 rounded-full text-sm">
+                                    {{ trans_choice('dish.dish_count', $category->dishes_count, ['count' => $category->dishes_count]) }}
+                                </span>
+
                             </div>
 
-                            <h3 class="text-neutral-800 text-xl font-bold mb-4 min-h-[60px] flex items-center justify-center">
+                            <h2 class="text-2xl font-bold text-neutral-800 hover:text-orange-500 transition duration-300 my-3 px-6">
                                 {{ $category->translated_name }}
-                            </h3>
-                            
-                            <p class="text-gray-600 font-semibold">
-                                {{ trans_choice('dish.dish_count', $category->dishes_count, ['count' => $category->dishes_count]) }}
-                            </p>
+                            </h2>
+
+                            @if($category->description)
+
+                                <p class="text-gray-500 leading-relaxed my-3 line-clamp-2 px-6">
+
+                                    {{ $category->description }}
+
+                                </p>
+
+                            @endif
+
                         </a>
 
                     </div>
 
-                @endforeach
-
-            </div>
-
-            <div class="swiper-pagination"></div>
-
-        </div>
-
-    </section>
- 
-    <section class="max-w-7xl mx-auto py-18 mb-10">
-
-        <div class="flex justify-between items-center mb-12">
-            <div>
-                <p class="text-orange-500 uppercase tracking-widest font-semibold">
-                    {{ __('dish.featured_dishes') }}
-                </p>
-                <h2 class="text-4xl font-bold text-gray-800 mt-2">
-                    {{ __('dish.customer_favorites') }}
-                </h2>
-            </div>
-
-            <a href="/menu" class="text-orange-500 hover:text-orange-600 font-medium">
-                {{ __('dish.view_menu') }} →
-            </a>
-
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-
-            @foreach($featuredDishes as $dish)
-                
-                <div class="bg-white rounded-3xl overflow-hidden shadow-lg border border-gray-100 hover:border-orange-300 hover:-translate-y-2 hover:shadow-2xl transition duration-300 flex flex-col">
-
-                    <div class="relative">
-                        <a href="/menu/{{ $dish->id }}" class="overflow-hidden">
-                
-                            @if($dish->image)
-                                <img src="{{ asset('storage/' . $dish->image) }}" alt="{{ $dish->name }}" class="w-full h-56 object-cover hover:scale-105 transition duration-500">
-                            @endif
-                            
-                            <div class="absolute top-1 left-4 z-30  rounded-full shadow-xl flex items-center justify-center transition duration-300 hover:scale-110 active:scale-95 hover:-translate-y-1">
-                                @if($dish->status === 'coming_soon')
-
-                                    <p class="text-yellow-600 bg-yellow-100 border border-yellow-600 rounded-full text-sm font-medium p-2 mt-2">
-                                        Coming Soon
-                                    </p>
-
-                                @elseif($dish->status === 'out_of_stock')
-
-                                    <p class="text-red-600 bg-red-100 border border-red-600 rounded-full text-sm font-medium p-2 mt-2">
-                                        Out of Stock
-                                    </p>
-                                @endif
-                            </div>
-
-                            @auth
-
-                                @php
-                                    $isFavorited = auth()->user()->favorites->contains($dish->id);
-                                @endphp
-
-                                <button class="favorite-btn absolute top-4 right-4 z-30 w-12 h-12 rounded-full shadow-xl flex items-center justify-center transition duration-300 hover:scale-110 active:scale-95 hover:-translate-y-1
-                                    {{ $isFavorited ? 'bg-red-500 text-white' : 'bg-white/90 text-gray-600' }}"
-                                    data-id="{{ $dish->id }}">
-                                    🤍
-                                </button>
-                
-                            @endauth
-                
-                        </a>
-                    </div>
-
-                    <div class="p-6 flex flex-col flex-grow">
-
-                        <div class="flex justify-between items-start gap-4 mb-3">
-                            <a href="/menu/{{ $dish->id }}">
-                                <h3 class="text-2xl font-bold text-gray-800 hover:text-orange-500 transition">
-                                    {{ $dish->translated_name }}
-                                </h3>
-                            </a>
-
-                            <span class="text-orange-500 font-bold text-xl whitespace-nowrap">
-                                ${{ number_format($dish->price, 2) }}
-                            </span>
-
-                        </div>
-
-                        <p class="text-gray-500 leading-relaxed mb-5">
-                            {{ Str::limit($dish->translated_description, 75) }}
-                        </p>
-
-                        <div class="flex justify-between items-center mb-6">
-
-                            @if($dish->category)
-                                <a href="{{ route('categories.show', $dish->category->id) }}" class="inline-flex items-center bg-orange-100 text-orange-600 text-sm font-medium rounded-full px-3 py-1 hover:bg-orange-200 transition">
-                                    {{ $dish->category->translated_name }}
-                                </a>
-                            @endif
-
-                            @php
-                                $avg = $dish->ratings->avg('rating');
-                            @endphp
-
-                            <p class="font-semibold text-gray-700">
-                                ⭐
-                                {{ $avg ? number_format($avg, 1) : __('dish.new') }}
-                            </p>
-
-                        </div>
-
-                        <div class="mt-auto">
-                            @if($dish->status === 'available')
-
-                                <button class="add-to-cart-btn w-full bg-orange-500 hover:bg-orange-600 text-white rounded-2xl font-semibold py-2 hover:shadow-lg hover:shadow-orange-500/30 transition duration-300"
-                                    data-id="{{ $dish->id }}">
-                                    {{ __('cart.add_to_cart') }}
-                                </button>
-
-                            @elseif($dish->status === 'coming_soon')
-
-                                <button
-                                    disabled
-                                    class="w-full py-2 rounded-2xl bg-yellow-100 text-yellow-700 font-semibold cursor-not-allowed">
-                                    Coming Soon
-                                </button>
-
-                            @else
-
-                                <button
-                                    disabled
-                                    class="w-full py-2 rounded-2xl bg-red-100 text-red-700 font-semibold cursor-not-allowed">
-                                    Out of Stock
-                                </button>
-
-                            @endif
-                        </div>
-                    </div>
                 </div>
 
             @endforeach
 
         </div>
-    </section>
-    
-    <section class="bg-gray-50 px-14 pt-14 pb-28">
 
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-14">
-                <p class="text-orange-500 uppercase tracking-[0.3em] font-semibold">
-                    {{ __('location.location') }}
-                </p>
-                <h2 class="text-5xl text-neutral-800 font-bold mt-4">
-                    {{ __('location.location_header') }}
-                </h2>
-                <p class="text-gray-600 max-w-2xl mx-auto mt-4">
-                    {{ __('location.location_description') }}
-                </p>
-            </div>
+        <div class="swiper-pagination"></div>
 
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+    </div>
 
-                <div class="space-y-4">
+</section>
 
-                    <div>
-                        <h3 class="text-xl text-neutral-800 font-semibold">📍 {{ __('location.where_to_find') }}</h3>
-                        <p class="text-gray-600 mb-4 mt-2">{{ __('location.address') }}</p>
-                        <a href="https://www.google.com/maps?q=Ashgabat"
-                           target="_blank"
-                           class="text-white bg-orange-500 hover:bg-orange-500 hover:shadow-orange-500/30 border border-orange-500 rounded-xl transition duration-300 py-1 px-3">
-                            {{ __('location.open_map') }}
-                        </a>
-                    </div>
+<section class="max-w-7xl mx-auto py-18">
 
-                    <div>
-                        <h3 class="text-xl text-neutral-800 font-semibold mt-9">🕒 {{ __('location.opening_hours') }}</h3>
-                        <p class="text-gray-600 mt-2">{{ __('location.open_hours') }}</p>
-                        <p class="text-gray-600">{{ __('location.open_hours_description') }}</p>
-                    </div>
+    <div class="flex justify-between items-center mb-12">
+        <div>
+            <p class="text-orange-500 uppercase tracking-widest font-semibold">
+                {{ __('dish.featured_dishes') }}
+            </p>
+            <h2 class="text-4xl font-bold text-gray-800 mt-2">
+                {{ __('dish.customer_favorites') }}
+            </h2>
+        </div>
+        <a href="/menu" class="text-orange-500 hover:text-orange-600 font-medium">
+            {{ __('dish.view_menu') }} →
+        </a>
+    </div>
 
-                    <div>
-                        <h3 class="text-xl text-neutral-800 font-semibold mt-9">📞 {{ __('contact.contact') }}</h3>
-                        <div class="flex mb-4">
-                            <p class="text-gray-400 pr-5">+993 XX XXX XXX</p>
-                            <p class="text-gray-400">+993 XX XXX XXX</p>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        @foreach($featuredDishes as $dish)
+            
+            <div class="bg-white rounded-3xl overflow-hidden shadow-lg border border-gray-100 hover:border-orange-300 hover:-translate-y-2 hover:shadow-2xl transition duration-300 flex flex-col">
+                <div class="relative">
+                    <a href="/menu/{{ $dish->id }}" class="overflow-hidden">
+            
+                        @if($dish->image)
+                            <img src="{{ asset('storage/' . $dish->image) }}" alt="{{ $dish->name }}" class="w-full h-56 object-cover hover:scale-105 transition duration-500">
+                        @endif
+                        
+                        <div class="absolute top-1 left-4 z-30  rounded-full shadow-xl flex items-center justify-center transition duration-300 hover:scale-110 active:scale-95 hover:-translate-y-1">
+                            @if($dish->status === 'coming_soon')
+                                <p class="text-yellow-600 bg-yellow-100 border border-yellow-600 rounded-full text-sm font-medium p-2 mt-2">
+                                    Coming Soon
+                                </p>
+                            @elseif($dish->status === 'out_of_stock')
+                                <p class="text-red-600 bg-red-100 border border-red-600 rounded-full text-sm font-medium p-2 mt-2">
+                                    Out of Stock
+                                </p>
+                            @endif
                         </div>
-                        <a href="tel:+993XXXXXXXX" class="text-white bg-orange-500 rounded-xl hover:bg-orange-500 hover:shadow-orange-500/30 border border-orange-500 transition duration-300 py-1 px-3">
-                            {{ __('contact.call_us') }}
-                        </a>
-                        <p class="text-gray-400 mt-4 mb-2">canteen@example.com</p>
-                        <a href="mailto:canteen@example.com"
-                           class="text-white bg-orange-500 rounded-xl hover:bg-orange-500 hover:shadow-orange-500/30 border border-orange-500 transition duration-300 py-1 px-3">
-                            {{ __('contact.send_email') }}
-                        </a>
-                    </div>
+                        @auth
+                            @php
+                                $isFavorited = auth()->user()->favorites->contains($dish->id);
+                            @endphp
+                            <button class="favorite-btn absolute top-4 right-4 z-30 w-12 h-12 rounded-full shadow-xl flex items-center justify-center transition duration-300 hover:scale-110 active:scale-95 hover:-translate-y-1
+                                {{ $isFavorited ? 'bg-red-500 text-white' : 'bg-white/90 text-gray-600' }}"
+                                data-id="{{ $dish->id }}">
+                                🤍
+                            </button>
+            
+                        @endauth
+            
+                    </a>
                 </div>
 
-                <div class="lg:sticky top-24 rounded-2xl overflow-hidden h-[400px]">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2191.1350298792936!2d58.37954730480198!3d37.941600536293755!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3f6fff2c4815c659%3A0x834c6009e5b9958c!2z0JrQsNGE0LUgIkdVQkFEQUcgRklUw4dJIiBBxZ9nYWJhdA!5e1!3m2!1sen!2sus!4v1779367071390!5m2!1sen!2sus" 
-                        width="600"
-                        height="450"
-                        style="border:0;"
-                        allowfullscreen=""
-                        loading="lazy"
-                        referrerpolicy="no-referrer-when-downgrade">
-                    </iframe>
+                <div class="p-6 flex flex-col flex-grow">
+                    <div class="flex justify-between items-start gap-4 mb-3">
+                        <a href="/menu/{{ $dish->id }}">
+                            <h3 class="text-2xl font-bold text-gray-800 hover:text-orange-500 transition">
+                                {{ $dish->translated_name }}
+                            </h3>
+                        </a>
+                        <span class="text-orange-500 font-bold text-xl whitespace-nowrap">
+                            ${{ number_format($dish->price, 2) }}
+                        </span>
+                    </div>
+                    <p class="text-gray-500 leading-relaxed mb-5">
+                        {{ Str::limit($dish->translated_description, 75) }}
+                    </p>
+                    <div class="flex justify-between items-center mb-6">
+                        @if($dish->category)
+                            <a href="{{ route('categories.show', $dish->category->id) }}" class="inline-flex items-center bg-orange-100 text-orange-600 text-sm font-medium rounded-full px-3 py-1 hover:bg-orange-200 transition">
+                                {{ $dish->category->translated_name }}
+                            </a>
+                        @endif
+                        @php
+                            $avg = $dish->ratings->avg('rating');
+                        @endphp
+                        <p class="font-semibold text-gray-700">
+                            ⭐
+                            {{ $avg ? number_format($avg, 1) : __('dish.new') }}
+                        </p>
+                    </div>
+                    <div class="mt-auto">
+                        @if($dish->status === 'available')
+                            <button class="add-to-cart-btn w-full bg-orange-500 hover:bg-orange-600 text-white rounded-2xl font-semibold py-2 hover:shadow-lg hover:shadow-orange-500/30 transition duration-300"
+                                data-id="{{ $dish->id }}">
+                                {{ __('cart.add_to_cart') }}
+                            </button>
+                        @elseif($dish->status === 'coming_soon')
+                            <button
+                                disabled
+                                class="w-full py-2 rounded-2xl bg-yellow-100 text-yellow-700 font-semibold cursor-not-allowed">
+                                Coming Soon
+                            </button>
+                        @else
+                            <button
+                                disabled
+                                class="w-full py-2 rounded-2xl bg-red-100 text-red-700 font-semibold cursor-not-allowed">
+                                Out of Stock
+                            </button>
+                        @endif
+                    </div>
                 </div>
+            </div>
+        @endforeach
+    </div>
+</section>
+
+<section class="bg-gray-50 px-14 pt-14 pb-18">
+    <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-14">
+            <p class="text-orange-500 uppercase tracking-[0.3em] font-semibold">
+                {{ __('location.location') }}
+            </p>
+            <h2 class="text-5xl text-neutral-800 font-bold mt-4">
+                {{ __('location.location_header') }}
+            </h2>
+            <p class="text-gray-600 max-w-2xl mx-auto mt-4">
+                {{ __('location.location_description') }}
+            </p>
+        </div>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+            <div class="space-y-4">
+                <div>
+                    <h3 class="text-xl text-neutral-800 font-semibold">📍 {{ __('location.where_to_find') }}</h3>
+                    <p class="text-gray-600 mb-4 mt-2">{{ __('location.address') }}</p>
+                    <a href="https://www.google.com/maps?q=Ashgabat"
+                       target="_blank"
+                       class="text-white bg-orange-500 hover:bg-orange-500 hover:shadow-orange-500/30 border border-orange-500 rounded-xl transition duration-300 py-1 px-3">
+                        {{ __('location.open_map') }}
+                    </a>
+                </div>
+                <div>
+                    <h3 class="text-xl text-neutral-800 font-semibold mt-9">🕒 {{ __('location.opening_hours') }}</h3>
+                    <p class="text-gray-600 mt-2">{{ __('location.open_hours') }}</p>
+                    <p class="text-gray-600">{{ __('location.open_hours_description') }}</p>
+                </div>
+                <div>
+                    <h3 class="text-xl text-neutral-800 font-semibold mt-9">📞 {{ __('contact.contact') }}</h3>
+                    <div class="flex mb-4">
+                        <p class="text-gray-400 pr-5">+993 XX XXX XXX</p>
+                        <p class="text-gray-400">+993 XX XXX XXX</p>
+                    </div>
+                    <a href="tel:+993XXXXXXXX" class="text-white bg-orange-500 rounded-xl hover:bg-orange-500 hover:shadow-orange-500/30 border border-orange-500 transition duration-300 py-1 px-3">
+                        {{ __('contact.call_us') }}
+                    </a>
+                    <p class="text-gray-400 mt-4 mb-2">canteen@example.com</p>
+                    <a href="mailto:canteen@example.com"
+                       class="text-white bg-orange-500 rounded-xl hover:bg-orange-500 hover:shadow-orange-500/30 border border-orange-500 transition duration-300 py-1 px-3">
+                        {{ __('contact.send_email') }}
+                    </a>
+                </div>
+            </div>
+            <div class="lg:sticky top-24 rounded-2xl overflow-hidden h-[400px]">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2191.1350298792936!2d58.37954730480198!3d37.941600536293755!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3f6fff2c4815c659%3A0x834c6009e5b9958c!2z0JrQsNGE0LUgIkdVQkFEQUcgRklUw4dJIiBBxZ9nYWJhdA!5e1!3m2!1sen!2sus!4v1779367071390!5m2!1sen!2sus" 
+                    width="600"
+                    height="450"
+                    style="border:0;"
+                    allowfullscreen=""
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
 @endsection

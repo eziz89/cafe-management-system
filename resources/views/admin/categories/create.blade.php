@@ -22,10 +22,31 @@
 
     <div class="bg-white rounded-3xl shadow-lg p-8">
 
-        <form action="{{ route('admin.categories.store') }}" method="POST">
-
+        <form action="{{ route('admin.categories.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
-        
+            
+            <div class="mb-5">
+
+                <label class="block font-semibold mb-2">
+                    Category Image
+                </label>
+
+                <input
+                    type="file"
+                    name="image"
+                    accept="image/*"
+                    class="w-full rounded-2xl border border-gray-300 px-5 py-3">
+
+                @error('image')
+            
+                    <p class="text-red-500 mt-2 text-sm">
+                        {{ $message }}
+                    </p>
+            
+                @enderror
+
+            </div>
+
             <div class="mb-6">
         
                 <label class="block font-semibold mb-2">
@@ -48,6 +69,27 @@
                         {{ $message }}
                     </p>
         
+                @enderror
+                
+            </div>
+
+            <div class="mb-5">
+                
+                <label class="block font-semibold mb-2">
+                    Description
+                </label>
+
+                <textarea
+                    name="description"
+                    rows="4"
+                    class="w-full rounded-2xl border border-gray-300 px-5 py-4 focus:ring-2 focus:ring-orange-300">{{ old('description') }}</textarea>
+
+                @error('description')
+
+                    <p class="text-red-500 mt-2 text-sm">
+                        {{ $message }}
+                    </p>
+
                 @enderror
         
             </div>

@@ -16,7 +16,9 @@
         @foreach($dishes as $dish)
 
             <div class="flex flex-col bg-white rounded-3xl overflow-hidden shadow-lg border border-gray-100 hover:border-orange-300 hover:-translate-y-2 hover:shadow-2xl transition duration-300">
+                
                 <div class="relative overflow-hidden rounded-t-3xl">
+
                     <a href="/menu/{{ $dish->id }}">
             
                         @if($dish->image)
@@ -25,7 +27,7 @@
             
                     </a>
                     
-                    <div class="absolute top-1 left-4 z-30  rounded-full shadow-xl flex items-center justify-center transition duration-300 hover:scale-110 active:scale-95 hover:-translate-y-1">
+                    <div class="absolute top-1 left-4 z-30 rounded-full shadow-xl flex items-center justify-center transition duration-300 hover:scale-110 active:scale-95 hover:-translate-y-1">
                         @if($dish->status === 'coming_soon')
 
                             <p class="text-yellow-600 bg-yellow-100 border border-yellow-600 rounded-full text-sm font-medium p-2 mt-2">
@@ -61,7 +63,7 @@
                     <div class="flex justify-between items-start gap-4 mb-3">
 
                         <a href="/menu/{{ $dish->id }}">
-                            <h3 class="text-2xl font-bold text-gray-800 hover:text-orange-500 transition">
+                            <h3 class="text-2xl font-bold text-gray-800 hover:text-orange-500 transition duration-300">
                                 {{ $dish->translated_name }}
                             </h3>
                         </a>
@@ -88,7 +90,7 @@
                             $avg = $dish->ratings->avg('rating');
                         @endphp
 
-                        <p class="font-semibold text-gray-700 text-end ">
+                        <p class="font-semibold text-gray-700 text-end">
                             ⭐
                             {{ $avg ? number_format($avg, 1) : __('dish.new') }}
                         </p>
