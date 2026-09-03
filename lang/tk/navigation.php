@@ -9,7 +9,7 @@ return [
     'account' => 'Hasap',
     'login' => 'Giriş',
     'logout' => 'Çykyş',
-    'browse_menu' => 'Menýuny gözden geçiriň',
+    'browse_menu' => 'Menýuny gör',
     'reserve' => 'Stol Bronlaň',
     'dashboard' => 'Dolandyryş paneli',
     'my_account' => 'Meniň Hasabym',

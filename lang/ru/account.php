@@ -7,6 +7,7 @@ return [
     'order' => 'Заказ',
     'reservations' => 'Бронирование',
     'reviews' => 'Отзывы',
+    'joined' => 'Присоединился',
     'recent_orders' => 'Недавние заказы',
     'recent_reviews' => 'Недавние обзоры',
     'guest' => 'Гость',

@@ -11,7 +11,7 @@
                 bg-gray-100 text-gray-400
             @endif">
 
-            ✓
+            <i data-lucide="clock-3" class="w-5 h-5"></i>
 
         </div>
 
@@ -21,7 +21,7 @@
 
     </div>
 
-    <div class="flex-1 h-1 bg-gray-200 mx-4"></div>
+    <div class="flex-1 h-1 bg-gray-200 mx-4 sm:mb-0 mb-6"></div>
 
     <div class="text-center">
 
@@ -34,7 +34,7 @@
                 bg-gray-100 text-gray-400
             @endif">
 
-            🍳
+            <i data-lucide="chef-hat" class="w-5 h-5"></i>
 
         </div>
 
@@ -50,7 +50,7 @@
 
     </div>
 
-    <div class="flex-1 h-1 bg-gray-200 mx-4"></div>
+    <div class="flex-1 h-1 bg-gray-200 mx-4 sm:mb-0 mb-6"></div>
 
     <div class="text-center">
 
@@ -61,7 +61,7 @@
                 bg-gray-100 text-gray-400
             @endif">
 
-            ✓
+            <i data-lucide="circle-check" class="w-5 h-5"></i>
 
         </div>
 

@@ -2,26 +2,25 @@
 
 @section('content')
 
-<div class="bg-stone-100 min-h-screen py-12">
+<div class="bg-stone-50 min-h-screen">
 
-    <div class="max-w-7xl mx-auto px-6">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-0 py-10">
 
-        <div class="mb-10">
+        <div class="sm:mb-8 mb-6">
 
             <p class="text-orange-500 uppercase tracking-[0.3em] font-semibold">
-                Checkout
+                {{ __('checkout.checkout') }}
             </p>
 
             <h1 class="text-4xl font-bold text-stone-900 mt-2">
-                Complete Your Order
+                {{ __('checkout.complete_your_order') }}
             </h1>
 
             <p class="text-stone-500 mt-3">
-                Provide your information and confirm your order.
+                {{ __('checkout.info') }}
             </p>
 
         </div>
-
 
         <form action="{{ route('checkout') }}" method="POST">
             @csrf
@@ -34,19 +33,15 @@
 
                     <div class="bg-white rounded-3xl shadow-lg p-8">
 
-                        <div class="flex items-center gap-3 mb-8">
-
-                            <div class="w-12 h-12 rounded-full bg-orange-100 flex items-center justify-center">
-                                👤
-                            </div>
+                        <div class="sm:mb-6 mb-4">
 
                             <div>
-                                <h2 class="text-2xl font-bold">
-                                    Customer Information
+                                <h2 class="text-2xl font-bold sm:mb-2">
+                                    {{ __('checkout.customer_information') }}
                                 </h2>
 
                                 <p class="text-stone-500">
-                                    Please provide your details.
+                                    {{ __('checkout.details') }}
                                 </p>
                             </div>
 
@@ -81,7 +76,7 @@
                         <div class="mb-5">
 
                             <label class="block font-semibold mb-2">
-                                Full Name *
+                                {{ __('checkout.full_name') }}
                             </label>
 
                             <input
@@ -108,7 +103,7 @@
                         <div class="mb-5">
 
                             <label class="block font-semibold mb-2">
-                                Phone Number *
+                                {{ __('checkout.phone_number') }}
                             </label>
 
                             <div class="flex rounded-2xl border border-orange-400">
@@ -143,7 +138,7 @@
                         <div class="mb-6">
 
                             <label class="block font-semibold mb-3">
-                                Order Type *
+                                {{ __('checkout.order_type') }}
                             </label>
 
                             <div class="space-y-3">
@@ -157,7 +152,7 @@
                                         @checked(old('order_type', session('checkout.order_type', 'delivery')) === 'delivery')
                                         class="text-orange-500">
 
-                                    Delivery
+                                    {{ __('checkout.delivery') }}
 
                                 </label>
 
@@ -170,7 +165,7 @@
                                         @checked(old('order_type', session('checkout.order_type')) === 'takeaway')
                                         class="text-orange-500">
 
-                                    Take Away
+                                    {{ __('checkout.take_away') }}
 
                                 </label>
 
@@ -183,7 +178,7 @@
                                         @checked(old('order_type', session('checkout.order_type')) === 'eat_in')
                                         class="text-orange-500">
 
-                                    Eat In
+                                    {{ __('checkout.eat_in') }}
 
                                 </label>
 
@@ -194,7 +189,7 @@
                         <div class="mb-6">
                         
                             <label class="block font-semibold mb-3">
-                                Payment Method *
+                                {{ __('checkout.payment_method') }}
                             </label>
                         
                             <div class="space-y-3">
@@ -209,7 +204,9 @@
                                         @checked(old('payment_method', session('checkout.payment_method', 'cash')) === 'cash')
                                         class="text-orange-500">
                         
-                                    💵 Cash on Delivery
+                                    <div class="flex items-center gap-1">
+                                        <i data-lucide="banknote" class="w-5 h-5"></i>{{ __('checkout.cash') }}
+                                    </div>
                         
                                 </label>
                         
@@ -222,8 +219,10 @@
                                         @checked(old('payment_method', session('checkout.payment_method')) === 'card')
                                         class="text-orange-500">
                         
-                                    💳 Card on Delivery
-                        
+                                    <div class="flex items-center gap-1">
+                                        <i data-lucide="credit-card" class="w-5 h-5"></i> {{ __('checkout.card') }}
+                                    </div>
+
                                 </label>
                         
                             </div>
@@ -233,14 +232,14 @@
                         <div id="address-section" class="mb-5">
 
                             <label class="block font-semibold mb-2">
-                                Delivery Address *
+                                {{ __('checkout.delivery_address') }}
                             </label>
 
                             <input
                                 type="text"
                                 name="customer_address"
                                 value="{{ old('customer_address', session('checkout.customer_address')) }}"
-                                placeholder="Street, building, apartment"
+                                placeholder="{{ __('checkout.street_building_apartment') }}"
                                 class="w-full rounded-2xl border border-orange-400 px-5 py-4
                                 @error('customer_address')
                                     border-red-500
@@ -261,13 +260,13 @@
                         <div>
 
                             <label class="block font-semibold mb-2">
-                                Special Notes (optional)
+                                {{ __('checkout.special_notes') }}
                             </label>
 
                             <textarea
                                 name="notes"
                                 rows="3"
-                                placeholder="Example: No onions, extra spicy..."
+                                placeholder="{{ __('checkout.example') }}"
                                 class="w-full rounded-2xl px-5 py-4 border border-orange-400 focus:ring-2 focus:ring-orange-300">{{ old('notes', session('checkout.notes')) }}</textarea>
 
                             @error('notes')
@@ -280,14 +279,14 @@
 
                         </div>
 
-                        <div class="mt-8 bg-orange-50 border border-orange-200 rounded-2xl p-5">
+                        <div class="mt-6 bg-orange-50 border border-orange-200 rounded-2xl p-5">
 
-                            <p class="text-orange-700 font-semibold">
-                                ⚠ Important
-                            </p>
-
+                            <div class="flex items-center gap-1 text-orange-700 font-semibold">
+                                <i data-lucide="triangle-alert" class="w-5 h-5"></i> {{ __('checkout.important') }}
+                            </div>
+                                
                             <p class="text-stone-600 mt-1">
-                                Your order will only be sent after you press "Place Order".
+                                {{ __('checkout.important_note') }}
                             </p>
 
                         </div>
@@ -299,10 +298,10 @@
                 {{-- Summary --}}
 
                 <div>
-                    <div class="bg-white rounded-3xl shadow-lg p-6 sticky top-28">
+                    <div class="bg-white rounded-3xl shadow-lg p-6 lg:sticky lg:top-28">
 
                         <h2 class="text-2xl font-bold mb-6">
-                            Order Summary
+                            {{ __('checkout.order_summary') }}
                         </h2>
 
                         <div class="space-y-5">
@@ -311,16 +310,16 @@
 
                                 <div class="flex items-center gap-4">
 
-                                    <img src="{{ asset('storage/' . $item['image']) }}" class="w-14 h-14 rounded-xl object-cover">
+                                    <img src="{{ asset('storage/' . $item['image']) }}" class="w-16 h-16 rounded-xl object-cover">
                                 
-                                    <div class="flex-1">
+                                    <div class="flex-1">    
 
                                         <p class="font-semibold">
                                             {{ $item['name'] }}
                                         </p>
 
                                         <p class="text-stone-500 text-sm">
-                                            Quantity × {{ $item['quantity'] }}
+                                            {{ __('checkout.quantity') }} × {{ $item['quantity'] }}
                                         </p>
 
                                     </div>
@@ -339,8 +338,8 @@
 
                             <div class="flex justify-between text-lg">
 
-                                <span>
-                                    Total
+                                <span class="font-bold text-2xl text-stone-900">
+                                    {{ __('checkout.total') }}
                                 </span>
 
                                 <span class="font-bold text-2xl text-orange-500">
@@ -351,13 +350,19 @@
 
                         </div>
 
-                        <button class="w-full mt-8 bg-orange-500 hover:bg-orange-600 text-white font-bold py-4 rounded-2xl transition shadow-lg">
-                            🛒 Place Order
+                        <button class="w-full mt-4 bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 rounded-2xl transition shadow-lg flex items-center justify-center gap-2">
+                            
+                            <i data-lucide="shopping-cart" class="w-5 h-5"></i>
+                            <span>{{ __('checkout.place_order') }}</span>
+
                         </button>
 
-                        <p class="text-center text-sm text-stone-500 mt-5">
-                            🔒 Your order will be sent securely.
-                        </p>
+                        <div class="flex items-center justify-center gap-2 text-sm text-stone-500 mt-5">
+                            
+                            <i data-lucide="lock" class="w-5 h-5"></i>
+                            <span>{{ __('checkout.order_will_sent') }}</span>
+                            
+                        </button>
 
                     </div>
 

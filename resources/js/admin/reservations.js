@@ -1,3 +1,16 @@
+import { startLiveRefresh } from './liveRefresh';
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    startLiveRefresh({
+        url: '/admin/reservations/live',
+        container: '#reservations-table',
+        itemSelector: '[id^="reservation-"]',
+        interval: 5000
+    });
+
+});
+
 document.addEventListener('DOMContentLoaded', () => {
 
     const search = document.getElementById('reservation-search');

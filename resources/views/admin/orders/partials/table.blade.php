@@ -13,11 +13,11 @@
         <div class="bg-white rounded-3xl p-16 text-center shadow">
     
             <h3 class="text-2xl font-bold text-stone-700">
-                No orders found
+                Sargyt tapylmady
             </h3>
     
             <p class="text-stone-500 mt-2">
-                Try another search or filter.
+                Başga bir gözleg ýa-da süzgüç ulanyp görüň.
             </p>
     
         </div>
@@ -26,6 +26,6 @@
 
 </div>
 
-<div class="pagination mt-12 mx-6">
+<div class="pagination mx-6">
     {{ $orders->links() }}
 </div>

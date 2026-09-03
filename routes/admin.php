@@ -13,7 +13,9 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::patch('/dishes/{dish}/status', [DishController::class, 'updateStatus'])->name('dishes.status');
     Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
     Route::patch('/orders/{order}/status', [OrderController::class, 'updateStatus'])->name('orders.status');
+    Route::get('/orders/live', [OrderController::class, 'live'])->name('orders.live');
     Route::get('/reservations', [ReservationController::class, 'index'])->name('reservations.index');
     Route::patch('/reservations/{reservation}/status', [ReservationController::class, 'updateStatus'])->name('reservations.status');
+    Route::get('/reservations/live', [ReservationController::class, 'live'])->name('reservations.live');
     Route::resource('/categories', CategoryController::class);
 });

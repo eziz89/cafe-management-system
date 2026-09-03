@@ -1,37 +1,37 @@
 @forelse($cart as $id => $item)
 
-    <div id="cart-item-{{ $id }}" class="bg-white shadow-lg rounded-3xl p-6 flex gap-6 items-center">
+    <div id="cart-item-{{ $id }}" class="bg-white shadow-lg rounded-3xl sm:p-6 p-4 flex gap-6 items-center">
 
-        <img src="{{ asset('storage/' . $item['image']) }}" class="w-32 h-32 object-cover rounded-2xl">
+        <img src="{{ asset('storage/' . $item['image']) }}" class="sm:w-32 sm:h-32 w-24 h-24 object-cover rounded-2xl">
 
         <div class="flex-1">
 
-            <div class="flex justify-between mb-8">
+            <div class="flex justify-between gap-3 sm:mb-12 mb-8">
 
-                <h2 class="text-2xl text-neutral-800 font-bold">
+                <h2 class="flex-1 min-w-0 sm:text-2xl text-xl text-neutral-800 font-bold line-clamp-2">
                     {{ $item['name'] }}
                 </h2>
-
-                <span class="text-orange-400 font-bold text-xl">
-                    ${{ $item['price'] }}
-                </span>
-                
+            
+                <button
+                    type="button"
+                    class="cart-remove shrink-0 text-red-500 font-semibold hover:text-red-300 transition"
+                    data-id="{{ $id }}">
+                    <i data-lucide="circle-x" class="w-6 h-6"></i>
+                </button>
+            
             </div>
 
             <div class="flex justify-between">
 
-                <button
-                    type="button"
-                    class="cart-remove text-red-500 font-semibold hover:text-red-300 transition"
-                    data-id="{{ $id }}">
-                    {{ __('cart.remove') }}
-                </button>
-
+                <span class="text-orange-500 font-bold text-lg sm:text-xl">
+                    {{ $item['price'] }} TMT
+                </span>
+                
                 <div class="flex items-center gap-3">
 
                     <button
                         type="button"
-                        class="cart-decrease w-8 h-8 rounded-full bg-stone-300 hover:bg-stone-400 text-white font-bold"
+                        class="cart-decrease sm:w-8 sm:h-8 w-6 h-6 rounded-full bg-stone-300 hover:bg-stone-400 text-white font-bold"
                         data-id="{{ $id }}">
                         -
                     </button>
@@ -42,7 +42,7 @@
 
                     <button
                         type="button"
-                        class="cart-increase w-8 h-8 rounded-full bg-orange-500 hover:bg-orange-600 text-white font-bold"
+                        class="cart-increase sm:w-8 sm:h-8 w-6 h-6 rounded-full bg-orange-500 hover:bg-orange-600 text-white font-bold"
                         data-id="{{ $id }}">
                         +
                     </button>
@@ -57,7 +57,7 @@
 
 @empty
 
-    <div class="empty-cart-template" class="hidden">
+    <div class="empty-cart-template">
         @include('cart.empty')
     </div>
 

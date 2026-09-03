@@ -7,24 +7,26 @@
 @endphp
 
 <div class="bg-gray-50">
-    <div class="pb-24">
+
+    <div class="sm:pb-12 pb-8">
+        
         <section class="relative">
 
-            <img src="{{ asset('images/menu-header.jpg') }}" alt="Our Menu" class="w-full h-92 object-cover">
+            <img src="{{ asset('images/menu-header.jpg') }}" alt="Our Menu" class="w-full h-[320px] md:h-[380px] object-cover">
 
             <div class="absolute inset-0 bg-gradient-to-r from-black/50 to-black/10 flex items-center pt-28">
 
-                <div class="px-12 text-white">
+                <div class="px-6 md:px-12 text-white">
 
                     <p class="uppercase tracking-[0.3em] text-orange-300 font-semibold">
                         {{ __('menu.menu') }}
                     </p>
 
-                    <h1 class="text-5xl font-bold mt-4">
+                    <h1 class="text-4xl md:text-5xl font-bold mt-4">
                         {{ __('menu.menu_title') }}
                     </h1>
 
-                    <p class="mt-4 text-lg max-w-xl text-gray-200">
+                    <p class="mt-4 sm:text-lg max-w-xl text-gray-200 mb-12">
                         {{ __('menu.menu_description') }}
                     </p>
 
@@ -34,14 +36,14 @@
 
         </section>
 
-        <section class="py-20 bg-gray-50" id="menu-container">
+        <section id="menu-container">
 
-            <div class="max-w-7xl mx-auto">
+            <div class="px-4">
 
-                <div class="grid lg:grid-cols-4 gap-10">
-
+                <div class="grid lg:grid-cols-4 gap-4">
+                    
                     {{-- SIDEBAR --}}
-                    <div class="lg:col-span-1">
+                    <div class="hidden lg:block lg:col-span-1 mt-6">
 
                         <div class="bg-white rounded-3xl shadow-lg p-6 sticky top-24 h-fit">
 
@@ -51,7 +53,7 @@
 
                             <div class="space-y-3">
 
-                                <div class="max-h-96 overflow-y-auto pr-2 custom-scrollbar">
+                                <div class="max-h-96 overflow-y-auto pr-5 custom-scrollbar">
 
                                     <a href="{{ route('menu.index') }}"
                                         class="category-filter flex items-center justify-between px-4 py-3 rounded-2xl transition hover:bg-orange-50 hover:text-orange-500"
@@ -90,55 +92,102 @@
                     {{-- DISHES --}}
                     <div class="lg:col-span-3">
 
-                        <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-6 gap-4">
-                                
-                            <div id="menu-info-container">
-                                @include('dishes.info')
+                        <div class="sticky bg-white rounded-b-2xl shadow-lg lg:top-20 top-4 z-40 bg-gray-50 px-4 pt-4 mb-4">
+
+                            <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-3 gap-4">
+
+                                <div id="menu-info-container">
+                                    @include('dishes.info')
+                                </div>
+
+                                <form action="{{ route('menu.index') }}" method="GET">
+
+                                    <div class="flex flex-row items-stretch sm:items-center gap-3">
+
+                                        <div class="relative w-full text-gray-400 focus-within:text-orange-500">
+                                           
+                                            <div class="absolute inset-y-0 left-0 flex items-center pl-2 pointer-events-none">
+                                                <i data-lucide="search" class="w-5 h-5"></i>
+                                            </div>
+
+                                            <input
+                                                type="text" name="search"
+                                                value="{{ request('search') }}"
+                                                placeholder="{{ __('menu.search_dishes') }}"
+                                                class="w-full bg-gray-100 pl-8 pr-4 sm:py-3 py-1 border border-orange-300 sm:rounded-2xl rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-300">
+                                        </div>
+
+                                        @foreach(request()->except(['search', 'sort']) as $key => $value)
+                                            <input type="hidden" name="{{ $key }}" value="{{ $value }}">
+                                        @endforeach
+
+                                        <select
+                                            id="sortSelect"
+                                            name="sort"
+                                            class="w-full sm:w-auto bg-gray-100 sm:rounded-2xl rounded-xl px-2 sm:py-3 py-1 border border-orange-300 focus:outline-none focus:ring-2 focus:ring-orange-300">
+
+                                            <option value="newest" {{ request('sort') == 'newest' ? 'selected' : '' }}>
+                                                {{ __('menu.sort_newest') }}
+                                            </option>
+                                            <option value="price_low" {{ request('sort') == 'price_low' ? 'selected' : '' }}>
+                                                {{ __('menu.sort_price_low_to_high') }}
+                                            </option>
+                                            <option value="price_high" {{ request('sort') == 'price_high' ? 'selected' : '' }}>
+                                                {{ __('menu.sort_price_high_to_low') }}
+                                            </option>
+                                            <option value="top_rated" {{ request('sort') == 'top_rated' ? 'selected' : '' }}>
+                                                {{ __('menu.sort_top_rated') }}
+                                            </option>
+
+                                        </select>
+
+                                        <a href="{{ route('menu.index') }}" id="resetBtn" class="w-full sm:w-auto bg-gray-100 sm:rounded-2xl rounded-xl px-4 sm:py-3 py-1 border border-orange-300 transition">
+                                            <div class="flex items-center gap-2">
+                                                <i data-lucide="circle-x" class="w-5 h-5"></i>
+                                                {{ __('menu.reset') }}
+                                            </div>
+                                        </a>
+
+                                    </div>
+
+                                </form>
+
                             </div>
 
-                            <form action="{{ route('menu.index') }}" method="GET">
+                            <div class="grid lg:grid-cols-4 gap-10">
 
-                                <div class="flex items-center gap-3">
+                                {{-- MOBILE CATEGORY FILTER --}}
+                                <div class="lg:hidden bg-gray-100 rounded-2xl px-4 border border-orange-300 sm:rounded-2xl rounded-xl mb-4 w-full min-w-0">
 
-                                    <input
-                                        type="text" name="search"
-                                        value="{{ request('search') }}"
-                                        placeholder="Search dishes..."
-                                        class="px-4 py-3 border rounded-2xl focus:ring-2 focus:ring-orange-300">
+                                    <div class="w-full overflow-x-auto">
 
-                                    @foreach(request()->except(['search', 'sort']) as $key => $value)
-                                        <input type="hidden" name="{{ $key }}" value="{{ $value }}">
-                                    @endforeach
-                                    
-                                    <select
-                                        id="sortSelect"
-                                        name="sort"
-                                        class="bg-white border border-gray-200 rounded-2xl px-2 py-3 shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-300">
+                                        <div class="flex gap-3 w-max pr-6">
 
-                                        <option value="newest" {{ request('sort') == 'newest' ? 'selected' : '' }}>
-                                            {{ __('menu.sort_newest') }}
-                                        </option>
-                                        <option value="price_low" {{ request('sort') == 'price_low' ? 'selected' : '' }}>
-                                            {{ __('menu.sort_price_low_to_high') }}
-                                        </option>
-                                        <option value="price_high" {{ request('sort') == 'price_high' ? 'selected' : '' }}>
-                                            {{ __('menu.sort_price_high_to_low') }}
-                                        </option>
-                                        <option value="top_rated" {{ request('sort') == 'top_rated' ? 'selected' : '' }}>
-                                            {{ __('menu.sort_top_rated') }}
-                                        </option>
+                                            <a href="#"
+                                               class="category-filter flex items-center justify-between px-4 py-1 rounded-2xl transition hover:bg-orange-50 hover:text-orange-500"
+                                               data-category="">
+                                                {{ __('menu.all_dishes') }}
+                                            </a>
 
-                                    </select>
+                                            @foreach($categories as $category)
 
-                                    <a href="{{ route('menu.index') }}" id="resetBtn" class="bg-white border border-gray-200 rounded-2xl w-full shadow-sm px-4 py-3 transition">
-                                        <div class="flex items-center gap-2">
-                                            <i data-lucide="circle-x" class="w-5 h-5"></i>
-                                            Reset
+                                                <a href="#"
+                                                   class="category-filter flex items-center justify-between px-4 py-1 rounded-2xl transition hover:bg-orange-50 hover:text-orange-500"
+                                                   data-category="{{ $category->id }}">
+
+                                                    {{ $category->translated_name }}
+
+                                                </a>
+
+                                            @endforeach
+
                                         </div>
-                                    </a>
+
+                                    </div>
 
                                 </div>
-                            </form>
+
+                            </div>
 
                         </div>
 
@@ -157,7 +206,7 @@
                                     </div>
 
                                     <p class="mt-3 text-orange-600 font-semibold">
-                                        Loading dishes...
+                                        {{ __('menu.loading_dishes') }}
                                     </p>
 
                                 </div>
@@ -177,29 +226,7 @@
             </div>
 
         </section>
-
-        <div class="mt-6 bg-orange-50 rounded-3xl p-10 flex flex-col md:flex-row items-center justify-between gap-6">
-
-            <div>
-
-                <h2 class="text-3xl font-bold text-gray-900 mb-2">
-                    {{ __('menu.chef_recommendation_title') }}
-                </h2>
-
-                <p class="text-gray-500">
-                    {{ __('menu.chef_recommendation_description') }}
-                </p>
-
-            </div>
-
-            <a href="#"
-            class="bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 rounded-2xl font-semibold transition">
-
-                View Specials →
-
-            </a>
-
-        </div>
+        
     </div>
 </div>
 

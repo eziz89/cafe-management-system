@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Auth;
 Route::get('/', function () {
     $categories = Category::withCount('dishes')->get();
     
-    $featuredDishes = Dish::latest()->take(3)->get();
+    $featuredDishes = Dish::withAvg('ratings', 'rating')->withCount('ratings')->where('status', 'available')->orderByDesc('ratings_avg_rating')->take(3)->get();
 
     return view('home', compact('featuredDishes', 'categories'));
 });
@@ -34,6 +34,7 @@ Route::get('/reservations/create', [ReservationController::class, 'create'])->na
 Route::post('/reservations', [ReservationController::class, 'store'])->name('reservations.store');
 Route::get('/my-reservations', [ReservationController::class, 'myReservations'])->middleware('auth')->name('reservations.my');
 Route::get('/reservations/{reservation}/status', [ReservationController::class, 'status'])->middleware('auth')->name('reservations.status');
+Route::get('/reservations/success/{reservation}', [ReservationController::class, 'success'])->name('reservations.success');
 
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index'); 
 Route::middleware('auth')->group(function () {
@@ -71,7 +72,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/dish/{id}/comment', [DishController::class, 'comment'])->name('dishes.comment');
 });
 
-Route::post('/dishes/{id}/review', [DishController::class, 'review'])->name('dishes.review');
+Route::post('/dishes/{id}/review', [DishController::class, 'review'])->middleware('auth')->name('dishes.review');
 
 Route::middleware('auth')->group(function () {
     Route::get('/account', [AccountController::class, 'index'])->name('account');

@@ -7,6 +7,7 @@ return [
     'order' => 'Sargyt',
     'reservations' => 'Bronlar',
     'reviews' => 'Synlar',
+    'joined' => 'Goşulan senesi',
     'recent_orders' => 'Soňky Sargytlar',
     'recent_reviews' => 'Soňky Synlar',
     'guest' => 'Myhman',

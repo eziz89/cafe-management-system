@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="bg-gray-100">
-    <div class="max-w-4xl mx-auto py-20">
+    <div class="max-w-4xl mx-auto sm:py-12 pb-4 pt-12 sm:px-0 px-6">
 
         <h1 class="text-4xl font-bold mb-8">
             {{ __('myreservation.my_reservations') }}
@@ -15,17 +15,19 @@
 
                 <div class="flex justify-between items-center">
 
-                    <div>
-                        <h2 class="text-xl font-semibold">
+                    <div class="min-w-0">
+
+                        <h2 class="text-lg sm:text-xl font-semibold">
                             {{ __('myreservation.reservation_for') }} {{ $reservation->guests }} {{ __('myreservation.guests') }}
                         </h2>
 
-                        <p class="text-gray-500 mt-1">
-                            {{ $reservation->reservation_time }}
-                        </p>
+                        <div class="flex text-gray-500 items-start gap-1 mt-2 text-sm sm:text-base">
+                            <i data-lucide="calendar" class="w-4 h-4 mt-0.5 shrink-0"></i>
+                            <span>{{ $reservation->reservation_time }}</span>
+                        </div>
                     </div>
 
-                    <div>
+                    <div class="shrink-0">
 
                         <div
                             id="reservation-card-{{ $reservation->id }}"

@@ -1,3 +1,4 @@
+
 @extends('layouts.guest')
 
 @section('content')
@@ -9,7 +10,7 @@
             {{ __('register.register') }}
         </h1>
 
-        <p class="text-gray-500 text-center mb-8">
+        <p class="text-gray-500 text-center mb-4">
             {{ __('register.join_us') }}
         </p>
 
@@ -40,7 +41,7 @@
                 <label class="block mb-2 text-sm font-medium">
                     {{ __('register.name') }}
                 </label>
-                <input type="text" name="name" class="w-full border rounded-xl p-3">
+                <input type="text" name="name" class="w-full border border-orange-300 rounded-2xl px-5 py-4 focus:outline-none focus:ring-2 focus:ring-orange-300">
 
                 @error('name')
                     <p class="text-red-500 text-sm mt-1">
@@ -54,7 +55,7 @@
                 <label class="block mb-2 text-sm font-medium">
                     {{ __('register.email') }}
                 </label>
-                <input type="email" name="email" class="w-full border rounded-xl p-3">
+                <input type="email" name="email" class="w-full border border-orange-300 rounded-2xl px-5 py-4 focus:outline-none focus:ring-2 focus:ring-orange-300">
 
                 @error('email')
                     <p class="text-red-500 text-sm mt-1">
@@ -68,7 +69,7 @@
                 <label class="block mb-2 text-sm font-medium">
                     {{ __('register.password') }}
                 </label>
-                <input type="password" name="password" class="w-full border rounded-xl p-3">
+                <input type="password" name="password" class="w-full border border-orange-300 rounded-2xl px-5 py-4 focus:outline-none focus:ring-2 focus:ring-orange-300">
 
                 @error('password')
                     <p class="text-red-500 text-sm mt-1">
@@ -82,7 +83,7 @@
                 <label class="block mb-2 text-sm font-medium">
                     {{ __('register.confirm_password') }}
                 </label>
-                <input type="password" name="password_confirmation" class="w-full border rounded-xl p-3">
+                <input type="password" name="password_confirmation" class="w-full border border-orange-300 rounded-2xl px-5 py-4 focus:outline-none focus:ring-2 focus:ring-orange-300">
 
                 @error('password_confirmation')
                     <p class="text-red-500 text-sm mt-1">
@@ -98,7 +99,7 @@
 
         </form>
 
-        <p  class="text-sm text-center text-gray-600 mt-6">
+        <p  class="text-sm text-center text-gray-600 mt-4">
             {{ __('register.already_have_an_account') }}
 
             <a href="{{ route('login') }}" class="text-orange-500 font-semibold hover:underline">

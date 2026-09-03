@@ -1,4 +1,3 @@
-
 document.addEventListener('DOMContentLoaded', () => {
 
     refreshCartCount();
@@ -18,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const originalText = btn.innerHTML;
 
         btn.disabled = true;
-        btn.innerHTML = "Adding...";
+        btn.innerHTML = "...";
 
         try {
             const csrf = document.querySelector('meta[name="csrf-token"]')?.content
@@ -35,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             updateCartBadge(data.cart_count);
 
-            btn.innerHTML = "✓ Added";
+            btn.innerHTML = "✓";
 
             setTimeout(() => {
 
@@ -69,8 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 badge.id = 'cart-count';
 
-                badge.className =
-                    'absolute -top-0 -right-5 min-w-5 h-5 px-1 bg-red-500 text-white text-xs font-bold rounded-full flex items-center justify-center';
+                badge.className = 'absolute -top-0 -right-5 min-w-5 h-5 px-1 bg-red-500 text-white text-xs font-bold rounded-full flex items-center justify-center';
 
                 link.appendChild(badge);
             }

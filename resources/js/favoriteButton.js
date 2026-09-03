@@ -10,11 +10,19 @@ document.querySelectorAll('.favorite-btn').forEach(button => {
         const response = await fetch(`/favorites/${dishId}`, {
             method: 'POST',
             headers: {
-                'X-CSRF-TOKEN': document
-                    .querySelector('meta[name="csrf-token"]')
-                    .content,
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
+                'X-CSRF-TOKEN':
+                    document
+                        .querySelector('meta[name="csrf-token"]')
+                        .content,
+
+                'Content-Type':
+                    'application/json',
+
+                'Accept':
+                    'application/json',
+
+                'X-Requested-With':
+                    'XMLHttpRequest'
             }
         });
     

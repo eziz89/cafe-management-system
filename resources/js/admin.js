@@ -1,3 +1,4 @@
+import { createIcons } from 'lucide';
 import './admin/dishes';
 import './admin/orders';
 import './admin/reservations';
@@ -14,3 +15,16 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 3000);
     }
 });
+
+const adminMenuBtn = document.getElementById('admin-menu-btn');
+const adminMobileMenu = document.getElementById('admin-mobile-menu');
+
+if (adminMenuBtn && adminMobileMenu) {
+
+    adminMenuBtn.addEventListener('click', () => {
+        adminMobileMenu.classList.toggle('hidden');
+    });
+
+}
+
+createIcons();

@@ -89,8 +89,12 @@ class MenuController extends Controller
 
     public function show($id)
     {
-        $dish = Dish::findOrFail($id);
-
+        $dish = Dish::with([
+            'ratings.user',
+            'comments.user',
+            'category',
+        ])->findOrFail($id);
+        
         return view('dish', compact('dish'));
     }
 }

@@ -1,3 +1,16 @@
+import { startLiveRefresh } from './liveRefresh';
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    startLiveRefresh({
+        url: '/admin/orders/live',
+        container: '#table',
+        itemSelector: '[id^="order-"]',
+        interval: 5000
+    });
+
+});
+
 document.addEventListener('DOMContentLoaded', () => {
 
     const search = document.getElementById('order-search');
@@ -74,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         window.history.replaceState({}, '', url);
 
-        const wrapper = document.getElementById('orders-table');
+        const wrapper = document.getElementById('table');
 
         wrapper.classList.add('opacity-50');
 

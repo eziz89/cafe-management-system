@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Dish;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class DishController extends Controller
 {
@@ -88,25 +89,6 @@ class DishController extends Controller
         return view('admin.dishes.edit', compact('dish', 'categories'));
     }
 
-    public function update(Request $request, $id)
-    {
-        $dish = Dish::findOrFail($id);
-
-        $validated = $request->validate([
-            'name' => 'required|min:2|max:255',
-            'name_en' => 'required|string|max:255',
-            'name_ru' => 'required|string|max:255',
-            'description' => 'required|min:5',
-            'price' => 'required|numeric|min:0',
-            'category_id' => 'required|exists:categories,id',
-            'status' => 'required', 'in:available,coming_soon,out_of_stock',
-        ]);
-
-        $dish->update($validated);
-
-        return redirect()->route('admin.dishes.index')->with('success', 'Dish updated successfully!');
-    }
-
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -116,22 +98,63 @@ class DishController extends Controller
             'description' => 'required|min:5',
             'price' => 'required|numeric|min:0',
             'category_id' => 'required|exists:categories,id',
-            'image' => 'nullable|image|mimes:jpg,png,jpeg,webp|max:2048',
-            'status' => 'required', 'in:available,coming_soon,out_of_stock',
+            'image' => 'nullable|image|mimes:jpg,png,jpeg,webp|max:5120',
+            'status' => 'required|in:available,coming_soon,out_of_stock',
         ]);
-
+    
         if ($request->hasFile('image')) {
             $path = $request->file('image')->store('dishes', 'public');
             $validated['image'] = $path;
         }
-
-        Dish::create($validated);
-
+    
+        $dish = Dish::create($validated);
+    
         if ($dish->category) {
             return redirect()->route('admin.categories.show', $dish->category)->with('success', 'Dish created successfully.');
         }
-
+    
         return redirect()->route('admin.dishes.index')->with('success', 'Dish created successfully!');
+    }
+    
+    public function update(Request $request, $id)
+    {
+        $dish = Dish::findOrFail($id);
+    
+        $validated = $request->validate([
+            'name' => 'required|min:2|max:255',
+            'name_en' => 'required|string|max:255',
+            'name_ru' => 'required|string|max:255',
+            'description' => 'required|min:5',
+            'price' => 'required|numeric|min:0',
+            'category_id' => 'required|exists:categories,id',
+            'image' => 'nullable|image|mimes:jpg,png,jpeg,webp|max:5120',
+            'status' => 'required|in:available,coming_soon,out_of_stock',
+        ]);
+    
+        if ($request->hasFile('image')) {
+    
+            // Remember the old image path
+            $oldImage = $dish->image;
+    
+            // Store the new image first
+            $newImage = $request->file('image')->store('dishes', 'public');
+    
+            $validated['image'] = $newImage;
+    
+            // Delete the old image
+            if ($oldImage) {
+    
+                // Normalize the path in case older records contain "storage/"
+                $oldImage = ltrim($oldImage, '/');
+                $oldImage = preg_replace('#^storage/#', '', $oldImage);
+    
+                Storage::disk('public')->delete($oldImage);
+            }
+        }
+    
+        $dish->update($validated);
+    
+        return redirect()->route('admin.dishes.index')->with('success', 'Dish updated successfully!');
     }
 
     public function destroy($id)

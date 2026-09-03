@@ -4,9 +4,9 @@
 
 <section class="bg-gray-50 min-h-screen pt-12">
 
-    <div class="max-w-7xl mx-auto">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-0">
 
-        <p class="uppercase tracking-[0.3em] text-orange-400 font-semibold mb-4">
+        <p class="uppercase tracking-[0.3em] text-orange-400 font-semibold mb-2">
             {{ __('category.categories') }}
         </p>
 
@@ -14,11 +14,11 @@
             {{ __('category.categories') }}
         </h1>
 
-        <p class="text-neutral-400 mb-10 max-w-2xl">
+        <p class="text-neutral-400 sm:mb-10 mb-6 max-w-2xl">
             {{ __('category.category_description') }}
         </p>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 pb-20">
+        <div class="grid grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 sm:pb-20 pb-10">
 
             @foreach($categories as $category)
 
@@ -33,27 +33,27 @@
                                 <img
                                     src="{{ asset('storage/' . $category->image) }}"
                                     alt="{{ $category->name }}"
-                                    class="w-full h-48 object-cover transition duration-500 group-hover:scale-105">
+                                    class="w-full h-28 sm:h-40 lg:h-48 object-cover transition duration-500 group-hover:scale-105">
 
                             </div>
 
                         @endif
 
-                        <div class="absolute top-1 left-4 z-3 pt-2">
+                        <div class="absolute sm:top-1 sm:left-4 -top-1 left-2 z-3 pt-2">
 
-                            <span class="bg-orange-100 text-orange-500 px-3 py-1 rounded-full text-sm">
+                            <span class="bg-orange-100 text-orange-500 text-[10px] sm:text-sm px-2 sm:px-3 py-1 rounded-full">
                                 {{ trans_choice('dish.dish_count', $category->dishes_count, ['count' => $category->dishes_count]) }}
                             </span>
                             
                         </div>
 
-                        <h2 class="text-2xl font-bold text-neutral-800 hover:text-orange-500 transition duration-300 my-3 px-6">
+                        <h2 class="text-lg sm:text-xl lg:text-2xl px-3 sm:px-6 font-bold text-neutral-800 hover:text-orange-500 transition duration-300 my-3">
                             {{ $category->translated_name }}
                         </h2>
 
                         @if($category->description)
 
-                            <p class="text-gray-500 leading-relaxed my-3 line-clamp-2 px-6">
+                            <p class="text-gray-500 leading-relaxed my-3 line-clamp-2 px-3 sm:px-6 text-sm sm:text-base">
 
                                 {{ $category->description }}
 
@@ -65,7 +65,7 @@
 
                     @if($category->dishes->count())
 
-                        <div class="px-6 my-4">
+                        <div class="hidden sm:block px-6 my-4">
 
                             <p class="font-semibold text-gray-700 mb-2">
                                 Popular:

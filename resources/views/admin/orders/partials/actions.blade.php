@@ -1,10 +1,12 @@
-<div class="space-y-4">
+<div class="space-y-3 sm:space-y-4">
 
     @if($order->status === 'pending')
 
-        <form class="order-status-form"
+        {{-- Start Preparing --}}
+        <form
+            class="order-status-form"
             data-order-id="{{ $order->id }}"
-            action="{{ route('admin.orders.status',$order) }}"
+            action="{{ route('admin.orders.status', $order) }}"
             method="POST">
 
             @csrf
@@ -12,30 +14,47 @@
 
             <input type="hidden" name="status" value="preparing">
 
-            <button class="w-full py-4 rounded-2xl bg-orange-500 hover:bg-orange-600 text-white font-semibold transition">
+            <button
+                type="submit"
+                class="w-full sm:py-3 py-2 sm:py-4 px-4 rounded-2xl
+                    bg-orange-500 hover:bg-orange-600
+                    text-white font-semibold
+                    transition duration-300
+                    flex items-center justify-center gap-2
+                    hover:shadow-lg hover:shadow-orange-500/30">
 
-                Start Preparing
+                <i data-lucide="play" class="w-4 h-4 sm:w-5 sm:h-5"></i>
+
+                <span>Taýýarlap başlamak</span>
 
             </button>
 
         </form>
 
-        <form class="order-status-form"
+        {{-- Cancel Order --}}
+        <form
+            class="order-status-form"
             data-order-id="{{ $order->id }}"
-            action="{{ route('admin.orders.status',$order) }}"
+            action="{{ route('admin.orders.status', $order) }}"
             method="POST">
 
             @csrf
             @method('PATCH')
 
-            <input type="hidden"
-                name="status"
-                value="cancelled">
+            <input type="hidden" name="status" value="cancelled">
 
             <button
-                class="w-full py-4 rounded-2xl bg-red-500 hover:bg-red-600 text-white font-semibold transition">
+                type="submit"
+                class="w-full sm:py-3 py-2 sm:py-4 px-4 rounded-2xl
+                    bg-red-500 hover:bg-red-600
+                    text-white font-semibold
+                    transition duration-300
+                    flex items-center justify-center gap-2
+                    hover:shadow-lg hover:shadow-red-500/30">
 
-                Cancel Order
+                <i data-lucide="x" class="w-4 h-4 sm:w-5 sm:h-5"></i>
+
+                <span>Sargydy Ýatyrmak</span>
 
             </button>
 
@@ -43,43 +62,59 @@
 
     @elseif($order->status === 'preparing')
 
-        <form class="order-status-form"
+        {{-- Complete Order --}}
+        <form
+            class="order-status-form"
             data-order-id="{{ $order->id }}"
-            action="{{ route('admin.orders.status',$order) }}"
+            action="{{ route('admin.orders.status', $order) }}"
             method="POST">
 
             @csrf
             @method('PATCH')
 
-            <input type="hidden"
-                name="status"
-                value="completed">
+            <input type="hidden" name="status" value="completed">
 
             <button
-                class="w-full py-4 rounded-2xl bg-green-500 hover:bg-green-600 text-white font-semibold transition">
+                type="submit"
+                class="w-full sm:py-3 py-2 sm:py-4 px-4 rounded-2xl
+                    bg-green-500 hover:bg-green-600
+                    text-white font-semibold
+                    transition duration-300
+                    flex items-center justify-center gap-2
+                    hover:shadow-lg hover:shadow-green-500/30">
 
-                Complete Order
+                <i data-lucide="check" class="w-4 h-4 sm:w-5 sm:h-5"></i>
+
+                <span>Sargydy Tamamlamak</span>
 
             </button>
 
         </form>
 
-        <form class="order-status-form"
+        {{-- Cancel Order --}}
+        <form
+            class="order-status-form"
             data-order-id="{{ $order->id }}"
-            action="{{ route('admin.orders.status',$order) }}"
+            action="{{ route('admin.orders.status', $order) }}"
             method="POST">
 
             @csrf
             @method('PATCH')
 
-            <input type="hidden"
-                name="status"
-                value="cancelled">
+            <input type="hidden" name="status" value="cancelled">
 
             <button
-                class="w-full py-4 rounded-2xl bg-red-500 hover:bg-red-600 text-white font-semibold transition">
+                type="submit"
+                class="w-full sm:py-3 py-2 sm:py-4 px-4 rounded-2xl
+                    bg-red-500 hover:bg-red-600
+                    text-white font-semibold
+                    transition duration-300
+                    flex items-center justify-center gap-2
+                    hover:shadow-lg hover:shadow-red-500/30">
 
-                Cancel Order
+                <i data-lucide="x" class="w-4 h-4 sm:w-5 sm:h-5"></i>
+
+                <span>Sargydy Ýatyrmak</span>
 
             </button>
 
@@ -87,30 +122,42 @@
 
     @elseif($order->status === 'completed')
 
-        <div
-            class="rounded-2xl bg-green-50 p-8 text-center">
+        <div class="rounded-2xl bg-green-50 border border-green-200 p-5 sm:p-8 text-center">
 
-            <p class="text-2xl font-bold text-green-600">
-                ✓
-            </p>
+            <div class="flex justify-center mb-2">
 
-            <p class="font-semibold mt-2">
-                Order completed
+                <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center">
+
+                    <i data-lucide="check" class="w-5 h-5 text-green-600">
+                    </i>
+
+                </div>
+
+            </div>
+
+            <p class="font-semibold text-green-700">
+                Sargyt Tamamlandy
             </p>
 
         </div>
 
     @else
 
-        <div
-            class="rounded-2xl bg-red-50 p-8 text-center">
+        <div class="rounded-2xl bg-red-50 border border-red-200 p-5 sm:p-8 text-center">
 
-            <p class="text-2xl font-bold text-red-600">
-                ✕
-            </p>
+            <div class="flex justify-center mb-2">
 
-            <p class="font-semibold mt-2">
-                Order cancelled
+                <div class="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center">
+
+                    <i data-lucide="x" class="w-5 h-5 text-red-600">
+                    </i>
+
+                </div>
+
+            </div>
+
+            <p class="font-semibold text-red-700">
+                Sargyt Ýatyryldy
             </p>
 
         </div>

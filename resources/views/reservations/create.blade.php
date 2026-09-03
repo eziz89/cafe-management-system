@@ -1,12 +1,13 @@
+
 @extends('layouts.app')
 
 @section('content')
 
     <section class="bg-gray-50">
             
-        <div class="min-h-screen py-12">
+        <div class="min-h-screen py-10">
 
-            <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-20 items-center">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-0 grid lg:grid-cols-2 gap-10 lg:gap-20 items-center">
 
                 <div>
 
@@ -14,11 +15,11 @@
                         {{ __('reservation.reservation') }}
                     </p>
 
-                    <h1 class="text-6xl font-bold text-neutral-900 leading-tight mb-8">
+                    <h1 class="sm:text-6xl text-4xl font-bold text-neutral-900 leading-tight sm:mb-6 mb-4">
                         {{ __('reservation.reservation_title') }}
                     </h1>
 
-                    <p class="text-neutral-500 text-lg leading-relaxed mb-10">
+                    <p class="text-neutral-500 text-base sm:text-lg leading-relaxed sm:mb-10 mb-6">
                         {{ __('reservation.reservations_description') }}
                     </p>
 
@@ -26,8 +27,8 @@
 
                         <div class="flex items-center gap-4">
 
-                            <div class="w-14 h-14 rounded-2xl bg-orange-500/50 flex items-center justify-center text-2xl">
-                                🍽️
+                            <div class="w-14 h-14 rounded-2xl text-white bg-orange-500/50 flex items-center justify-center text-2xl">
+                                <i data-lucide="utensils" class="w-6 h-6"></i>
                             </div>
 
                             <div>
@@ -46,8 +47,8 @@
 
                         <div class="flex items-center gap-4">
 
-                            <div class="w-14 h-14 rounded-2xl bg-orange-500/50 flex items-center justify-center text-2xl">
-                                ⏰
+                            <div class="w-14 h-14 text-white rounded-2xl bg-orange-500/50 flex items-center justify-center text-2xl">
+                                <i data-lucide="clock-3" class="w-6 h-6"></i>
                             </div>
 
                             <div>
@@ -109,7 +110,7 @@
                                 {{ __('reservation.name') }}
                             </label>
 
-                            <input type="text" name="name" class="w-full bg-white border border-orange-500 rounded-2xl px-5 py-4 text-white focus:outline-none focus:border-orange-500">
+                            <input type="text" name="name" class="w-full bg-white border border-orange-500 rounded-2xl px-5 py-4 text-neutral-900 focus:outline-none focus:border-orange-500">
                         
                         </div>
 
@@ -119,7 +120,7 @@
                                 {{ __('reservation.phone') }}
                             </label>
 
-                            <input type="text" name="phone" class="w-full bg-white border border-orange-500 rounded-2xl px-5 py-4 text-white focus:outline-none focus:border-orange-500">
+                            <input type="text" name="phone" class="w-full bg-white border border-orange-500 rounded-2xl px-5 py-4 text-neutral-900 focus:outline-none focus:border-orange-500">
                         
                         </div>
 
@@ -129,7 +130,7 @@
                                 {{ __('reservation.guests') }}
                             </label>
 
-                            <input type="number" name="guests" class="w-full bg-white border border-orange-500 rounded-2xl px-5 py-4 text-white focus:outline-none focus:border-orange-500">
+                            <input type="number" name="guests" class="w-full bg-white border border-orange-500 rounded-2xl px-5 py-4 text-neutral-900 focus:outline-none focus:border-orange-500">
                         
                         </div>
 
@@ -139,7 +140,7 @@
                                 {{ __('reservation.reservation_time') }}
                             </label>
 
-                            <input type="datetime-local" name="reservation_time" class="w-full bg-white border border-orange-500 rounded-2xl px-5 py-4 text-white focus:outline-none focus:border-orange-500">
+                            <input type="datetime-local" name="reservation_time" class="w-full bg-white border border-orange-500 rounded-2xl px-5 py-4 text-neutral-900 focus:outline-none focus:border-orange-500">
                         
                         </div>
 

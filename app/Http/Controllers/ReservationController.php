@@ -24,15 +24,9 @@ class ReservationController extends Controller
         
         $validated['user_id'] = auth()->check() ? auth()->id() : null;
         
-        Reservation::create($validated);
+        $reservation = Reservation::create($validated);
 
-        if (auth()->check()) {
-
-            return redirect()->route('reservations.my')->with('success', 'Reservation submitted successfully.');
-
-        }
-
-        return redirect('/')->with('success', 'Reservation submitted successfully. We will contact you after reviewing your reservation.');
+        return redirect()->route('reservations.success', $reservation);
     }
 
     public function updateStatus(Request $request, Reservation $reservation)
@@ -63,5 +57,10 @@ class ReservationController extends Controller
             )->render(),
                 
         ]);
+    }
+
+    public function success(Reservation $reservation)
+    {
+        return view('reservations.success', compact('reservation'));
     }
 }

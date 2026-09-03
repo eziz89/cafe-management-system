@@ -11,24 +11,22 @@ class DishController extends Controller
 {
     public function review(Request $request, $id)
     {
-        if($request->rating)
-        {
+        if ($request->filled('rating')) {
             Rating::create([
                 'user_id' => auth()->id(),
                 'dish_id' => $id,
-                'rating' => $request->rating
+                'rating' => $request->rating,
             ]);
         }
-
-        if($request->comment)
-        {
+    
+        if ($request->filled('comment')) {
             Comment::create([
-            'user_id' => auth()->id(),
-            'dish_id' => $id,
-            'comment' => $request->comment
-        ]);
+                'user_id' => auth()->id(),
+                'dish_id' => $id,
+                'comment' => $request->comment,
+            ]);
         }
-
+    
         return redirect()->back()->with('success', 'Review submitted successfully.');
     }
 
@@ -64,5 +62,15 @@ class DishController extends Controller
         ]);
 
         return redirect()->back()->with('success', 'Comment added successfully.');
+    }
+
+    public function show($id)
+    {
+        $dish = Dish::with([
+            'ratings.user',
+            'comments.user',
+        ])->findOrFail($id);
+
+        return view('dishes.show', compact('dish'));
     }
 }

@@ -3,7 +3,8 @@
 @section('content')
 
 <div class="bg-gray-100">
-    <div class="max-w-4xl mx-auto py-20">
+
+    <div class="max-w-4xl mx-auto sm:py-12 py-8 pt-12 sm:px-0 px-6">
 
         <h1 class="text-4xl font-bold mb-6">
             {{ __('myorder.my_orders') }}
@@ -17,12 +18,20 @@
 
                     <div>
                         <h2 class="text-3xl font-bold text-stone-800">
-                            {{ __('myorder.order') }} #{{ $order->id }}
+
+                            <div class="flex items-center gap-1">
+                                <i data-lucide="receipt-text" class="w-7 h-7 mt-1"></i>
+                                {{ __('myorder.order') }} #{{ $order->id }}
+                            </div>
+
                         </h2>
 
-                        <p class="text-stone-500 mt-2">
-                            {{ $order->created_at->format('d M Y') }}
-                        </p>
+                        <div class="flex items-center gap-1 mt-2">
+                            <i data-lucide="calendar" class="w-4 h-4"></i>
+                            <p class="text-stone-500">
+                                {{ $order->created_at->format('d M Y') }}
+                            </p>
+                        </div>
 
                         <p class="text-stone-400 text-sm">
                             {{ $order->created_at->format('H:i') }}
@@ -35,7 +44,7 @@
 
                 </div>
 
-                <div class="p-6 grid md:grid-cols-2 gap-8">
+                <div class="p-6 grid md:grid-cols-2 sm:gap-8 gap-6">
 
                     <div class="space-y-5">
 
@@ -47,11 +56,20 @@
                             <p class="font-semibold mt-2">
 
                                 @if($order->order_type=='delivery')
-                                    Delivery
+                                    <div class="flex items-center gap-2 font-semibold text-lg mt-2">
+                                        <i data-lucide="truck" class="w-5 h-5"></i>
+                                        Delivery
+                                    </div>
                                 @elseif($order->order_type=='takeaway')
-                                    Take Away
+                                    <div class="flex items-center gap-2 font-semibold text-lg mt-2">
+                                        <i data-lucide="shopping-bag" class="w-5 h-5"></i>
+                                        Take Away
+                                    </div>
                                 @else
-                                    Eat In
+                                    <div class="flex items-center gap-2 font-semibold text-lg mt-2">
+                                        <i data-lucide="utensils" class="w-5 h-5"></i>
+                                        Eat In
+                                    </div>
                                 @endif
 
                             </p>
@@ -66,11 +84,21 @@
                             <p class="font-semibold mt-2">
 
                                 @if($order->payment_method=='cash')
-                                    Cash
-                                @else
-                                    Card
-                                @endif
 
+                                    <div class="flex items-center gap-2 font-semibold text-lg mt-2">
+                                        <i data-lucide="banknote" class="w-5 h-5"></i>
+                                        Cash
+                                    </div>
+
+                                    @else
+
+                                    <div class="flex items-center gap-2 font-semibold text-lg mt-2">
+                                        <i data-lucide="credit-card" class="w-5 h-5"></i>
+                                        Card
+                                    </div>
+
+                                @endif
+                    
                             </p>
                         </div>
 
@@ -83,19 +111,25 @@
                                 Dishes
                             </p>
 
-                            <p class="font-semibold mt-2">
+                            <div class="flex items-center gap-2 font-semibold text-lg mt-2">
+                                <i data-lucide="layers-2" class="w-5 h-5"></i>
                                 {{ $order->orderItems->count() }}
-                            </p>
+                            </div>
                         </div>
 
                         <div>
-                            <p class="text-xs uppercase tracking-widest text-stone-400">
-                                Total
-                            </p>
+
+                            <div class="flex items-center gap-1">
+
+                                <p class="text-xs uppercase tracking-widest text-stone-400">
+                                    Total
+                                </p>
+
+                            </div>
 
                             <p class="text-3xl font-bold text-orange-500 mt-2">
 
-                                ${{ number_format($order->total_price,2) }}
+                                {{ number_format($order->total_price,2) }} TMT
 
                             </p>
                         </div>
@@ -106,13 +140,14 @@
 
                         <div>
 
-                            <p class="text-xs uppercase tracking-widest text-stone-400">
+                            <div class="flex items-center gap-1 text-xs uppercase tracking-widest text-stone-400">
+                                <i data-lucide="map-pin" class="w-4 h-4"></i>
                                 Delivery Address
-                            </p>
+                            </div>
 
                             <p class="font-medium mt-2 text-stone-700">
 
-                                📍 {{ Str::limit($order->customer_address, 60) }}
+                                {{ Str::limit($order->customer_address, 60) }}
 
                             </p>
 
@@ -146,14 +181,13 @@
                 <a href="/menu" class="bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded-xl transition">
                     {{ __('navigation.browse_menu') }}
                 </a>
-
             </div>
 
         @endforelse
 
-    <div class="mt-10">
-        {{ $orders->links() }}
-    </div>
+        <div class="sm:mt-10">
+            {{ $orders->links() }}
+        </div>
     
     </div>
 

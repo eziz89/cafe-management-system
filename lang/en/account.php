@@ -7,6 +7,7 @@ return [
     'order' => 'Order',
     'reservations' => 'Reservations',
     'reviews' => 'Reviews',
+    'joined' => 'Joined',
     'recent_orders' => 'Recent Orders',
     'recent_reviews' => 'Recent Reviews',
     'guest' => 'Guest',

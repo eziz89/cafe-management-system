@@ -1,69 +1,84 @@
- 
-@extends('layouts.admin')
+ @extends('layouts.admin')
 
 @section('content')
 
-    <div class="max-w-7xl mx-auto pt-4 pb-6">
+    <div class="max-w-7xl mx-auto sm:pt-4 pb-6 px-4 sm:px-0">
 
-        <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-10">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between sm:mb-6 mb-6">
 
             <div>
                 <p class="text-orange-500 uppercase tracking-[0.3em] font-semibold mb-2">
-                    Administration
+                    Administrasiýa
                 </p>
 
                 <h1 class="text-4xl font-bold text-stone-900">
-                    🍽 Dishes
+                    <div class="flex items-center gap-2">
+                        <i data-lucide="utensils" class="w-8 h-8 text-orange-500"></i>
+                        Tagamlar
+                    </div>
                 </h1>
 
-                <p class="text-stone-500 mt-2">
-                    Manage your restaurant menu items.
+                <p class="text-stone-500">
+                    Restoran menýuňyzdaky tagamlary dolandyryň.
                 </p>
             </div>
 
             <a href="/admin/dishes/create"
-                class="mt-6 md:mt-0 inline-flex items-center gap-2
-                       bg-orange-500 hover:bg-orange-600
-                       text-white font-semibold
-                       px-6 py-3 rounded-2xl
-                       shadow-lg hover:shadow-orange-500/30
-                       transition">
+                class="mt-6 md:mt-0 w-full md:w-auto justify-center
+                    inline-flex items-center gap-2
+                    bg-orange-500 hover:bg-orange-600
+                    text-white font-semibold
+                    px-6 sm:py-3 py-2 rounded-2xl
+                    shadow-lg hover:shadow-orange-500/30
+                    transition">
 
-                <span class="text-xl">+</span>
+                <i data-lucide="plus" class="w-5 h-5"></i>
 
-                Add Dish
+                Tagam goş
 
             </a>
 
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 mb-10">
+        <div class="grid grid-cols-2 xl:grid-cols-4 gap-3 sm:gap-6 mb-6">
 
             <div class="bg-white rounded-3xl shadow-lg p-6">
-                <p class="text-stone-500">Total Dishes</p>
-                <h2 class="text-3xl font-bold mt-2">
+                <p class="flex items-center text-stone-500 gap-2">
+                    <i data-lucide="utensils" class="w-6 h-6"></i>
+                    Jemi tagamlar
+                </p>
+                <h2 class="sm:text-3xl text-2xl font-bold mt-2">  
                     {{ $dishes->count() }}
                 </h2>
             </div>
 
             <div class="bg-white rounded-3xl shadow-lg p-6">
-                <p class="text-stone-500">Categories</p>
-                <h2 class="text-3xl font-bold mt-2">
+                <p class="flex items-center text-stone-500 gap-2">
+                    <i data-lucide="folders" class="w-6 h-6"></i>
+                    Kategoriýalar
+                </p>
+                <h2 class="sm:text-3xl text-2xl font-bold mt-2">
                     {{ $stats['totalCategories'] }}
                 </h2>
             </div>
 
             <div class="bg-white rounded-3xl shadow-lg p-6">
-                <p class="text-stone-500">Average Price</p>
-                <h2 class="text-3xl font-bold mt-2">
-                    ${{ number_format($dishes->avg('price'),2) }}
+                <p class="flex items-center text-stone-500 gap-2">
+                    <i data-lucide="badge-dollar-sign" class="w-6 h-6"></i>
+                    Ortaça Baha
+                </p>
+                <h2 class="sm:text-3xl text-2xl font-bold mt-2">
+                    {{ number_format($dishes->avg('price'),2) }} TMT
                 </h2>
             </div>
 
             <div class="bg-white rounded-3xl shadow-lg p-6">
-                <p class="text-stone-500">Highest Price</p>
-                <h2 class="text-3xl font-bold mt-2">
-                    ${{ number_format($dishes->max('price'),2) }}
+                <p class="flex items-center text-stone-500 gap-2">
+                    <i data-lucide="trending-up" class="w-6 h-6"></i>
+                    Iň ýokary Baha
+                </p>
+                <h2 class="sm:text-3xl text-2xl font-bold mt-2">
+                    {{ number_format($dishes->max('price'),2) }} TMT
                 </h2>
             </div>
 

@@ -1,64 +1,78 @@
 <div class="bg-white rounded-3xl shadow-lg overflow-hidden">
 
-    <table class="w-full">
+    {{-- Desktop Table --}}
+    <div class="hidden md:block">
 
-        <thead class="bg-stone-100">
-            <tr>
-                <th class="px-6 py-4 text-left">Dish</th>
-                @if(!($hideCategory ?? false))
-                    <th class="px-6 py-4 text-left">Category</th>
-                @endif
-                <th class="px-6 py-4 text-left">Price</th>
-                <th class="px-6 py-4 text-center">Status</th>
-                <th class="px-6 py-4">Actions</th>
-            </tr>
-        </thead>
+        <table class="w-full">
 
-        <tbody>
+            <thead class="bg-stone-100">
+                <tr>
+                    <th class="px-6 py-4 text-left">Tagam</th>
+
+                    @if(!($hideCategory ?? false))
+                        <th class="px-6 py-4 text-left">Kategoriýa</th>
+                    @endif
+
+                    <th class="px-6 py-4 text-left">Baha</th>
+                    <th class="px-6 py-4 text-center">Ýagdaý</th>
+                    <th class="px-6 py-4">Hereketler</th>
+                </tr>
+            </thead>
+
+
+            <tbody>
 
             @forelse($dishes as $dish)
 
-                <tr class="border-b border-stone-200 hover:bg-orange-50 hover:shadow-sm transition">
+                <tr class="border-b border-stone-200 hover:bg-orange-50 transition">
 
                     <td class="px-6 py-5">
                         <div class="flex items-center gap-4">
+
                             <img
                                 src="{{ asset('storage/'.$dish->image) }}"
-                                class="w-18 h-18 rounded-2xl object-cover border border-stone-200 shadow-sm">
+                                class="w-18 h-18 rounded-2xl object-cover">
+
                             <div>
                                 <p class="font-bold text-stone-800">
                                     {{ $dish->name }}
                                 </p>
+
                                 <p class="text-sm text-stone-500">
                                     #{{ $dish->id }}
                                 </p>
                             </div>
+
                         </div>
                     </td>
 
+
                     @if(!($hideCategory ?? false))
 
-                        <td class="px-6 py-5">
+                    <td class="px-6 py-5">
 
-                            @if($dish->category)
-                                <span class="inline-flex items-center bg-orange-100 text-orange-600 text-sm font-medium rounded-full px-3 py-1 hover:bg-orange-200 transition">
-                                    {{ $dish->category->translated_name }}
-                                </span>
-                            @endif
-                            
-                        </td>
+                        @if($dish->category)
+
+                            <span class="bg-orange-100 text-orange-600 px-3 py-1 rounded-full text-sm">
+                                {{ $dish->category->translated_name }}
+                            </span>
+
+                        @endif
+
+                    </td>
 
                     @endif
 
-                    <td class="px-6 py-5 font-semibold text-lg">
-                        ${{ number_format($dish->price,2) }}
+
+                    <td class="px-6 py-5 font-semibold">
+                        {{ number_format($dish->price,2) }} TMT
                     </td>
 
                     <td class="text-center">
                         @if($dish->status === 'available')
 
-                            <span id="dish-status-badge-{{ $dish->id }}"
-                                class="inline-flex items-center px-3 py-1 rounded-full
+                            <span data-dish-id="{{ $dish->id }}"
+                                class="dish-status-badge inline-flex items-center px-3 py-1 rounded-full
                                 @if($dish->status === 'available')
                                     bg-green-100 text-green-700
                                 @elseif($dish->status === 'coming_soon')
@@ -67,14 +81,17 @@
                                     bg-red-100 text-red-700
                                 @endif">
 
-                                🟢 Available
+                                <div class="flex items-center gap-1">
+                                    <i data-lucide="circle-check" class="w-4 h-4"></i>
+                                    Elýeterli
+                                </div>
                                 
                             </span>
 
                         @elseif($dish->status === 'coming_soon')
 
-                            <span id="dish-status-badge-{{ $dish->id }}"
-                                class="inline-flex items-center px-3 py-1 rounded-full
+                            <span data-dish-id="{{ $dish->id }}"
+                                class="dish-status-badge inline-flex items-center px-3 py-1 rounded-full
                                 @if($dish->status === 'available')
                                     bg-green-100 text-green-700
                                 @elseif($dish->status === 'coming_soon')
@@ -83,14 +100,17 @@
                                     bg-red-100 text-red-700
                                 @endif">
 
-                                🟡 Coming Soon
+                                <div class="flex items-center gap-1">
+                                    <i data-lucide="clock" class="w-4 h-4"></i>
+                                    Ýakynda
+                                </div>
 
                             </span>
 
                         @elseif($dish->status === 'out_of_stock')
 
-                            <span id="dish-status-badge-{{ $dish->id }}"
-                                class="inline-flex items-center px-3 py-1 rounded-full
+                            <span data-dish-id="{{ $dish->id }}"
+                                class="dish-status-badge inline-flex items-center px-3 py-1 rounded-full
                                 @if($dish->status === 'available')
                                     bg-green-100 text-green-700
                                 @elseif($dish->status === 'coming_soon')
@@ -99,7 +119,10 @@
                                     bg-red-100 text-red-700
                                 @endif">
 
-                                🔴 Out of Stock
+                                <div class="flex items-center gap-1">
+                                    <i data-lucide="circle-x" class="w-4 h-4"></i>
+                                    Ambarda ýok
+                                </div>
 
                             </span>
 
@@ -118,17 +141,17 @@
 
                                 <option value="available"
                                     @selected($dish->status === 'available')>
-                                    Available
+                                    Elýeterli
                                 </option>
 
                                 <option value="coming_soon"
                                     @selected($dish->status === 'coming_soon')>
-                                    Coming Soon
+                                    Ýakynda
                                 </option>
 
                                 <option value="out_of_stock"
                                     @selected($dish->status === 'out_of_stock')>
-                                    Out of Stock
+                                    Ambarda ýok
                                 </option>
 
                             </select>
@@ -137,11 +160,18 @@
                     </td>
 
                     <td class="px-6 py-5">
+
                         <div class="flex justify-center gap-3">
+
                             <a
                                 href="{{ route('admin.dishes.edit', $dish) }}"
                                 class="px-4 py-2 rounded-xl bg-yellow-100 text-yellow-700 hover:bg-yellow-200 transition">
-                                ✏ Edit
+                                
+                                <span class="flex items-center gap-1">
+                                    <i data-lucide="pencil" class="w-4 h-4"></i>
+                                    Üýtgetmek
+                                </span>
+
                             </a>
                     
                             <form
@@ -153,7 +183,12 @@
                                 @method('DELETE')
                     
                                 <button class="px-4 py-2 rounded-xl bg-red-100 text-red-600 hover:bg-red-200 transition">
-                                    🗑 Delete
+                                    
+                                    <div class="flex items-center gap-1">
+                                        <i data-lucide="trash-2" class="w-4 h-4"></i>
+                                        Pozmak
+                                    </div>
+
                                 </button>
                     
                             </form>
@@ -161,27 +196,218 @@
                         </div>
                     
                     </td>
+
                 </tr>
-                
+
+
             @empty
 
                 <tr>
                     <td colspan="5" class="py-16 text-center">
-                        <div class="text-5xl mb-4">
-                            🔍
-                        </div>
-                        <h3 class="text-2xl front-bold mb-2">
-                            No dishes found
-                        </h3>
-                        <p class="text-stone-500">
-                            Try another search term
-                        </p>
+                        Hiç hili tagam tapylmady
                     </td>
                 </tr>
 
             @endforelse
-        </tbody>
-    </table>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+
+
+    {{-- Mobile Cards --}}
+    <div class="md:hidden p-4 space-y-4">
+
+        @forelse($dishes as $dish)
+
+            <div class="bg-stone-50 rounded-3xl p-4 shadow-sm border border-stone-200">
+
+                <div class="flex gap-4">
+
+                    <img
+                        src="{{ asset('storage/'.$dish->image) }}"
+                        class="w-20 h-20 rounded-2xl object-cover">
+
+
+                    <div class="flex-1">
+
+                        <h3 class="font-bold text-lg text-stone-800">
+                            {{ $dish->name }}
+                        </h3>
+
+
+                        <p class="text-sm text-stone-500">
+                            #{{ $dish->id }}
+                        </p>
+
+
+                        <p class="text-orange-500 font-bold mt-1">
+                            {{ number_format($dish->price,2) }} TMT
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div class="mt-4 flex justify-between items-center">
+
+                    <td class="text-center">
+                        @if($dish->status === 'available')
+
+                            <span data-dish-id="{{ $dish->id }}"
+                                class="dish-status-badge inline-flex items-center px-3 py-1 rounded-full
+                                @if($dish->status === 'available')
+                                    bg-green-100 text-green-700
+                                @elseif($dish->status === 'coming_soon')
+                                    bg-yellow-100 text-yellow-700
+                                @else
+                                    bg-red-100 text-red-700
+                                @endif">
+
+                                <div class="flex items-center gap-1">
+                                    <i data-lucide="circle-check" class="w-4 h-4"></i>
+                                    Elýeterli
+                                </div>
+                                
+                            </span>
+
+                        @elseif($dish->status === 'coming_soon')
+
+                            <span data-dish-id="{{ $dish->id }}"
+                                class="dish-status-badge inline-flex items-center px-3 py-1 rounded-full
+                                @if($dish->status === 'available')
+                                    bg-green-100 text-green-700
+                                @elseif($dish->status === 'coming_soon')
+                                    bg-yellow-100 text-yellow-700
+                                @else
+                                    bg-red-100 text-red-700
+                                @endif">
+
+                                <div class="flex items-center gap-1">
+                                    <i data-lucide="circle-x" class="w-4 h-4"></i>
+                                    Ýakynda
+                                </div>
+
+                            </span>
+
+                        @elseif($dish->status === 'out_of_stock')
+
+                            <span data-dish-id="{{ $dish->id }}"
+                                class="dish-status-badge inline-flex items-center px-3 py-1 rounded-full
+                                @if($dish->status === 'available')
+                                    bg-green-100 text-green-700
+                                @elseif($dish->status === 'coming_soon')
+                                    bg-yellow-100 text-yellow-700
+                                @else
+                                    bg-red-100 text-red-700
+                                @endif">
+
+                                <div class="flex items-center gap-1">
+                                    <i data-lucide="circle-x" class="w-4 h-4"></i>
+                                    Ambarda ýok
+                                </div>
+
+                            </span>
+
+                        @endif
+                        
+                    </td>
+
+                    @if($dish->category)
+                        @if(!($hideCategory ?? false))
+                            <span class="bg-orange-100 text-orange-600 px-3 py-1 rounded-full text-xs">
+                                {{ $dish->category->translated_name }}
+                            </span>
+                        @endif
+
+                    @endif
+
+                </div>
+
+                <div class="mt-4">
+
+                    <form method="POST"
+                        action="{{ route('admin.dishes.status',$dish) }}"
+                        class="dish-status-form"
+                        data-dish-id="{{ $dish->id }}">
+
+                        @csrf
+                        @method('PATCH')
+
+                        <select name="status" class="dish-status-select w-full border rounded-xl px-3 py-2">
+
+                            <option value="available"
+                                @selected($dish->status==='available')>
+                                Elýeterli
+                            </option>
+
+                            <option value="coming_soon"
+                                @selected($dish->status==='coming_soon')>
+                                Ýakynda
+                            </option>
+
+                            <option value="out_of_stock"
+                                @selected($dish->status==='out_of_stock')>
+                                Ambarda ýok
+                            </option>
+
+                        </select>
+
+                    </form>
+
+                </div>
+
+                <div class="flex gap-3 mt-4">
+
+                    <a href="{{ route('admin.dishes.edit',$dish) }}"
+                       class="w-1/2 bg-yellow-100 text-yellow-700 py-2 rounded-xl text-center font-semibold">
+
+                        <span class="flex items-center gap-1 pl-6">
+                            <i data-lucide="pencil" class="w-4 h-4"></i>
+                            Üýtgetmek
+                        </span>
+
+                    </a>
+
+
+                    <form
+                        action="/admin/dishes/{{ $dish->id }}"
+                        method="POST"
+                        class="w-1/2"
+                        onsubmit="return confirm('Delete this dish?')">
+
+                        @csrf
+                        @method('DELETE')
+
+                        <button class="w-full bg-red-100 text-red-600 py-2 rounded-xl font-semibold">
+
+                            <span class="flex items-center gap-1 pl-10">
+                                <i data-lucide="trash-2" class="w-4 h-4"></i>
+                                Pozmak
+                            </span>
+
+                        </button>
+
+                    </form>
+
+                </div>
+
+
+            </div>
+
+
+        @empty
+
+            <div class="text-center py-10 text-stone-500">
+                Hiç hili tagam tapylmady
+            </div>
+
+        @endforelse
+
+    </div>
 
 </div>
 

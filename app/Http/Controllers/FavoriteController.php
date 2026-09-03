@@ -7,24 +7,29 @@ use App\Models\Dish;
 
 class FavoriteController extends Controller
 {
-    public function toggle(Dish $dish)
+    public function toggle(Request $request, Dish $dish)
     {
         $user = auth()->user();
 
-        $favorited = $user->favorites()->toggle($dish->id);
-        
-        return response()->json([
-            'status' => 'success',
-            'favorited' => count($favorited['attached']) > 0
-        ]);  
-    }
+        $result = $user->favorites()->toggle($dish->id);
 
+        $favorited = count($result['attached']) > 0;
+        
+        if ($request->ajax()) {
+
+            return response()->json([
+                'status' => 'success',
+                'favorited' => $favorited,
+            ]);
+        
+        }
+
+        return redirect()->back()->with('success', 'Favorites updated successfully.');
+    }
+ 
     public function index()
     {
-        $dishes = auth()->user()
-        ->favorites()
-        ->latest()
-        ->get();
+        $dishes = auth()->user()->favorites()->latest()->get();
 
         return view('favorites.index', compact('dishes'));
     }

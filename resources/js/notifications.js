@@ -6,22 +6,28 @@ async function loadNotifications() {
 
         const data = await response.json();
 
-        const badge = document.getElementById('notification-count');
-
-        if (!badge) return;
-
-        if (data.count > 0) {
-
-            badge.textContent = data.count;
-
-            badge.classList.remove('hidden');
-
-        } else {
-
-            badge.classList.add('hidden');
-
-        }
-
+        const badges = [
+            document.getElementById('notification-count'),
+            document.getElementById('mobile-notification-count')
+        ].filter(Boolean);
+        
+        if (badges.length === 0) return;
+        
+        badges.forEach(badge => {
+        
+            if (data.count > 0) {
+            
+                badge.textContent = data.count;
+                badge.classList.remove('hidden');
+            
+            } else {
+            
+                badge.classList.add('hidden');
+            
+            }
+        
+        });
+ 
     } catch (error) {
 
         console.error(error);

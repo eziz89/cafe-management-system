@@ -1,3 +1,4 @@
+import { createIcons, icons } from 'lucide';
 import './bootstrap';
 import './menu';
 import './cart';
@@ -8,7 +9,7 @@ import './orders';
 import './my-orders';
 import './notifications';
 import './reservations';
-
+import './mobileNavbar';
 import Swiper from 'swiper';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 
@@ -20,3 +21,5 @@ window.Swiper = Swiper;
 window.Navigation = Navigation;
 window.Pagination = Pagination;
 window.Autoplay = Autoplay;
+
+createIcons({ icons });

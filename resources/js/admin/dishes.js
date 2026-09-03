@@ -176,49 +176,100 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.addEventListener("change", async (e) => {
 
-        if (!e.target.matches(".dish-status-select")) return;
-
+        if (!e.target.matches(".dish-status-select")) {
+            return;
+        }
+    
         const form = e.target.closest(".dish-status-form");
-
-        const response = await fetch(form.action, {
-            method: "POST",
-            body: new FormData(form),
-            headers: {
-                "X-Requested-With": "XMLHttpRequest",
-                "Accept": "application/json",
-            },
-        });
-
-        const data = await response.json();
-
-        const dishId = form.dataset.dishId;
-
-        const badge = document.getElementById(
-            `dish-status-badge-${dishId}`
-        );
-
-        badge.classList.remove(
-            "bg-green-100", "text-green-700",
-            "bg-yellow-100", "text-yellow-700",
-            "bg-red-100", "text-red-700"
-        );
-
-        badge.classList.add(
-            ...dishStatusClasses[data.status].split(" ")
-        );
-
-        if (data.status === "available") {
-            badge.textContent = "🟢 Available";
+    
+        if (!form) {
+            return;
         }
-
-        if (data.status === "coming_soon") {
-            badge.textContent = "🟡 Coming Soon";
+    
+        try {
+        
+            const response = await fetch(form.action, {
+                method: "POST",
+                body: new FormData(form),
+                headers: {
+                    "X-Requested-With": "XMLHttpRequest",
+                    "Accept": "application/json",
+                },
+            });
+        
+            if (!response.ok) {
+                throw new Error(`Status update failed: ${response.status}`);
+            }
+        
+            const data = await response.json();
+        
+            const dishId = form.dataset.dishId;
+        
+            const badges = document.querySelectorAll(
+                `.dish-status-badge[data-dish-id="${dishId}"]`
+            );
+        
+            badges.forEach((badge) => {
+            
+                badge.classList.remove(
+                    "bg-green-100",
+                    "text-green-700",
+                    "bg-yellow-100",
+                    "text-yellow-700",
+                    "bg-red-100",
+                    "text-red-700"
+                );
+            
+                if (data.status === "available") {
+                
+                    badge.classList.add(
+                        "bg-green-100",
+                        "text-green-700"
+                    );
+                
+                    badge.innerHTML = `
+                        <i data-lucide="circle-check" class="w-4 h-4"></i>
+                        Available
+                    `;
+                
+                } else if (data.status === "coming_soon") {
+                
+                    badge.classList.add(
+                        "bg-yellow-100",
+                        "text-yellow-700"
+                    );
+                
+                    badge.innerHTML = `
+                        <i data-lucide="clock" class="w-4 h-4"></i>
+                        Coming Soon
+                    `;
+                
+                } else {
+                
+                    badge.classList.add(
+                        "bg-red-100",
+                        "text-red-700"
+                    );
+                
+                    badge.innerHTML = `
+                        <i data-lucide="circle-x" class="w-4 h-4"></i>
+                        Out of Stock
+                    `;
+                
+                }
+            
+            });
+        
+            if (window.lucide) {
+                lucide.createIcons();
+            }
+        
+        } catch (error) {
+        
+            console.error("Dish status update failed:", error);
+        
         }
-
-        if (data.status === "out_of_stock") {
-            badge.textContent = "🔴 Out of Stock";
-        }
-
+    
     });
 
 });

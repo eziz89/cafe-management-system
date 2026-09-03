@@ -1,5 +1,4 @@
-<div id="order-{{ $order->id }}"
-    class="relative bg-white rounded-3xl shadow-md hover:shadow-xl transition duration-300 overflow-hidden mb-8">
+<div id="order-{{ $order->id }}" class="relative bg-white rounded-2xl sm:rounded-3xl shadow-md hover:shadow-xl transition duration-300 overflow-hidden mb-6 sm:mb-8">
 
     {{-- Status Accent --}}
     <div
@@ -21,42 +20,30 @@
         {{-- LEFT COLUMN --}}
         {{-- ===================================== --}}
 
-        <div class="lg:col-span-3 p-8 border-r border-stone-200">
+        <div class="lg:col-span-3 p-5 sm:p-8 border-b lg:border-b-0 lg:border-r border-stone-200">
 
             <div class="flex items-center gap-4">
 
-                <div
-                    class="w-16 h-16 rounded-2xl bg-orange-50 flex items-center justify-center">
+                <div class="flex items-center gap-3 sm:gap-4">
 
-                    <svg xmlns="http://www.w3.org/2000/svg"
-                        class="w-8 h-8 text-orange-500"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor">
-
-                        <path stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="M3 7h18M6 7V5a2 2 0 012-2h8a2 2 0 012 2v2m-1 0v12a2 2 0 01-2 2H8a2 2 0 01-2-2V7"/>
-
-                    </svg>
-
-                </div>
-
-                <div>
-
-                    <h2 class="text-3xl font-bold text-stone-800">
-                        #{{ $order->id }}
-                    </h2>
-
-                    <p class="text-stone-500 mt-1">
-                        {{ $order->created_at->format('d M Y') }}
-                    </p>
-
-                    <p class="text-stone-400 text-sm">
-                        {{ $order->created_at->format('H:i') }}
-                    </p>
-
+                    <div class="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-orange-50 flex items-center justify-center">
+                        <i data-lucide="package" class="w-6 h-6 sm:w-8 sm:h-8 text-orange-500"></i>
+                    </div>
+                
+                    <div>
+                        <h2 class="text-2xl sm:text-3xl font-bold text-stone-800">
+                            #{{ $order->id }}
+                        </h2>
+                
+                        <p class="text-stone-500 mt-1">
+                            {{ $order->created_at->format('d M Y') }}
+                        </p>
+                
+                        <p class="text-stone-400 text-sm">
+                            {{ $order->created_at->format('H:i') }}
+                        </p>
+                    </div>
+                
                 </div>
 
             </div>
@@ -69,7 +56,7 @@
 
                     <div>
                         <p class="text-xs uppercase tracking-widest text-stone-400">
-                            Customer
+                            Müşderi
                         </p>
 
                         @if($order->user)
@@ -82,29 +69,29 @@
                             </div>
                         
                             <span class="ml-2 text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">
-                                Guest
+                                Myhman
                             </span>
                         @endif
                     </div>
 
                     <div>
                         <p class="text-xs uppercase tracking-widest text-stone-400">
-                            Order Type
+                            Sargyt görnüşi
                         </p>
 
                         <p class="font-semibold text-lg mt-2">
 
                             @if($order->order_type === 'delivery')
 
-                                Delivery
+                                Eltip bermek
 
                             @elseif($order->order_type === 'takeaway')
                                 
-                                Take Away
+                                Alyp gitmek üçin
 
                             @else
 
-                                Eat In
+                                Ýerinde iýmek
 
                             @endif
 
@@ -118,7 +105,7 @@
 
                     <div>
                         <p class="text-xs uppercase tracking-widest text-stone-400">
-                            Phone
+                            Telefon
                         </p>
 
                         <p class="font-semibold text-lg mt-2">
@@ -128,16 +115,24 @@
 
                     <div>
                         <p class="text-xs uppercase tracking-widest text-stone-400">
-                            Payment
+                            Töleg
                         </p>
 
                         <p class="font-semibold text-lg mt-2">
 
                             @if($order->payment_method === 'cash')
-                                💵 Cash
+
+                                <div class="flex items-center gap-2 font-semibold text-lg">
+                                    <i data-lucide="banknote" class="w-5 h-5"></i>
+                                    Nagt
+                                </div>
 
                             @else
-                                💳 Card
+
+                                <div class="flex items-center gap-2 font-semibold text-lg">
+                                    <i data-lucide="credit-card" class="w-5 h-5"></i>
+                                    Kart
+                                </div>
 
                             @endif
 
@@ -152,11 +147,12 @@
                     
                         <div>
                             <p class="text-xs uppercase tracking-widest text-stone-400">
-                            Delivery Address
+                            Eltip bermek salgysy
                         </p>
                     
-                        <p class="font-semibold mt-2">
-                            📍 {{ $order->customer_address }}
+                        <p class="flex items-center gap-1 font-semibold mt-2">
+                            <i data-lucide="map-pin" class="w-5 h-5"></i>
+                            {{ $order->customer_address }}
                         </p>
                         </div>
                     
@@ -167,7 +163,7 @@
     
                         <div>
                             <p class="text-xs uppercase tracking-widest text-stone-400">
-                                Notes
+                                Bellikler
                             </p>
     
                             <p class="font-semibold text-lg mt-2">
@@ -185,11 +181,11 @@
         {{-- MIDDLE COLUMN --}}
         {{-- ===================================== --}}
 
-        <div class="lg:col-span-5 p-8">
+        <div class="lg:col-span-5 p-5 sm:p-8 border-b lg:border-b-0 lg:border-r border-stone-200">
 
             <h3 class="font-bold text-xl mb-6">
 
-                Ordered Dishes
+                Sargyt edilen tagamlar
 
                 <span class="text-stone-400 text-base">
                     ({{ $order->orderItems->count() }})
@@ -201,27 +197,31 @@
 
                 @foreach($order->orderItems as $item)
 
-                    <div class="rounded-2xl border border-stone-200 p-5 flex justify-between items-center hover:shadow-sm transition">
+                    <div class="rounded-2xl border border-stone-200 p-3 sm:p-5 flex items-center justify-between gap-3">
 
-                        <div class="flex items-center gap-4">
+                        <div class="flex items-center gap-2 sm:gap-4 min-w-0">
 
                             <img
                                 src="{{ asset('storage/' . $item->dish->image) }}"
                                 alt="{{ $item->dish->name }}"
-                                class="w-16 h-16 rounded-xl object-cover">
+                                class="w-12 h-12 sm:w-16 sm:h-16 rounded-xl object-cover shrink-0">
 
-                            <p class="font-semibold text-lg">
-                                {{ $item->dish->name }}
-                            </p>
+                            <div class="min-w-0">
 
-                            <p class="text-stone-500 mt-1">
-                                Quantity × {{ $item->quantity }}
-                            </p>
+                                <p class="font-semibold text-sm sm:text-lg truncate">
+                                    {{ $item->dish->name }}
+                                </p>
+
+                                <p class="text-stone-500 text-xs sm:text-base mt-1">
+                                    Mukdar × {{ $item->quantity }}
+                                </p>
+
+                            </div>
 
                         </div>
 
-                        <p class="text-xl font-bold text-orange-500">
-                            ${{ number_format($item->price * $item->quantity,2) }}
+                        <p class="text-base sm:text-xl font-bold text-orange-500 whitespace-nowrap shrink-0">
+                            {{ number_format($item->price * $item->quantity, 2) }} TMT
                         </p>
 
                     </div>
@@ -230,14 +230,14 @@
 
             </div>
 
-            <div class="rounded-2xl border border-green-300 bg-green-200 py-3 px-5 flex justify-between items-center hover:shadow-sm transition">
-                
-                <p class="font-semibold tracking-widest text-green-600">
-                    Total Amount
+            <div class="rounded-2xl border border-green-300 bg-green-200 py-3 px-4 sm:px-5 flex justify-between items-center gap-3">
+
+                <p class="font-semibold tracking-wide sm:tracking-widest text-green-600">
+                    Jemi möçber
                 </p>
 
-                <p class="text-2xl font-bold  text-green-600 mt-2">
-                    ${{ number_format($order->total_price,2) }}
+                <p class="text-xl sm:text-2xl font-bold text-green-600 whitespace-nowrap">
+                    {{ number_format($order->total_price, 2) }} TMT
                 </p>
 
             </div>
@@ -249,40 +249,49 @@
         {{-- RIGHT COLUMN --}}
         {{-- ===================================== --}}
 
-        <div class="lg:col-span-4 p-8 bg-stone-50">
+        <div class="lg:col-span-4 p-5 sm:p-8 bg-stone-50">
 
-            <div class="flex justify-between items-center mb-8">
+            <div class="flex flex-wrap justify-between items-center gap-3 mb-6 sm:mb-8">
 
-                <span
-                    id="order-status-{{ $order->id }}"
-                    class="px-5 py-2 rounded-full text-sm font-semibold
+                <span id="order-status-{{ $order->id }}" class="px-5 rounded-full text-sm font-semibold">
 
-                    @if($order->status=='pending')
-                        bg-gray-200 text-gray-700
-                    @elseif($order->status=='preparing')
-                        bg-yellow-100 text-yellow-700
-                    @elseif($order->status=='completed')
-                        bg-green-100 text-green-700
-                    @else
-                        bg-red-100 text-red-700
-                    @endif">
+                    @if($order->status === 'pending')
+                        <div class="flex items-center gap-1 bg-gray-200 text-gray-700 px-3 py-2 rounded-full text-sm font-semibold">
+                            <i data-lucide="clock-3" class="w-5 h-5"></i>
+                            {{ __('status.pending') }}
+                        </div>
 
-                    {{ ucfirst($order->status) }}
+                    @elseif($order->status === 'preparing')
+                        <div class="flex items-center gap-1 bg-yellow-100 text-yellow-700 px-3 py-2 rounded-full text-sm font-semibold">
+                            <i data-lucide="chef-hat" class="w-5 h-5"></i>
+                            {{ __('status.preparing') }}
+                        </div>
+
+                    @elseif($order->status === 'completed')
+                        <div class="flex items-center gap-1 bg-green-100 text-green-700 px-3 py-2 rounded-full text-sm font-semibold">
+                            <i data-lucide="circle-check" class="w-5 h-5"></i>
+                            {{ __('status.completed') }}
+                        </div>
+
+                    @elseif($order->status === 'cancelled')
+                        <div class="flex items-center gap-1 bg-red-100 text-red-700 px-3 py-2 rounded-full text-sm font-semibold">
+                            <i data-lucide="circle-x" class="w-5 h-5"></i>
+                            {{ __('status.cancelled') }}
+                        </div>
+
+                    @endif
 
                 </span>
 
-                <span
-                    class="bg-white rounded-xl px-4 py-2 text-stone-400 font-semibold">
-
+                <span class="bg-white rounded-xl px-3 sm:px-4 py-2 text-stone-400 text-sm sm:text-base font-semibold">
                     #ORD-{{ $order->id }}
-
                 </span>
 
             </div>
 
             <div id="order-actions-{{ $order->id }}">
 
-                @include('admin.orders.partials.actions')
+                @include('admin.orders.partials.actions', ['order' => $order])
 
             </div>
 
