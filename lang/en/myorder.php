@@ -9,4 +9,6 @@ return [
     'view_details' => 'View Details',
     'order_items' => 'Order Items',
     'reorder' => 'Reorder',
+    'order_info' => 'Order Information',
+    'placed' => 'Placed',
 ];

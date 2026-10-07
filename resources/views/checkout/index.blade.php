@@ -103,7 +103,7 @@
                         <div class="mb-5">
 
                             <label class="block font-semibold mb-2">
-                                {{ __('checkout.phone_number') }}
+                                {{ __('checkout.phone_number') }} *
                             </label>
 
                             <div class="flex rounded-2xl border border-orange-400">
@@ -138,7 +138,7 @@
                         <div class="mb-6">
 
                             <label class="block font-semibold mb-3">
-                                {{ __('checkout.order_type') }}
+                                {{ __('checkout.order_type') }} *
                             </label>
 
                             <div class="space-y-3">
@@ -189,7 +189,7 @@
                         <div class="mb-6">
                         
                             <label class="block font-semibold mb-3">
-                                {{ __('checkout.payment_method') }}
+                                {{ __('checkout.payment_method') }} *
                             </label>
                         
                             <div class="space-y-3">
@@ -232,7 +232,7 @@
                         <div id="address-section" class="mb-5">
 
                             <label class="block font-semibold mb-2">
-                                {{ __('checkout.delivery_address') }}
+                                {{ __('checkout.delivery_address') }} *
                             </label>
 
                             <input

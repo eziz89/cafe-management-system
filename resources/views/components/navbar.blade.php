@@ -2,9 +2,9 @@
 
     <div class="max-w-7xl mx-auto py-5 flex justify-between items-center">
         
-        <h1 class="text-3xl text-neutral-800 font-bold">
-            Canteen
-        </h1>
+        <a href="/" class="{{ request()->is('/') ? 'text-orange-500' : 'text-black' }} text-3xl font-semibold flex items-center gap-2 hover:text-orange-500 py-2 transition">
+            Gubadag Fitçi
+        </a>
 
         <button id="mobile-menu-button" class="md:hidden text-neutral-800">
 
@@ -13,11 +13,6 @@
         </button>
 
         <div class="hidden md:flex gap-6 text-lg items-center">
-
-            <a href="/" class="{{ request()->is('/') ? 'text-orange-500 font-semibold' : 'text-black' }} flex items-center gap-2 hover:text-orange-500 py-2 transition">
-                <i data-lucide="home" class="w-5 h-5"></i>
-                {{ __('navigation.home') }}
-            </a>
 
             <a href="/menu" class="{{ request()->is('menu') ? 'text-orange-500 font-semibold' : 'text-black' }} flex items-center gap-2 hover:text-orange-500 py-2 transition">
                 <i data-lucide="utensils-crossed" class="w-5 h-5"></i>
@@ -75,14 +70,9 @@
                             {{ __('navigation.reservations') }}
                         </a>
                         
-                        <a href="#" class="{{ request()->is('my-reviews') ? 'text-orange-500' : 'text-gray-700' }} flex items-center gap-2 block px-5 py-3 text-gray-700 hover:bg-orange-50 hover:text-orange-500 transition">
-                            <i data-lucide="star" class="w-5 h-5"></i>
-                            {{ __('navigation.reviews') }}
-                        </a>
-                        
                         <a href="{{ route('favorites.index') }}" class="{{ request()->is('favorites') ? 'text-orange-500' : 'text-gray-700' }} flex items-center gap-2 block px-5 py-3 text-gray-700 hover:bg-orange-50 hover:text-orange-500 transition">
                             <i data-lucide="heart" class="w-5 h-5"></i>
-                            Favorites
+                            {{ __('navigation.favorites') }}
                         </a>
 
                         <div class="flex items-center text-center text-neutral-800">
@@ -250,11 +240,6 @@
         </div>
 
         <div class="border-b mb-4"></div>
-        
-        <a href="/" class="{{ request()->is('/') ? 'text-orange-500 font-semibold' : 'text-black' }} flex items-center gap-2 hover:text-orange-500 py-2 transition mb-2">
-            <i data-lucide="home" class="w-5 h-5"></i>
-            {{ __('navigation.home') }}
-        </a>
 
         <a href="/menu" class="{{ request()->is('menu') ? 'text-orange-500 font-semibold' : 'text-black' }} flex items-center gap-2 hover:text-orange-500 py-2 transition mb-2">
             <i data-lucide="utensils-crossed" class="w-5 h-5"></i>

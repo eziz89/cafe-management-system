@@ -1,4 +1,3 @@
-console.log('reservations.js loaded');
 async function pollReservationStatus(id)
 {
     try {

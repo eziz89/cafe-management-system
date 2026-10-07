@@ -9,4 +9,6 @@ return [
     'view_details' => 'Doly görmek',
     'order_items' => 'Sargyt Elementleri',
     'reorder' => 'Sargydy düzetmek',
+    'order_info' => 'Sargyt barada maglumat',
+    'placed' => 'Ýerleşdirildi',
 ];

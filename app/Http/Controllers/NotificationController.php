@@ -32,8 +32,6 @@ class NotificationController extends Controller
 
     public function markAsRead(Notification $notification)
     {
-        dd('markAsRead called');
-        
         abort_if(
             $notification->user_id !== Auth::id(),
             403

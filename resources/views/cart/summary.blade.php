@@ -19,7 +19,7 @@
         <span>{{ __('cart.total') }}</span>
 
         <span id="cart-total" class="text-orange-500">
-            ${{ $total }}
+            {{ $total }} TMT
         </span>
 
     </div>

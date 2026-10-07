@@ -1,8 +1,21 @@
+const isAuthenticated =
+    document.body.dataset.authenticated === 'true';
+
 async function loadNotifications() {
+
+    if (!isAuthenticated) return;
 
     try {
 
-        const response = await fetch('/notifications/unread');
+        const response = await fetch('/notifications/unread', {
+            headers: {
+                'Accept': 'application/json'
+            }
+        });
+
+        if (!response.ok) {
+            return;
+        }
 
         const data = await response.json();
 
@@ -10,33 +23,37 @@ async function loadNotifications() {
             document.getElementById('notification-count'),
             document.getElementById('mobile-notification-count')
         ].filter(Boolean);
-        
+
         if (badges.length === 0) return;
-        
+
         badges.forEach(badge => {
-        
+
             if (data.count > 0) {
-            
+
                 badge.textContent = data.count;
                 badge.classList.remove('hidden');
-            
+
             } else {
-            
+
                 badge.classList.add('hidden');
-            
+
             }
-        
+
         });
- 
+
     } catch (error) {
 
-        console.error(error);
+        console.error('Notification loading error:', error);
 
     }
 
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+
+    if (!isAuthenticated) {
+        return;
+    }
 
     loadNotifications();
 
@@ -211,30 +228,39 @@ function getNotificationIcon(type)
 
 async function pollNotifications()
 {
+    if (!isAuthenticated) return;
+
     try {
-        const response = await fetch('/notifications/poll');
+
+        const response = await fetch('/notifications/poll', {
+            headers: {
+                'Accept': 'application/json'
+            }
+        });
+
+        if (!response.ok) {
+            return;
+        }
 
         const data = await response.json();
 
-        data.notifications.forEach(async notification => {
+        data.notifications.forEach(notification => {
 
             if (!shownNotifications.includes(notification.id)) {
-            
+
                 showToast(notification);
-            
+
                 shownNotifications.push(notification.id);
 
-                localStorage.setItem('shown_notifications', JSON.stringify(shownNotifications));
-            
+                localStorage.setItem(
+                    'shown_notifications',
+                    JSON.stringify(shownNotifications)
+                );
             }
-        
+
         });
 
+    } catch (error) {
+        console.error('Failed to poll notifications:', error);
     }
-
-    catch(error)
-    {
-        console.error(error);
-    }
-
 }

@@ -3,35 +3,55 @@
 
 @section('content')
 
-<section class="grid md:grid-cols-2 gap-12 bg-gray-50 items-start lg:items-center px-4 sm:px-4 lg:px-6 pt-10 sm:pt-14 pb-12 sm:pb-18">
+<section class="grid md:grid-cols-2 gap-8 lg:gap-12 bg-gray-50 items-center px-4 sm:px-6 lg:px-10 pt-10 sm:pt-14 sm:pb-12 pb-6">
 
-    <div>
+    {{-- Text --}}
+    <div class="max-w-xl">
+
         <p class="text-orange-500 font-semibold uppercase tracking-widest mb-4">
             {{ __('home.welcome_text') }}
         </p>
-        <h1 class="text-4xl sm:text-5xl text-neutral-800 font-bold leading-tight mb-6">
+
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl text-neutral-800 font-bold leading-tight mb-6">
             {{ __('home.hero_title') }}
         </h1>
-        <p class="text-gray-600 text-base sm:text-lg mb-6 leading-relaxed">
+
+        <p class="text-gray-600 text-base sm:text-lg mb-8 leading-relaxed">
             {{ __('home.hero_description') }}
         </p>
-        <div class="flex flex-row gap-5 sm:items-center">
-            <a href="/categories" class="gap-4 w-full sm:w-auto bg-orange-500 hover:bg-orange-600 hover:scale-102 hover:shadow-lg hover:shadow-orange-500/30 text-white px-5 py-4 rounded-2xl font-semibold transition duration-300 lg:mt-4">
+
+        <div class="flex flex-row gap-4 sm:items-center">
+
+            <a
+                href="/categories"
+                class="w-full sm:w-auto text-center bg-orange-500 hover:bg-orange-600 hover:scale-[1.02] hover:shadow-lg hover:shadow-orange-500/30 text-white px-5 py-4 rounded-2xl font-semibold transition duration-300"
+            >
                 {{ __('navigation.browse_menu') }}
             </a>
-            <a href="/reservations/create" class="gap-4 w-full sm:w-auto border border-orange-600 hover:bg-orange-600 hover:shadow-lg hover:shadow-orange-500/30 text-orange-500 hover:text-white px-4 py-4 rounded-2xl font-semibold transition duration-300 lg:mt-4">
+
+            <a
+                href="/reservations/create"
+                class="w-full sm:w-auto text-center border border-orange-600 hover:bg-orange-600 hover:shadow-lg hover:shadow-orange-500/30 text-orange-500 hover:text-white px-5 py-4 rounded-2xl font-semibold transition duration-300"
+            >
                 {{ __('navigation.reserve') }}
             </a>
+
         </div>
+
     </div>
 
-    <div>
+
+    {{-- Gubadag Fitçi Image --}}
+    <div class="flex justify-center items-center">
+
         <img
-            src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5"
-            class="rounded-2xl shadow-xl h-[320px] md:h-[500px] w-full object-cover"
+            src="{{ asset('images/herosection-image.png') }}"
+            alt="Gubadag Fitçi"
+            class="w-full max-w-md lg:max-w-lg h-auto object-contain"
         >
+
     </div>
-    
+
 </section>
 
 <section class="text-stone-800 px-6 pt-12 sm:pt-18">
@@ -161,14 +181,14 @@
 
                             <button
                                 class="favorite-btn absolute sm:top-1 sm:right-4 top-1 right-2 z-10
-                                    w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12
+                                    w-12 h-12 sm:w-10 sm:h-10 lg:w-12 lg:h-12
                                     rounded-full shadow-xl flex items-center justify-center
                                     transition duration-300 hover:scale-110 active:scale-95 hover:-translate-y-1
                                     {{ $isFavorited ? 'bg-red-500' : 'bg-white/90' }}"
                                 data-id="{{ $dish->id }}">
 
                                 <i data-lucide="heart"
-                                   class="w-4 h-4 sm:w-6 sm:h-6 {{ $isFavorited ? 'text-white fill-current' : 'text-gray-600' }}">
+                                   class="w-8 h-8 sm:w-6 sm:h-6 {{ $isFavorited ? 'text-white fill-current' : 'text-gray-600' }}">
                                 </i>
 
                             </button>
@@ -277,12 +297,13 @@
 
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
             <div class="space-y-4">
                 <div>
-                    <h3 class="flex items-center gap-2 text-xl text-neutral-800 font-semibold">
+                    <h3 class="flex gap-2 text-xl text-neutral-800 font-semibold">
                         <i data-lucide="map-pin" class="w-5 h-5"></i>
-                    {{ __('location.where_to_find') }}</h3>
+                        {{ __('location.where_to_find') }}
+                    </h3>
                     <p class="text-gray-600 mb-4 mt-2">{{ __('location.address') }}</p>
                     <a href="https://www.google.com/maps?q=Ashgabat"
                        target="_blank"
@@ -294,8 +315,9 @@
 
                 <div>
                     <h3 class="flex items-center gap-2 text-xl text-neutral-800 font-semibold mt-9">
-                    <i data-lucide="clock-3" class="w-5 h-5"></i>
-                    {{ __('location.opening_hours') }}</h3>
+                        <i data-lucide="clock-3" class="w-5 h-5"></i>
+                        {{ __('location.opening_hours') }}
+                    </h3>
                     <p class="text-gray-600 mt-2">{{ __('location.open_hours') }}</p>
                     <p class="text-gray-600">{{ __('location.open_hours_description') }}</p>
                 </div>

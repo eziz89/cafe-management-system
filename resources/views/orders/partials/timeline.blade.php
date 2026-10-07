@@ -16,7 +16,7 @@
         </div>
 
         <p class="mt-2 font-semibold">
-            Placed
+            {{ __('myorder.placed') }}
         </p>
 
     </div>
@@ -41,9 +41,9 @@
         <p class="mt-2 font-semibold">
 
             @if($order->status == 'cancelled')
-                Cancelled
+                {{ __('status.cancelled') }}
             @else
-                Preparing
+                {{ __('status.preparing') }}
             @endif
 
         </p>
@@ -68,9 +68,9 @@
         <p class="mt-2 font-semibold">
 
             @if($order->status == 'cancelled')
-                Cancelled
+                {{ __('status.cancelled') }}
             @else
-                Completed
+                {{ __('status.completed') }}
             @endif
 
         </p>

@@ -10,30 +10,45 @@
 
     <div class="sm:pb-12 pb-8">
         
-        <section class="relative">
-
-            <img src="{{ asset('images/menu-header.jpg') }}" alt="Our Menu" class="w-full h-[320px] md:h-[380px] object-cover">
-
-            <div class="absolute inset-0 bg-gradient-to-r from-black/50 to-black/10 flex items-center pt-28">
-
-                <div class="px-6 md:px-12 text-white">
-
-                    <p class="uppercase tracking-[0.3em] text-orange-300 font-semibold">
-                        {{ __('menu.menu') }}
-                    </p>
-
-                    <h1 class="text-4xl md:text-5xl font-bold mt-4">
-                        {{ __('menu.menu_title') }}
-                    </h1>
-
-                    <p class="mt-4 sm:text-lg max-w-xl text-gray-200 mb-12">
-                        {{ __('menu.menu_description') }}
-                    </p>
-
+        <section class="relative overflow-hidden">
+            {{-- Menu Banner --}}
+            <img
+                src="{{ asset('images/menu-header.png') }}"
+                alt="Gubadag Fitçi Menu"
+                class="w-full h-[280px] sm:h-[320px] md:h-[380px] object-cover object-center"
+            >
+        
+            {{-- Dark overlay --}}
+            <div class="absolute inset-0 bg-gradient-to-r from-black/75 via-black/45 to-black/10"></div>
+        
+            {{-- Bottom fade --}}
+            <div class="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/25 to-transparent"></div>
+        
+            {{-- Content --}}
+            <div class="absolute inset-0 flex items-center mt-18">
+        
+                <div class="w-full px-6 sm:px-8 md:px-12 lg:px-16">
+        
+                    <div class="max-w-2xl text-white">
+        
+                        <p class="uppercase tracking-[0.3em] text-orange-300 font-semibold text-sm sm:text-base">
+                            {{ __('menu.menu') }}
+                        </p>
+        
+                        <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mt-3 sm:mt-4">
+                            {{ __('menu.menu_title') }}
+                        </h1>
+        
+                        <p class="mt-3 sm:mt-4 text-sm sm:text-base md:text-lg text-gray-200 leading-relaxed max-w-xl">
+                            {{ __('menu.menu_description') }}
+                        </p>
+        
+                    </div>
+        
                 </div>
-
+        
             </div>
-
+        
         </section>
 
         <section id="menu-container">

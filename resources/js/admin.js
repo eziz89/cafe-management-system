@@ -1,4 +1,4 @@
-import { createIcons } from 'lucide';
+import { createIcons, icons } from 'lucide';
 import './admin/dishes';
 import './admin/orders';
 import './admin/reservations';
@@ -27,4 +27,4 @@ if (adminMenuBtn && adminMobileMenu) {
 
 }
 
-createIcons();
+createIcons({ icons });

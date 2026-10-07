@@ -180,7 +180,6 @@ export function startLiveRefresh({
     const target = document.querySelector(container);
 
     if (!target) {
-        console.log('Container not found:', container);
         return;
     }
 

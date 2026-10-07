@@ -7,6 +7,9 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Dish;
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Models\PrintJob;
+use Illuminate\Support\Facades\DB;
+use App\Services\ReceiptFormatter;
 
 class CartController extends Controller
 {
@@ -132,27 +135,40 @@ class CartController extends Controller
             'notes.max' => 'Notes cannot be longer than 1000 characters.',
         ]);
             
-        $order = Order::create([
-            'user_id' => Auth::check() ? Auth::id() : null,
-            'customer_name' => $request->customer_name,
-            'customer_phone'=> $request->customer_phone,
-            'order_type' => $request->order_type,
-            'payment_method' => $request->payment_method,
-            'customer_address'=> $request->customer_address,
-            'notes' => $request->notes,
-            'total_price' => $total,
-            'status' => 'pending',
-            'reordered_from_id' => session('reorder_from'),
-        ]);
+        $order = DB::transaction(function () use ($request, $cart, $total) {
 
-        foreach($cart as $dishId => $item) {
-            OrderItem::create([
-                'order_id' => $order->id,
-                'dish_id' => $dishId,
-                'quantity' => $item['quantity'],
-                'price' => $item['price'],
+            $order = Order::create([
+                'user_id' => Auth::check() ? Auth::id() : null,
+                'customer_name' => $request->customer_name,
+                'customer_phone' => $request->customer_phone,
+                'order_type' => $request->order_type,
+                'payment_method' => $request->payment_method,
+                'customer_address' => $request->customer_address,
+                'notes' => $request->notes,
+                'total_price' => $total,
+                'status' => 'pending',
+                'reordered_from_id' => session('reorder_from'),
             ]);
-        }
+        
+            foreach ($cart as $dishId => $item) {
+                OrderItem::create([
+                    'order_id' => $order->id,
+                    'dish_id' => $dishId,
+                    'quantity' => $item['quantity'],
+                    'price' => $item['price'],
+                ]);
+            }
+        
+            $receipt = app(ReceiptFormatter::class)->format($order);
+
+            PrintJob::create([
+                'order_id' => $order->id,
+                'status' => 'pending',
+                'content' => $receipt,
+            ]);
+        
+            return $order;
+        });
  
         session()->forget('cart');
         session()->forget('checkout');

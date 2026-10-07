@@ -40,7 +40,7 @@
                 </h1>
 
                 <p class="sm:text-3xl text-2xl font-bold text-orange-500 sm:mb-5 mb-3">
-                    ${{ $dish->price }}
+                    {{ $dish->price }} TMT
                 </p>
 
                 <p class="text-gray-600 leading-relaxed sm:mb-8 mb-5">

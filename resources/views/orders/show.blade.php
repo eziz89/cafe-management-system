@@ -35,7 +35,7 @@
         <div class="bg-white rounded-3xl shadow-lg sm:p-8 sm:mb-8 p-6 mb-6">
 
             <h2 class="text-xl font-bold sm:mb-8 mb-6">
-                Order Status
+                {{ __('checkoutsuccess.status') }}
             </h2>
 
             <div id="order-timeline" data-order-id="{{ $order->id }}">
@@ -105,14 +105,14 @@
         <div class="bg-white rounded-3xl shadow-lg p-8 sm:mt-8 mt-6">
 
             <h2 class="text-xl font-bold mb-6">
-                Order Information
+                {{ __('myorder.order_info') }}
             </h2>
             
             <div class="grid md:grid-cols-2 sm:gap-6 gap-0 space-y-5">
 
                 <div>
                     <p class="text-xs uppercase tracking-widest text-stone-400">
-                        Order Type
+                        {{ __('checkout.order_type') }}
                     </p>
 
                     <p class="font-semibold text-lg mt-2">
@@ -121,21 +121,21 @@
 
                             <div class="flex items-center gap-2 font-semibold text-lg mt-2">
                                 <i data-lucide="truck" class="w-5 h-5"></i>
-                                Delivery
+                                {{ __('checkout.delivery') }}
                             </div>
 
                         @elseif($order->order_type=='takeaway')
 
                             <div class="flex items-center gap-2 font-semibold text-lg mt-2">
                                 <i data-lucide="shopping-bag" class="w-5 h-5"></i>
-                                Take Away
+                                {{ __('checkout.take_away') }}
                             </div>
 
                         @else
 
                             <div class="flex items-center gap-2 font-semibold text-lg mt-2">
                                 <i data-lucide="utensils" class="w-5 h-5"></i>
-                                Eat In
+                                {{ __('checkout.eat_in') }}
                             </div>
 
                         @endif
@@ -145,7 +145,7 @@
                 
                 <div>
                     <p class="text-xs uppercase tracking-widest text-stone-400">
-                        Phone
+                        {{ __('checkout.phone_number') }}
                     </p>
 
                     <div class="flex items-center gap-2 font-semibold text-lg mt-2">
@@ -156,21 +156,21 @@
 
                 <div>
                     <p class="text-xs uppercase tracking-widest text-stone-400">
-                        Payment
+                        {{ __('checkout.payment_method') }}
                     </p>
 
                     @if($order->payment_method=='cash')
 
                         <div class="flex items-center gap-2 font-semibold text-lg mt-2">
                             <i data-lucide="banknote" class="w-5 h-5"></i>
-                            Cash
+                            {{ __('checkout.cash') }}
                         </div>
 
                         @else
 
                         <div class="flex items-center gap-2 font-semibold text-lg mt-2">
                             <i data-lucide="credit-card" class="w-5 h-5"></i>
-                            Card
+                            {{ __('checkout.card') }}
                         </div>
 
                     @endif
@@ -181,7 +181,7 @@
                 
                     <div>
                         <p class="text-xs uppercase tracking-widest text-stone-400">
-                            Delivery Address
+                            {{ __('checkout.delivery_address') }}
                         </p>
 
                         <div class="flex items-center gap-1 font-semibold text-lg mt-2">

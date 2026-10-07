@@ -16,6 +16,11 @@ class Order extends Model
         return $this->hasMany(OrderItem::class);
     }
 
+    public function printJobs()
+    {
+        return $this->hasMany(PrintJob::class);
+    }
+
     protected $fillable = [
         'user_id',
         'total_price',

@@ -7,7 +7,7 @@
     <div class="max-w-4xl mx-auto sm:py-12 py-8 pt-12 sm:px-0 px-6">
 
         <h1 class="text-4xl font-bold mb-6">
-            {{ __('myorder.my_orders') }}
+            {{ __('navigation.orders') }}
         </h1>
 
         @forelse($orders as $order)
@@ -50,7 +50,7 @@
 
                         <div>
                             <p class="text-xs uppercase tracking-widest text-stone-400">
-                                Order Type
+                                {{ __('checkout.order_type') }}
                             </p>
 
                             <p class="font-semibold mt-2">
@@ -58,17 +58,17 @@
                                 @if($order->order_type=='delivery')
                                     <div class="flex items-center gap-2 font-semibold text-lg mt-2">
                                         <i data-lucide="truck" class="w-5 h-5"></i>
-                                        Delivery
+                                        {{ __('checkout.delivery') }}
                                     </div>
                                 @elseif($order->order_type=='takeaway')
                                     <div class="flex items-center gap-2 font-semibold text-lg mt-2">
                                         <i data-lucide="shopping-bag" class="w-5 h-5"></i>
-                                        Take Away
+                                        {{ __('checkout.take_away') }}
                                     </div>
                                 @else
                                     <div class="flex items-center gap-2 font-semibold text-lg mt-2">
                                         <i data-lucide="utensils" class="w-5 h-5"></i>
-                                        Eat In
+                                        {{ __('checkout.eat_in') }}
                                     </div>
                                 @endif
 
@@ -78,7 +78,7 @@
 
                         <div>
                             <p class="text-xs uppercase tracking-widest text-stone-400">
-                                Payment
+                                {{ __('checkoutsuccess.payment') }}
                             </p>
 
                             <p class="font-semibold mt-2">
@@ -87,14 +87,14 @@
 
                                     <div class="flex items-center gap-2 font-semibold text-lg mt-2">
                                         <i data-lucide="banknote" class="w-5 h-5"></i>
-                                        Cash
+                                        {{ __('checkout.cash') }}
                                     </div>
 
                                     @else
 
                                     <div class="flex items-center gap-2 font-semibold text-lg mt-2">
                                         <i data-lucide="credit-card" class="w-5 h-5"></i>
-                                        Card
+                                        {{ __('checkout.card') }}
                                     </div>
 
                                 @endif
@@ -108,7 +108,7 @@
 
                         <div>
                             <p class="text-xs uppercase tracking-widest text-stone-400">
-                                Dishes
+                                {{ __('checkoutsuccess.dishes') }}
                             </p>
 
                             <div class="flex items-center gap-2 font-semibold text-lg mt-2">
@@ -122,7 +122,7 @@
                             <div class="flex items-center gap-1">
 
                                 <p class="text-xs uppercase tracking-widest text-stone-400">
-                                    Total
+                                    {{ __('checkoutsuccess.total') }}
                                 </p>
 
                             </div>
@@ -142,7 +142,7 @@
 
                             <div class="flex items-center gap-1 text-xs uppercase tracking-widest text-stone-400">
                                 <i data-lucide="map-pin" class="w-4 h-4"></i>
-                                Delivery Address
+                                {{ __('checkout.delivery_address') }}
                             </div>
 
                             <p class="font-medium mt-2 text-stone-700">
