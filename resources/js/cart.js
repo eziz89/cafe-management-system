@@ -171,7 +171,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         updateCartBadge(data.cart_count);
         document.getElementById('cart-items-count').textContent = data.total_items;
-        document.getElementById('cart-total').textContent = '$' + data.total_price;
+        document.getElementById('cart-total').textContent = '$' + data.total;
 
     }
 

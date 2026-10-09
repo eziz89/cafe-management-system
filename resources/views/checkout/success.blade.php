@@ -180,7 +180,7 @@
                         </p>
 
                         <p class="sm:text-4xl text-3xl font-bold text-orange-500 mt-2">
-                            {{ number_format($order->total_price,2) }} TMT
+                            {{ number_format($order->total,2) }} TMT
                         </p>
                     </div>
 

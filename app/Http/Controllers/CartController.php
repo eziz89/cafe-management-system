@@ -145,7 +145,7 @@ class CartController extends Controller
                 'payment_method' => $request->payment_method,
                 'customer_address' => $request->customer_address,
                 'notes' => $request->notes,
-                'total_price' => $total,
+                'total' => $total,
                 'status' => 'pending',
                 'reordered_from_id' => session('reorder_from'),
             ]);
@@ -253,7 +253,7 @@ class CartController extends Controller
             'success' => true,
             'quantity' => $id && isset($cart[$id]) ? $cart[$id]['quantity'] : 0,
             'total_items' => $totalItems,
-            'total_price' => number_format($totalPrice, 2),
+            'total' => number_format($totalPrice, 2),
             'cart_count' => $totalItems,
             'removed' => $id ? !isset($cart[$id]) : false,
             'empty' => empty($cart),

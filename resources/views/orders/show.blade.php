@@ -96,7 +96,7 @@
                     <span>{{ __('myorder.total') }}:</span>
                 </div>
                 <span class="text-orange-500 text-semibold text-xl">
-                    {{ number_format($order->total_price, 2) }} TMT
+                    {{ number_format($order->total, 2) }} TMT
                 </span>
             </div>
 

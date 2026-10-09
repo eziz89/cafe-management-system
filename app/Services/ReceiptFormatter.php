@@ -44,7 +44,7 @@ class ReceiptFormatter
         }
 
         $lines[] = '--------------------------------';
-        $lines[] = 'TOTAL: ' . number_format($order->total_price, 2);
+        $lines[] = 'TOTAL: ' . number_format($order->total, 2);
         $lines[] = '--------------------------------';
 
         if ($order->notes) {

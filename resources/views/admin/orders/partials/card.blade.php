@@ -237,7 +237,7 @@
                 </p>
 
                 <p class="text-xl sm:text-2xl font-bold text-green-600 whitespace-nowrap">
-                    {{ number_format($order->total_price, 2) }} TMT
+                    {{ number_format($order->total, 2) }} TMT
                 </p>
 
             </div>
