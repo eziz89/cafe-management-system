@@ -32,7 +32,7 @@
                         <a href="/menu/{{ $dish->id }}" class="overflow-hidden">
                 
                             @if($dish->image)
-                                <img src="{{ asset('storage/' . $dish->image) }}" alt="{{ $dish->name }}"class="w-full h-36 sm:h-48 lg:h-56 object-cover hover:scale-105 transition duration-500">
+                                <img src="{{ \Illuminate\Support\Facades\Storage::disk('public')->url($dish->image) }}" alt="{{ $dish->name }}" class="w-full h-36 sm:h-48 lg:h-56 object-cover hover:scale-105 transition duration-500">
                             @endif
                 
                             <div class="absolute sm:top-1 left-1 -top-1 sm:left-4 z-30  rounded-full shadow-xl flex items-center justify-center transition duration-300 hover:scale-110 active:scale-95 hover:-translate-y-1">

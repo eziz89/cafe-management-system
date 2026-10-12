@@ -310,7 +310,7 @@
 
                                 <div class="flex items-center gap-4">
 
-                                    <img src="{{ asset('storage/' . $item['image']) }}" class="w-16 h-16 rounded-xl object-cover">
+                                    <img src="{{ \Illuminate\Support\Facades\Storage::disk('public')->url($item['image']) }}" class="w-16 h-16 rounded-xl object-cover">
                                 
                                     <div class="flex-1">    
 

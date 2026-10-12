@@ -31,7 +31,7 @@
                             <div class="mb-5 overflow-hidden">
 
                                 <img
-                                    src="{{ asset('storage/' . $category->image) }}"
+                                    src="{{ \Illuminate\Support\Facades\Storage::disk('public')->url($category->image) }}"
                                     alt="{{ $category->name }}"
                                     class="w-full h-28 sm:h-40 lg:h-48 object-cover transition duration-500 group-hover:scale-105">
 

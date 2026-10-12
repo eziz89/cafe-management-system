@@ -202,7 +202,7 @@
                         <div class="flex items-center gap-2 sm:gap-4 min-w-0">
 
                             <img
-                                src="{{ asset('storage/' . $item->dish->image) }}"
+                                src="{{ \Illuminate\Support\Facades\Storage::disk('public')->url($item->dish->image) }}"
                                 alt="{{ $item->dish->name }}"
                                 class="w-12 h-12 sm:w-16 sm:h-16 rounded-xl object-cover shrink-0">
 

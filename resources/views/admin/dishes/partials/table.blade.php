@@ -30,7 +30,7 @@
                         <div class="flex items-center gap-4">
 
                             <img
-                                src="{{ asset('storage/'.$dish->image) }}"
+                                src="{{ \Illuminate\Support\Facades\Storage::disk('public')->url($dish->image) }}"
                                 class="w-18 h-18 rounded-2xl object-cover">
 
                             <div>
@@ -228,7 +228,7 @@
                 <div class="flex gap-4">
 
                     <img
-                        src="{{ asset('storage/'.$dish->image) }}"
+                        src="{{ \Illuminate\Support\Facades\Storage::disk('public')->url($dish->image) }}"
                         class="w-20 h-20 rounded-2xl object-cover">
 
 

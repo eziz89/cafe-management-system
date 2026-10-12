@@ -2,7 +2,7 @@
 
     <div id="cart-item-{{ $id }}" class="bg-white shadow-lg rounded-3xl sm:p-6 p-4 flex gap-6 items-center">
 
-        <img src="{{ asset('storage/' . $item['image']) }}" class="sm:w-32 sm:h-32 w-24 h-24 object-cover rounded-2xl">
+        <img src="{{ \Illuminate\Support\Facades\Storage::disk('public')->url($item['image']) }}" class="sm:w-32 sm:h-32 w-24 h-24 object-cover rounded-2xl">
 
         <div class="flex-1">
 

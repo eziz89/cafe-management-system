@@ -22,7 +22,10 @@
                     <a href="/menu/{{ $dish->id }}">
             
                         @if($dish->image)
-                            <img src="{{ asset('storage/' . $dish->image) }}" alt="{{ $dish->name }}"class="w-full h-36 sm:h-48 lg:h-56 object-cover hover:scale-105 transition duration-500">
+                            <img
+                                src="{{ \Illuminate\Support\Facades\Storage::disk('public')->url($dish->image) }}"
+                                alt="{{ $dish->name }}"
+                                class="w-full h-36 sm:h-48 lg:h-56 object-cover hover:scale-105 transition duration-500">
                         @endif
             
                     </a>

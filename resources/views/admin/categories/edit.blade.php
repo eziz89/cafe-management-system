@@ -82,7 +82,7 @@
                     </p>
 
                     <img
-                        src="{{ asset('storage/' . $category->image) }}"
+                        src="{{ \Illuminate\Support\Facades\Storage::disk('public')->url($category->image) }}"
                         class="w-48 h-32 object-cover rounded-2xl border">
 
                 </div>

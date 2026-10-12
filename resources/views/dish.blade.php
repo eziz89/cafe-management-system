@@ -1,4 +1,3 @@
-
 @extends('layouts.app')
 
 @section('content')
@@ -7,7 +6,7 @@
 
             <div class="relative bg-white rounded-2xl border-2 border-gray-300 shadow-s p-5">
                 
-                <img src="{{ asset('storage/' . $dish->image) }}" class="w-full h-64 sm:h-72 object-cover rounded-xl mb-5">
+                <img src="{{ \Illuminate\Support\Facades\Storage::disk('public')->url($dish->image) }}" class="w-full h-64 sm:h-72 object-cover rounded-xl mb-5">
 
                 @if($dish->status === 'coming_soon')
 
